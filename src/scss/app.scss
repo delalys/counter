@@ -1,0 +1,62 @@
+$c-navy-700: #313338;
+$c-navy: #22242b;
+$c-navy-300: #2b2c39;
+
+$el-border-radius: 20px;
+$form-border-radius: 20px;
+
+@import "~animate.css/source/animate.css";
+@import "~bootstrap/scss/bootstrap";
+@import "blocks/_element";
+@import "blocks/_form-element";
+@import "_font";
+
+body {
+    background-color: $c-navy;
+}
+
+// Global Layout
+.element__container {
+    display: flex;
+    overflow: scroll;
+    flex-direction: column-reverse;
+    position: relative;
+    &--form {
+        flex: 1;
+        overflow: visible;
+        margin: 0 15px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: calc(100% - 30px);
+    }
+}
+.container {
+    position: relative;
+}
+html,
+body,
+#root,
+.container,
+.element__container:not(.element__container--form) {
+    flex: 1;
+    height: 100%;
+}
+
+.alert-enter {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  .alert-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+  }
+  .alert-exit {
+    opacity: 1;
+  }
+  .alert-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 300ms, transform 300ms;
+  }

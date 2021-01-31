@@ -1,0 +1,80 @@
+.form-element {
+    background-color: rgba(white, 0.5);
+    width: 100%;
+    border-radius: $form-border-radius;
+    padding: 1em;
+    display: flex;
+    overflow: hidden;
+    min-height: 81px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9;
+
+    &__input,
+    &__btn {
+        &:active,
+        &:focus {
+            border: none;
+            outline: none;
+        }
+    } 
+    &__input {
+        flex: 1;
+        color: white;
+        padding-left: 1em;
+        height: 3em;
+        background-color: $c-navy-700;
+        border: none;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        position: relative;
+    }
+    &__btn {
+        border: none;
+        position: relative;
+        height: 3em;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        background-color: transparent;
+        z-index: 2;
+        padding-right: 0;
+        padding-left: 2em;
+
+        &:hover, 
+        &:focus {
+            background-color: transparent !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        &:active {
+            + .bg-btn {
+                transform: scale(1);
+                opacity: 0.7;
+            }    
+        }
+    }
+    .bg-btn {
+        display: block;
+        position: absolute;
+        content: '';
+
+        right: 0;
+        top: 50%;
+        margin-top: - $bg-btn-size / 2;
+        margin-right: - $bg-btn-size / 4;
+        width: $bg-btn-size;
+        height: $bg-btn-size;
+        transition: ease-in-out all 200ms;
+
+        
+        border-radius: 50%;
+        transform: scale(0.8);
+        background: radial-gradient(rgba(white, 0), rgba(white, 0.4));
+        opacity: 1;
+        transition: ease-in-out all 200ms;
+    }
+}
