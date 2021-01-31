@@ -32,17 +32,17 @@ class Element extends Component {
         if (this.state.isOpen) {
 
             
-            console.log('is open, closing...')
+            console.log('is open, closing...');
             
             // Sets back original positionning
             const marginAdjustedTop = this.elementSpaceAttribute.y - 16;
             this.element.current.style.cssText = 
-            "width: " + this.elementSpaceAttribute.width + "px;"+
-            "height: " + this.elementSpaceAttribute.height + "px;"+
-            "left: " + this.elementSpaceAttribute.x + "px;"+
-            "top: " + marginAdjustedTop + "px;"+
-            "position: fixed;" + 
-            "z-index: 99;";
+                "width: " + this.elementSpaceAttribute.width + "px;"+
+                "height: " + this.elementSpaceAttribute.height + "px;"+
+                "left: " + this.elementSpaceAttribute.x + "px;"+
+                "top: " + marginAdjustedTop + "px;"+
+                "position: fixed;" + 
+                "z-index: 99;";
             
             // Toggle Open state and class
             const that = this; 
@@ -54,8 +54,12 @@ class Element extends Component {
             const thisElement = this; 
             setTimeout(function(){ 
                 thisElement.element.current.style.cssText = 
-                    "position: relative" +
-                    "z-index: ;";
+                "width: " + thisElement.elementSpaceAttribute.width + "px;"+
+                "height: " + thisElement.elementSpaceAttribute.height + "px;"+
+                "position: relative;" +
+                "z-index: ;"+
+                "left: ;"+
+                "top: ;";
                 
                 // Remove copy in DOM
                 document.querySelector('.mirror-element').remove();
@@ -86,6 +90,7 @@ class Element extends Component {
                 const currentState = thisElement.state.isOpen;
                 thisElement.setState({ isOpen: !currentState });
             }, 0);
+            
         }
 
     }
