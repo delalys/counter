@@ -1,12 +1,21 @@
-$c-navy-700: #313338;
+$c-grey-900: #14161B;
+$c-grey-700: #22242a;
+$c-grey: #313338;
+$c-grey-300: #3e4147;
+$c-grey-100: #50535A;
+
+$c-navy-900: #0E1323;
+$c-navy-700: #171B28;
 $c-navy: #22242b;
 $c-navy-300: #2b2c39;
+$c-navy-100: #444755;
 
 $el-border-radius: 20px;
 $form-border-radius: 20px;
 
 @import "~animate.css/source/animate.css";
 @import "~bootstrap/scss/bootstrap";
+@import "blocks/form";
 @import "blocks/_element";
 @import "blocks/_form-element";
 @import "_font";
@@ -22,13 +31,23 @@ body {
     flex-direction: column-reverse;
     position: relative;
     &--form {
-        flex: 1;
-        overflow: visible;
-        margin: 0 15px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: calc(100% - 30px);
+      flex: 1;
+      overflow: visible;
+      margin: 0 15px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc(100% - 30px);
+    }
+    &:not(.element__container--form) {
+        padding-top: 100px;
+        &:after {
+            content: '';
+            display: block;
+            /* intrinsic aspect ratio */
+            padding-top: 100px;
+            height: 0;
+        }
     }
 }
 .container {

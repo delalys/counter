@@ -1,5 +1,6 @@
 .form-element {
     background-color: rgba(white, 0.5);
+    background-image: linear-gradient(190deg, rgba(white, 0.5) 0%, rgba(white, 0.4) 100%);
     width: 100%;
     border-radius: $form-border-radius;
     padding: 1em;
@@ -24,8 +25,10 @@
         flex: 1;
         color: white;
         padding-left: 1em;
+        padding-right: 1em;
+        background-image: linear-gradient(190deg, $c-grey-300 0%, $c-grey 100%);
+        background-color: $c-grey;
         height: 3em;
-        background-color: $c-navy-700;
         border: none;
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
@@ -41,7 +44,7 @@
         border-bottom-right-radius: 10px;
         background-color: transparent;
         z-index: 2;
-        padding-right: 0;
+        padding-right: 1em;
         padding-left: 2em;
 
         &:hover, 

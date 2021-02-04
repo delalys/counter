@@ -1,0 +1,14 @@
+input {
+    height: 3em;
+    border: none;
+    border-radius: 10px;
+    background-color: $c-navy-100;
+    color: white;
+    padding-left: 1em;
+    padding-right: 1em;
+    &:active,
+    &:focus {
+        border: none;
+        outline: none;
+    }
+}

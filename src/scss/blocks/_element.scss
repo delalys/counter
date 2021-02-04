@@ -56,6 +56,9 @@ $full-screen-btn-size: 20px;
                 top: 0;
                 margin: 25px 25px 0 0; 
             }
+            &__settings {
+                opacity: 0;
+            }
             &__button--plus {
                 bottom: 75px;
                 right: 50%;
@@ -114,11 +117,10 @@ $full-screen-btn-size: 20px;
         z-index: 2;
     }
 
-    &__full-screen {
+    &__full-screen,
+    &__settings {
         display: block;
         position: absolute;
-        left: 80px;
-        top: 50%;
         z-index: 9;
         margin-top: - $full-screen-btn-size / 2;
         margin-right: - $full-screen-btn-size / 4;
@@ -126,6 +128,14 @@ $full-screen-btn-size: 20px;
         height: $full-screen-btn-size;
         fill: white;
         cursor: pointer;
+    }
+    &__full-screen {
+        left: 80px;
+        top: 50%;
+    }
+    &__settings {
+        left: 130px;
+        top: 50%;
     }
 
     &__button {
@@ -187,5 +197,85 @@ $full-screen-btn-size: 20px;
             width: $bg-btn-size;
             height: $bg-btn-size;
         }
+    }
+}
+
+
+
+
+
+// SETTING
+.settings {
+    height: 0;
+    padding: 0 1em;
+    overflow: hidden;
+    border-radius: $el-border-radius;
+    background-color: $c-navy-300;
+    color: rgba(white, 0.3);
+    transition: 300ms ease-in;
+    transition-property: height, padding, overflow 300ms ease-in;
+
+    &.is-open {
+        height: 290px;
+        padding: 1em;
+    }
+
+    &__item {
+        margin-bottom: 10px;
+    }
+    &__title {
+        font-size: 1em;
+        display: block;
+        font-weight: bold;
+    }
+}
+.modify-form {
+    display: flex;
+    width: 100%;
+    position: relative;
+    input[type=text] {
+        flex: 1;
+        display: inline-flex;
+        z-index: 9;
+    }
+    .btn {
+        padding-right: 0.5em;
+    }
+    .bg-btn {
+        display: block;
+        position: absolute;
+        content: '';
+
+        right: -1em;
+        top: 50%;
+        margin-top: - $bg-btn-size / 2;
+        margin-right: - $bg-btn-size / 4;
+        width: $bg-btn-size;
+        height: $bg-btn-size;
+        transition: ease-in-out all 200ms;
+
+        
+        border-radius: 50%;
+        transform: scale(0.8);
+        background: radial-gradient(rgba(white, 0), rgba(white, 0.4));
+        opacity: 1;
+        transition: ease-in-out all 200ms;
+    }
+}
+.color-example {
+    width: 20px;
+    height: 20px;
+    margin: 5px 20px 0 0;
+    cursor: pointer;
+    border-radius: 50%;
+    box-sizing: initial;
+    border: solid 4px $c-grey-100;
+    display: inline-block;
+    transition: all 200ms ease-in-out;
+    &:hover {
+        border-color: rgba(white, 0.5);
+    }
+    &.active {
+        border-color: rgba(white, 1);
     }
 }
