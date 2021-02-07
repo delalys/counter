@@ -1,3 +1,5 @@
+// FORM-ELEMENT
+
 .form-element {
     background-color: rgba(white, 0.5);
     background-image: linear-gradient(190deg, rgba(white, 0.5) 0%, rgba(white, 0.4) 100%);
@@ -79,5 +81,15 @@
         background: radial-gradient(rgba(white, 0), rgba(white, 0.4));
         opacity: 1;
         transition: ease-in-out all 200ms;
+    }
+}
+
+.btn {
+    border-radius: 13px;
+    &-danger {
+        background-color: #FF5143;
+        border-color: #FF5143;
+        font-weight: 700;
+        color:whtie;
     }
 }

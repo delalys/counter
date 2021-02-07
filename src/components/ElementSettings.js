@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
+
 
 class ElementSettings extends Component {
     state = {
@@ -7,14 +8,11 @@ class ElementSettings extends Component {
 
     handleChange = (e) => {
         this.setState({ value: e.target.value});
-        // Clear input
-        //this.setState({ value: '' });
     }
-
     
     render() {       
         const isSettingsClass = this.props.settingsOpen ? "is-open" : '';
-        
+
         return(
             <div className={"settings " + isSettingsClass}>
                 <div className="settings__item">
@@ -23,6 +21,7 @@ class ElementSettings extends Component {
                         className="modify-form"
                         onSubmit={(e) => {
                             this.props.modifyElement(e, this.state.value, this.props.index)
+                            this.setState({ value: '' });
                         }}
                     >
                         <input
@@ -45,9 +44,10 @@ class ElementSettings extends Component {
                     {this.props.gradients.map((element, index) => {
                         let color1 = this.props.gradients[index].color1;
                         let color2 = this.props.gradients[index].color2;
-                        let classActiveColor = (index == this.props.gradientIndex) ? 'color-example active' : 'color-example';
+                        let classActiveColor = (index === this.props.gradientIndex) ? 'color-example active' : 'color-example';
                         return <span 
                                     className={classActiveColor}
+                                    key={index}
                                     onClick={ () => this.props.changeColor(this.props.index, index)}
                                     style={{backgroundImage: `linear-gradient(190deg, ${color1} 0%, ${color2} 100%)`}}
                                 ></span>

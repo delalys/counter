@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import React, { Component } from 'react';
 
 class FormElement extends Component {
@@ -14,8 +13,9 @@ class FormElement extends Component {
     handleAddElement = (e) => {
         e.preventDefault();
 
-        // Get a random gradient 
-        const nextGradientStyleId = (this.props.elements.length + 1) % this.props.gradients.length;
+        const elements = this.props.elements;
+        // Get gradient, select the next one on the list based on the last color displayed
+        const nextGradientStyleId = (elements[elements.length - 1].gradient + 1) % this.props.gradients.length;
         
         // Create a new element
         const newElement = {
@@ -25,7 +25,7 @@ class FormElement extends Component {
             gradient: nextGradientStyleId,
             settingsOpen: false,
         }
-        
+
         // Add a new element to app state
         this.props.addElement(newElement);
         

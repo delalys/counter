@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import { render } from "react-dom";
-import { motion, useCycle } from "framer-motion";
 import gradients from './data/gradients';
 import Element from './components/Element';
 import NewElement from './components/NewElement';
@@ -12,7 +10,7 @@ class App extends Component {
   state = {
     elements: [
       {
-        id: 0,
+        id: 1,
         value: 'Loremp ipsum dolor',
         count: 0,
         gradient: 1,
@@ -21,7 +19,7 @@ class App extends Component {
         settingsOpen: false,
       },
       {
-        id: 1,
+        id: 2,
         value: 'Condiscipling dolor et sit',
         count: 0,
         gradient: 2,
@@ -30,7 +28,7 @@ class App extends Component {
         settingsOpen: false,
       },
       {
-        id: 2,
+        id: 3,
         value: 'Ame dolamesci',
         count: 0,
         gradient: 3,
@@ -44,7 +42,7 @@ class App extends Component {
 
   handleCountChange = (index, change) => {
     this.setState( prevState => ({
-      count: this.state.elements[index].count += change
+      count: prevState.elements[index].count += change
     }));
   }
 
@@ -61,19 +59,6 @@ class App extends Component {
 
   modifyElement = (event, newValue, index) => {
     event.preventDefault();
-    
-    // // Create a new element
-    // const newElement = {
-    //     value: this.state.value,
-    //     count: 0,
-    //     id: this.props.elements.length + 1,
-    //     gradient: randomGradientId,
-    //     settingsOpen: false,
-    // }
-    
-    // Add a new element to app state
-    //this.props.addElement(newElement);
-    
     this.setState( prevState => {
       // New 'players' array – a copy of the previous `players` state
       const updatedElements = [ ...prevState.elements ];
@@ -90,19 +75,8 @@ class App extends Component {
         elements: updatedElements
       };
     });
-
-    this.state.elements[index].value = newValue;
 }
   
-  withMyHook(Component) {
-    return function WrappedComponent(props) {
-      const [animate, cycleCard] = useCycle(
-        {height: '25rem', top: '0', display:'none'},
-        {height: '100%', top: '-1rem', display:'block'},
-      );
-      return <Component {...props} myHookValue={animate} />;
-    }
-  }
 
   changeColor = (index, indexColor) => {
     // 1. Make a shallow copy of the items
@@ -119,6 +93,7 @@ class App extends Component {
   }
 
   toggleSettings = (idElement) => {
+
     const currentState = this.state.elements.find( element => element.id === idElement).settingsOpen;
     const newState = !currentState;
     // 1. Make a shallow copy of the items
@@ -152,42 +127,39 @@ class App extends Component {
   }
 
   render(){
-    const myHookValue = this.props.myHookValue;
-      return (
-        <motion.div 
-          className="container"
-          myHookValue={this.withMyHook}
-          animate={myHookValue}
-          >
-          <div className="element__container">
-            {this.state.elements.map( (element, index) =>
-              <React.Fragment>
-                  <Element 
-                    value={element.value}
-                    count={element.count}
-                    index={index}
-                    id={element.id}
-                    gradientIndex={element.gradient}
-                    gradients={this.state.gradients}
-                    settingsOpen={element.settingsOpen}
-                    changeCount={this.handleCountChange}
-                    changeColor={this.changeColor}
-                    modifyElement={this.modifyElement}
-                    toggleSettings={this.toggleSettings}
-                    handleRemove={this.handleRemove}
-                  />
-              </React.Fragment>
-            )}
-          </div>
-          <div className="element__container element__container--form">
-            <NewElement 
-              elements={this.state.elements}
-              addElement={this.handleAddElement}
-              gradients={this.state.gradients}
-            />
-          </div>
-        </motion.div>
-      );
+
+    return (
+        <div className="container">
+
+            <div className="element__container">
+              {this.state.elements.map( (element, index) =>
+                <Element 
+                  value={element.value}
+                  count={element.count}
+                  index={index}
+                  id={element.id}
+                  key={element.id}
+                  gradientIndex={element.gradient}
+                  gradients={this.state.gradients}
+                  settingsOpen={element.settingsOpen}
+                  changeCount={this.handleCountChange}
+                  changeColor={this.changeColor}
+                  modifyElement={this.modifyElement}
+                  toggleSettings={this.toggleSettings}
+                  handleRemove={this.handleRemove}
+                />
+              )}
+            </div>
+            <div className="element__container element__container--form">
+              <NewElement 
+                elements={this.state.elements}
+                addElement={this.handleAddElement}
+                gradients={this.state.gradients}
+              />
+            </div>
+
+      </div>
+    );
   }
 }
 

@@ -1,3 +1,5 @@
+// ELEMENT
+
 $bg-btn-size: 150px;
 $full-screen-btn-size: 20px;
 
@@ -5,6 +7,7 @@ $full-screen-btn-size: 20px;
     width: 100%;
     height: 90px;
     flex-shrink: 0;
+    margin-bottom: 1.5em;
     position: relative;
     padding: 1em;
     flex-direction: column;
@@ -19,59 +22,6 @@ $full-screen-btn-size: 20px;
     * {
         transition: 300ms ease-out;
         transition-property: width, height, position, left, top, border-radius, margin, font-size;
-    }
-    
-    &.is-open {
-        z-index: 10;
-        left: 0px !important;
-        top: 0px !important;
-        width: 100% !important;
-        height: 100% !important;
-        border-radius: 0;
-        
-        
-        * {
-            z-index: 11;
-        }
-        
-        .element {
-            justify-content: center;
-            align-items: center;
-            &__title {
-                align-self: center;
-                margin-bottom: 0;
-            }
-            &__count {
-                margin: auto;
-                font-size: 10em;
-            }
-            &__button--minus {
-                top: 0;
-                width: 50px;
-                height: 50px;
-                margin: 10px 10px 0 10px;
-            }
-            &__full-screen {
-                z-index: 12;
-                top: 0;
-                margin: 25px 25px 0 0; 
-            }
-            &__settings {
-                opacity: 0;
-            }
-            &__button--plus {
-                bottom: 75px;
-                right: 50%;
-                margin-right: -75px;
-            }
-        }
-
-        .Xelement__bg {
-            z-index: 3;
-            position: fixed;
-            top: 0;
-            left: 0;
-        }
     }
 
     &__bg {
@@ -138,6 +88,7 @@ $full-screen-btn-size: 20px;
         top: 50%;
     }
 
+    // Buttons
     &__button {
         color: white;
         border:none;
@@ -201,81 +152,58 @@ $full-screen-btn-size: 20px;
 }
 
 
-
-
-
-// SETTING
-.settings {
-    height: 0;
-    padding: 0 1em;
-    overflow: hidden;
-    border-radius: $el-border-radius;
-    background-color: $c-navy-300;
-    color: rgba(white, 0.3);
-    transition: 300ms ease-in;
-    transition-property: height, padding, overflow 300ms ease-in;
-
+// Full screen
+.element {
     &.is-open {
-        height: 290px;
-        padding: 1em;
-    }
-
-    &__item {
-        margin-bottom: 10px;
-    }
-    &__title {
-        font-size: 1em;
-        display: block;
-        font-weight: bold;
-    }
-}
-.modify-form {
-    display: flex;
-    width: 100%;
-    position: relative;
-    input[type=text] {
-        flex: 1;
-        display: inline-flex;
-        z-index: 9;
-    }
-    .btn {
-        padding-right: 0.5em;
-    }
-    .bg-btn {
-        display: block;
-        position: absolute;
-        content: '';
-
-        right: -1em;
-        top: 50%;
-        margin-top: - $bg-btn-size / 2;
-        margin-right: - $bg-btn-size / 4;
-        width: $bg-btn-size;
-        height: $bg-btn-size;
-        transition: ease-in-out all 200ms;
-
+        z-index: 10;
+        left: 0px !important;
+        top: 0px !important;
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 0;
         
-        border-radius: 50%;
-        transform: scale(0.8);
-        background: radial-gradient(rgba(white, 0), rgba(white, 0.4));
-        opacity: 1;
-        transition: ease-in-out all 200ms;
-    }
-}
-.color-example {
-    width: 20px;
-    height: 20px;
-    margin: 5px 20px 0 0;
-    cursor: pointer;
-    border-radius: 50%;
-    box-sizing: initial;
-    border: solid 4px $c-grey-100;
-    display: inline-block;
-    transition: all 200ms ease-in-out;
-    &:hover {
-        border-color: rgba(white, 0.5);
-    }
-    &.active {
-        border-color: rgba(white, 1);
+        
+        * {
+            z-index: 11;
+        }
+        
+        .element {
+            justify-content: center;
+            align-items: center;
+            &__title {
+                align-self: center;
+                margin-bottom: 0;
+            }
+            &__count {
+                margin: auto;
+                font-size: 10em;
+            }
+            &__button--minus {
+                top: 0;
+                width: 50px;
+                height: 50px;
+                margin: 10px 10px 0 10px;
+            }
+            &__full-screen {
+                z-index: 12;
+                top: 0;
+                margin: 25px 25px 0 0; 
+            }
+            &__settings {
+                opacity: 0;
+            }
+            &__button--plus {
+                bottom: 75px;
+                right: 50%;
+                margin-right: -75px;
+            }
+        }
+
+        .Xelement__bg {
+            z-index: 3;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
     }
 }

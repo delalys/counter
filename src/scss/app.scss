@@ -1,3 +1,5 @@
+// Color variables
+
 $c-grey-900: #14161B;
 $c-grey-700: #22242a;
 $c-grey: #313338;
@@ -10,72 +12,22 @@ $c-navy: #22242b;
 $c-navy-300: #2b2c39;
 $c-navy-100: #444755;
 
+
+// Gobal style variables
 $el-border-radius: 20px;
 $form-border-radius: 20px;
 
+// Vendors
 @import "~animate.css/source/animate.css";
 @import "~bootstrap/scss/bootstrap";
+
+// Blocks and layout
+@import "layout/global";
+@import "blocks/color-example";
 @import "blocks/form";
-@import "blocks/_element";
-@import "blocks/_form-element";
-@import "_font";
-
-body {
-    background-color: $c-navy;
-}
-
-// Global Layout
-.element__container {
-    display: flex;
-    overflow: scroll;
-    flex-direction: column-reverse;
-    position: relative;
-    &--form {
-      flex: 1;
-      overflow: visible;
-      margin: 0 15px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: calc(100% - 30px);
-    }
-    &:not(.element__container--form) {
-        padding-top: 100px;
-        &:after {
-            content: '';
-            display: block;
-            /* intrinsic aspect ratio */
-            padding-top: 100px;
-            height: 0;
-        }
-    }
-}
-.container {
-    position: relative;
-}
-html,
-body,
-#root,
-.container,
-.element__container:not(.element__container--form) {
-    flex: 1;
-    height: 100%;
-}
-
-.alert-enter {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  .alert-enter-active {
-    opacity: 1;
-    transform: translateX(0);
-    transition: opacity 300ms, transform 300ms;
-  }
-  .alert-exit {
-    opacity: 1;
-  }
-  .alert-exit-active {
-    opacity: 0;
-    transform: scale(0.9);
-    transition: opacity 300ms, transform 300ms;
-  }
+@import "blocks/element";
+@import "blocks/settings";
+@import "blocks/form-element";
+@import "blocks/modify-form";
+@import "font";
+@import "bootstrap-override";

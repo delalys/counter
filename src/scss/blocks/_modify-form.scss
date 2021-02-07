@@ -1,0 +1,35 @@
+// MODIF-FORM
+
+.modify-form {
+    display: flex;
+    width: 100%;
+    position: relative;
+    input[type=text] {
+        flex: 1;
+        display: inline-flex;
+        z-index: 9;
+    }
+    .btn {
+        padding-right: 0.5em;
+    }
+    .bg-btn {
+        display: block;
+        position: absolute;
+        content: '';
+
+        right: -1em;
+        top: 50%;
+        margin-top: - $bg-btn-size / 2;
+        margin-right: - $bg-btn-size / 4;
+        width: $bg-btn-size;
+        height: $bg-btn-size;
+        transition: ease-in-out all 200ms;
+
+        
+        border-radius: 50%;
+        transform: scale(0.8);
+        background: radial-gradient(rgba(white, 0), rgba(white, 0.4));
+        opacity: 1;
+        transition: ease-in-out all 200ms;
+    }
+}

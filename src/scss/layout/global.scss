@@ -1,0 +1,44 @@
+// GLOBAL LAYOUT
+
+.element__container {
+    display: flex;
+    overflow: scroll;
+    flex-direction: column-reverse;
+    position: relative;
+    &--form {
+      flex: 1;
+      overflow: visible;
+      margin: 0 15px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc(100% - 30px);
+    }
+    &:not(.element__container--form) {
+        padding-top: 100px;
+        &:after {
+            content: '';
+            display: block;
+            /* intrinsic aspect ratio */
+            padding-top: 100px;
+            height: 0;
+        }
+    }
+}
+
+.container {
+    position: relative;
+}
+
+html,
+body,
+#root,
+.container,
+.element__container:not(.element__container--form) {
+    flex: 1;
+    height: 100%;
+}
+
+body {
+    background-color: $c-navy;
+}
