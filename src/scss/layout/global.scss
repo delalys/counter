@@ -20,7 +20,7 @@
             content: '';
             display: block;
             /* intrinsic aspect ratio */
-            padding-top: 100px;
+            padding-top: 120px;
             height: 0;
         }
     }
@@ -41,4 +41,9 @@ body,
 
 body {
     background-color: $c-navy;
+}
+html,
+body,
+.anchorhtml {
+    scroll-behavior: smooth;
 }

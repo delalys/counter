@@ -55,6 +55,7 @@ class App extends Component {
         ]
       }
     });
+    this.scrollToListTop();
   }
 
   modifyElement = (event, newValue, index) => {
@@ -126,12 +127,18 @@ class App extends Component {
     });
   }
 
+  scrollToListTop = () => this.container.current.scrollIntoView();
+  
+  container = React.createRef();
+
   render(){
+    
 
     return (
         <div className="container">
-
-            <div className="element__container">
+            <div 
+              className="element__container"
+            >
               {this.state.elements.map( (element, index) =>
                 <Element 
                   value={element.value}
@@ -149,6 +156,10 @@ class App extends Component {
                   handleRemove={this.handleRemove}
                 />
               )}
+            <div 
+              ref={this.container} 
+              className="anchor"
+            ></div>
             </div>
             <div className="element__container element__container--form">
               <NewElement 
@@ -157,7 +168,6 @@ class App extends Component {
                 gradients={this.state.gradients}
               />
             </div>
-
       </div>
     );
   }
