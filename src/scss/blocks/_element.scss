@@ -27,6 +27,7 @@ $full-screen-btn-size: 20px;
     }
 
     &__bg {
+        border-radius: $el-border-radius;
         width: 100%;
         height: 100%;
         position: absolute;
@@ -112,7 +113,7 @@ $full-screen-btn-size: 20px;
         background-color:transparent;
         outline:none;
         font-size: 3em;
-        line-height: 1em;
+        line-height: 3em;
         font-weight: 500;
         position: relative;
         z-index: 2;
