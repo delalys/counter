@@ -1,13 +1,13 @@
 // MODIF-FORM
 
 .modify-form {
-    //display: flex;
     width: 100%;
     position: relative;
     input[type=text] {
         flex: 1;
         display: inline-flex;
         z-index: 9;
+        width: 100%;
     }
     .btn {
         padding-right: 0.5em;

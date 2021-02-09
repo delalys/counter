@@ -5,7 +5,7 @@ $full-screen-btn-size: 20px;
 
 .element {
     width: 100%;
-    height: 90px;
+    min-height: 90px;
     flex-shrink: 0;
     margin-bottom: 1.5em;
     position: relative;
@@ -16,6 +16,8 @@ $full-screen-btn-size: 20px;
     color: white;
     overflow: hidden;
     text-align: center;
+    flex-flow: wrap;
+
     transition: 300ms ease-out;
     transition-property: width, height, position, left, top, border-radius, margin, font-size;
     
@@ -36,21 +38,20 @@ $full-screen-btn-size: 20px;
     }
 
     &__title {
+        width: 100%;
         font-weight: 600;
         font-size: 0.9em;
         opacity: 0.9;
+        margin: 0;
         background-color: transparent;
         border: none;
         color: white;
         text-align: center;
-        width: max-content;
         align-self: center;
-        padding: 0.2em 0.5em;
+        padding: 0 160px 0.2em 160px;
         border-radius: 5px;
         position: relative;
         z-index: 2;
-        &:focus {
-        }
         &:active, &:focus {
             border: none !important;
             background-color: rgba(white, 0.2) !important;
@@ -67,26 +68,41 @@ $full-screen-btn-size: 20px;
         z-index: 2;
     }
 
+    &__actions {
+        position: absolute;
+        left: 16px;
+        top: 22%;
+        &-btn {
+            // test
+            position: relative;
+            // border: solid 1px red;
+            // z-index: 99;
+            
+            display: inline-block;
+            padding: 1em;
+            vertical-align: middle;
+        }
+    }
     &__full-screen,
     &__settings {
         display: block;
-        position: absolute;
+        position: relative;
         z-index: 9;
-        margin-top: - $full-screen-btn-size / 2;
-        margin-right: - $full-screen-btn-size / 4;
+        // margin-top: - $full-screen-btn-size / 2;
+        // margin-right: - $full-screen-btn-size / 4;
         width: $full-screen-btn-size;
         height: $full-screen-btn-size;
         fill: white;
         cursor: pointer;
     }
-    &__full-screen {
-        left: 80px;
-        top: 50%;
-    }
-    &__settings {
-        left: 130px;
-        top: 50%;
-    }
+    // &__full-screen {
+    //     // left: 80px;
+    //     // top: 50%;
+    // }
+    // &__settings {
+    //     // left: 130px;
+    //     // top: 50%;
+    // }
 
     // Buttons
     &__button {
@@ -100,7 +116,7 @@ $full-screen-btn-size: 20px;
         position: relative;
         z-index: 2;
         &:focus {
-            outline: none;;
+            outline: none;
         }
         
         &--plus {
@@ -139,14 +155,9 @@ $full-screen-btn-size: 20px;
             }
         }
         &--minus {
+            line-height: 0.39em;
             display: block;
-            position: absolute;
-            left: 0;
-            top: 50%;
-            margin-top: - $bg-btn-size / 2 - 3px;
-            margin-left: - $bg-btn-size / 4;
-            width: $bg-btn-size;
-            height: $bg-btn-size;
+            top: -3px;
         }
     }
 }
@@ -167,6 +178,15 @@ $full-screen-btn-size: 20px;
             z-index: 11;
         }
         
+        .hide-full-screen {
+            opacity: 0;
+            width: 0;
+            padding: 0;
+        }
+        .element__actions {
+            top: 0;
+        }
+
         .element {
             justify-content: center;
             align-items: center;
@@ -175,22 +195,19 @@ $full-screen-btn-size: 20px;
                 margin-bottom: 0;
             }
             &__count {
-                margin: auto;
+                margin: 0 auto auto auto;
                 font-size: 10em;
             }
             &__button--minus {
-                top: 0;
-                width: 50px;
-                height: 50px;
-                margin: 10px 10px 0 10px;
+                // top: 0;
+                // width: 50px;
+                // height: 50px;
+                // margin: 10px 10px 0 10px;
             }
             &__full-screen {
                 z-index: 12;
-                top: 0;
-                margin: 25px 25px 0 0; 
-            }
-            &__settings {
-                opacity: 0;
+                // top: 0;
+                // margin: 25px 25px 0 0; 
             }
             &__button--plus {
                 bottom: 75px;
@@ -207,3 +224,33 @@ $full-screen-btn-size: 20px;
         }
     }
 }
+
+$responsive-spacing: 15px;
+// No media query necessary for xs breakpoint as it's effectively `@media (min-width: 0) { ... }`
+@include media-breakpoint-down(sm) {
+    .container {
+        padding: 0 $responsive-spacing;
+    }
+    div.element__container--form {
+        margin: $responsive-spacing $responsive-spacing 0 $responsive-spacing !important;
+        .form-element {
+            margin-top: 0 !important;
+        }
+    }
+
+    .element {
+        margin-bottom: $responsive-spacing;
+
+        &__full-screen,
+        &__button--minus {
+            display: block;
+            position: static;
+            float: left;
+        }
+    }
+}
+// @include media-breakpoint-up(sm) { ... }
+// @include media-breakpoint-up(md) { ... }
+// @include media-breakpoint-up(lg) { ... }
+// @include media-breakpoint-up(xl) { ... }
+// @include media-breakpoint-up(xxl) { ... }

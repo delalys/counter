@@ -156,10 +156,10 @@ class App extends Component {
                   handleRemove={this.handleRemove}
                 />
               )}
-            <div 
-              ref={this.container} 
-              className="anchor"
-            ></div>
+              <div 
+                ref={this.container} 
+                className="anchor"
+              ></div>
             </div>
             <div className="element__container element__container--form">
               <NewElement 
