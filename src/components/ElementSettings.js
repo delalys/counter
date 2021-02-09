@@ -4,10 +4,15 @@ import React, { Component} from 'react';
 class ElementSettings extends Component {
     state = {
         value: '',
+        incrementBy: '',
     };
 
     handleChange = (e) => {
         this.setState({ value: e.target.value});
+    }
+
+    handleIncrementByChange = (e) => {
+        this.setState({ incrementBy: e.target.value});
     }
     
     render() {       
@@ -18,11 +23,14 @@ class ElementSettings extends Component {
                 <form
                     className="modify-form"
                     onSubmit={(e) => {
-                        this.props.modifyElement(e, this.state.value, this.props.index)
+                        this.props.modifyName(e, this.state.value, this.props.index)
+                        this.props.modifyIncrementBy(e, this.state.incrementBy, this.props.id)
                         this.setState({ value: '' });
+                        this.setState({ incrementBy: '' });
                         this.props.toggleSettings(this.props.id)
                     }}
                 >
+                    {/* Name */}
                     <div className="settings__item">
                         <span className="settings__title" style={{color: this.props.color1}}>Name:</span>
                             <input
@@ -32,6 +40,17 @@ class ElementSettings extends Component {
                                 onChange={this.handleChange}
                             />
                     </div>
+                    {/* Increment by */}
+                    <div className="settings__item">
+                        <span className="settings__title" style={{color: this.props.color1}}>Count up by:</span>
+                            <input
+                                value={this.state.incrementBy}
+                                type="number" 
+                                placeholder="How much you want to add every count up ?"
+                                onChange={this.handleIncrementByChange}
+                            />
+                    </div>
+                    {/* Color */}
                     <div className="settings__item">
                         <span className="settings__title" style={{color: this.props.color1}}>Color:</span>
                         {this.props.gradients.map((element, index) => {
@@ -46,6 +65,7 @@ class ElementSettings extends Component {
                                     ></span>
                         })}
                     </div>
+                    {/* Delete */}
                     <div className="settings__item">
                         <span className="settings__title" style={{color: this.props.color1}}>Delete:</span>
                         <div
@@ -56,6 +76,7 @@ class ElementSettings extends Component {
                         </div>
                     </div>
                     <hr/>
+                    {/* Ok and Close */}
                     <div className="settings__item">
                         <input
                             value="Save and close"

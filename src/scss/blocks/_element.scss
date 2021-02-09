@@ -104,6 +104,7 @@ $full-screen-btn-size: 20px;
         font-weight: 500;
         position: relative;
         z-index: 2;
+        cursor: pointer;
         &:focus {
             outline: none;
         }
@@ -113,6 +114,7 @@ $full-screen-btn-size: 20px;
             position: absolute;
             right: 0px;
             bottom: 50%;
+            cursor: pointer;
             margin-bottom: - $bg-btn-size / 2;
             margin-right: - $bg-btn-size / 4;
             width: $bg-btn-size;
@@ -238,6 +240,7 @@ $responsive-spacing: 15px;
             &-btn {
                 display: block;
                 padding: 0.4em;
+                cursor: pointer;
             }
         }
         &__full-screen,

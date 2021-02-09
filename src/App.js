@@ -17,6 +17,7 @@ class App extends Component {
         color1: '#9ea2e0',
         color2: '#5a60dd',
         settingsOpen: false,
+        incrementBy: '',
       },
       {
         id: 2,
@@ -26,6 +27,7 @@ class App extends Component {
         color1: '#ba8f89',
         color2: '#c6786c',
         settingsOpen: false,
+        incrementBy: '',
       },
       {
         id: 3,
@@ -35,15 +37,23 @@ class App extends Component {
         color1: '#9B7286',
         color2: '#A65B7D',
         settingsOpen: false,
+        incrementBy: '',
       }
     ],
     gradients: gradients,
   }
 
   handleCountChange = (index, change) => {
-    this.setState( prevState => ({
-      count: prevState.elements[index].count += change
-    }));
+    let incrementBy = parseInt(this.state.elements[index].incrementBy);
+    if (change === "increment") {
+      this.setState( prevState => ({
+        count: prevState.elements[index].count +=  incrementBy
+      }));
+    } else if (change === "decrement") {
+      this.setState( prevState => ({
+        count: prevState.elements[index].count -=  incrementBy
+      }));
+    }
   }
 
   handleAddElement = (el) => {
@@ -58,7 +68,7 @@ class App extends Component {
     this.scrollToListTop();
   }
 
-  modifyElement = (event, newValue, index) => {
+  modifyName = (event, newValue, index) => {
     event.preventDefault();
     console.log(newValue)
     if (newValue !== '') {
@@ -79,7 +89,23 @@ class App extends Component {
         };
       });
     }
-}
+  }
+
+  modifyIncrementBy = (e, newIncrementBy, idElement) => {
+    // 1 Make a copy of the items
+    let elementsCopy = this.state.elements;
+    // 2 Make a shallow copy of one item to mutate it and Replace the property desired
+    let elementCopy = {
+      ...elementsCopy.find(o => o.id === idElement),
+      incrementBy: newIncrementBy
+    };
+    // 3 Put it back into the array
+    let result = elementsCopy.find( element => element.id === idElement);
+    let resultIndex = elementsCopy.indexOf(result);
+    elementsCopy[resultIndex] = elementCopy;   
+    // 4 Set the state to new copy
+    this.setState({elementsCopy});
+  }
   
 
   changeColor = (index, indexColor) => {
@@ -98,8 +124,8 @@ class App extends Component {
 
   toggleSettings = (idElement) => {
 
-    const currentState = this.state.elements.find( element => element.id === idElement).settingsOpen;
-    const newState = !currentState;
+    let currentState = this.state.elements.find( element => element.id === idElement).settingsOpen;
+    let newState = !currentState;
     // 1. Make a shallow copy of the items
     let elementsCopy = this.state.elements;
     // 2. Make a shallow copy of the item you want to mutate and Replace the property you're intested in
@@ -108,8 +134,8 @@ class App extends Component {
       settingsOpen: newState
     };
     // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
-    const result = elementsCopy.find( element => element.id === idElement);
-    const resultIndex = elementsCopy.indexOf(result);
+    let result = elementsCopy.find( element => element.id === idElement);
+    let resultIndex = elementsCopy.indexOf(result);
 
     elementsCopy[resultIndex] = elementCopy;   
     // 5. Set the state to our new copy
@@ -147,14 +173,15 @@ class App extends Component {
                   value={element.value}
                   count={element.count}
                   index={index}
-                  id={element.id}
                   key={element.id}
+                  id={element.id}
                   gradientIndex={element.gradient}
                   gradients={this.state.gradients}
                   settingsOpen={element.settingsOpen}
                   changeCount={this.handleCountChange}
                   changeColor={this.changeColor}
-                  modifyElement={this.modifyElement}
+                  modifyName={this.modifyName}
+                  modifyIncrementBy={this.modifyIncrementBy}
                   toggleSettings={this.toggleSettings}
                   handleRemove={this.handleRemove}
                 />

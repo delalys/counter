@@ -166,8 +166,10 @@ class Element extends Component {
                     gradients={gradients}
                     gradientIndex={gradientIndex}
                     index={index}
-                    key={id}
-                    modifyElement={this.props.modifyElement}
+                    key={index}
+                    id={id}
+                    modifyName={this.props.modifyName}
+                    modifyIncrementBy={this.props.modifyIncrementBy}
                     settingsOpen={this.props.settingsOpen}
                     changeColor={this.props.changeColor}
                     handleRemove={this.props.handleRemove}
@@ -201,7 +203,7 @@ class Element extends Component {
                         {/* Decrements */}
                         <span 
                             className="element__actions-btn" 
-                            onClick={() => changeCount(index, -1)}
+                            onClick={() => changeCount(index, 'decrement')}
                         >
                             <span className="element__button element__button--minus">-</span>
                         </span>
@@ -210,7 +212,7 @@ class Element extends Component {
                     <h6 className="element__title">{value}</h6>
                     <span className="element__count">{count}</span>
                     {/* Increments */}
-                    <span className="element__button element__button--plus" onClick={() => changeCount(index, +1)}>+</span>
+                    <span className="element__button element__button--plus" onClick={() => changeCount(index, 'increment')}>+</span>
                 </div>
             </Fragment>
         );

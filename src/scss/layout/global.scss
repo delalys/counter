@@ -48,6 +48,7 @@ body,
     scroll-behavior: smooth;
 }
 
+$responsive-spacing: 15px;
 @include media-breakpoint-down(sm) {
     .container {
         padding: 0 $responsive-spacing;
