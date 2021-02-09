@@ -145,10 +145,10 @@ $full-screen-btn-size: 20px;
                 background: radial-gradient(rgba(white, 0), rgba(white, 0.4));
                 opacity: 1;
                 transition: 300ms ease-out;
-                transition-property: left, top, width, height, border-radius, margin, font-size;
+                transition-property: transform, left, top, width, height, border-radius, margin, font-size;
             }
             &:active {
-                transform: scale(0.9);
+                //transform: scale(0.9);
                 &:after {
                     transform: scale(1);
                     opacity: 0.7;
@@ -240,9 +240,10 @@ $responsive-spacing: 15px;
             width: 100%;
             margin: auto;
             padding: 0 40px 0.4em 31px;
+            font-size: 0.8em;
         }
 
-        &__count, {
+        &__count {
             margin: auto;
         }
 
@@ -267,13 +268,36 @@ $responsive-spacing: 15px;
             font-size: 2.5em;
         }
         
+        // Full screen
         &.is-open {
+            .element__count {
+                font-size: 8em;
+            }
+            .element__title {
+                font-size: 1.2em;
+            }
+            .element__count,
+            .element__title {
+                position: relative;
+                top: -15%;
+            }
             .element__actions {
                 margin-top: 0.2em;
+            }
+            .element__button--plus {
+                width: 100vw;
+                height: 100vw;
+                margin-bottom: -50vw;
+                margin-right: -50vw;
+                font-size: 6.5em;
             }
         }
     }
 
+
+    input.form-element__btn {
+        padding-left: 1em;
+    }
 
 }
 @media screen and (max-width: 445px) {

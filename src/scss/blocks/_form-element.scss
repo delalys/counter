@@ -35,6 +35,7 @@
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
         position: relative;
+        z-index: 1;
     }
     &__btn {
         border: none;
