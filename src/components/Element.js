@@ -203,14 +203,14 @@ class Element extends Component {
                             className="element__actions-btn" 
                             onClick={() => changeCount(index, -1)}
                         >
-                            <button className="element__button element__button--minus">-</button>
+                            <span className="element__button element__button--minus">-</span>
                         </span>
                     </div>
 
                     <h6 className="element__title">{value}</h6>
                     <span className="element__count">{count}</span>
                     {/* Increments */}
-                    <button className="element__button element__button--plus" onClick={() => changeCount(index, +1)}>+</button>
+                    <span className="element__button element__button--plus" onClick={() => changeCount(index, +1)}>+</span>
                 </div>
             </Fragment>
         );
