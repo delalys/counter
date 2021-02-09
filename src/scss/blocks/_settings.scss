@@ -26,3 +26,11 @@
         font-weight: bold;
     }
 }
+
+@media screen and (max-width: 445px) {
+    div.settings {
+        &.is-open {
+            height: 379px;
+        }
+    }
+}

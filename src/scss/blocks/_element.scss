@@ -213,17 +213,7 @@ $full-screen-btn-size: 20px;
 
 $responsive-spacing: 15px;
 // No media query necessary for xs breakpoint as it's effectively `@media (min-width: 0) { ... }`
-@include media-breakpoint-down(sm) {
-    .container {
-        padding: 0 $responsive-spacing;
-    }
-    div.element__container--form {
-        margin: $responsive-spacing $responsive-spacing 0 $responsive-spacing !important;
-        .form-element {
-            margin-top: 0 !important;
-        }
-    }
-    
+@include media-breakpoint-down(sm) {    
     
     .element {        
         margin-bottom: $responsive-spacing;
@@ -285,23 +275,4 @@ $responsive-spacing: 15px;
             }
         }
     }
-
-
-    input.form-element__btn {
-        padding-left: 1em;
-    }
-
 }
-@media screen and (max-width: 445px) {
-    div.settings {
-        &.is-open {
-            height: 379px;
-        }
-    }
-
-}
-// @include media-breakpoint-up(sm) { ... }
-// @include media-breakpoint-up(md) { ... }
-// @include media-breakpoint-up(lg) { ... }
-// @include media-breakpoint-up(xl) { ... }
-// @include media-breakpoint-up(xxl) { ... }

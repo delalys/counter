@@ -47,3 +47,15 @@ body,
 .anchor {
     scroll-behavior: smooth;
 }
+
+@include media-breakpoint-down(sm) {
+    .container {
+        padding: 0 $responsive-spacing;
+    }
+    div.element__container--form {
+        margin: $responsive-spacing $responsive-spacing 0 $responsive-spacing !important;
+        .form-element {
+            margin-top: 0 !important;
+        }
+    }
+}

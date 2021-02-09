@@ -14,3 +14,8 @@ input {
         outline: none;
     }
 }
+@include media-breakpoint-down(sm) {    
+    input.form-element__btn {
+        padding-left: 1em;
+    }
+}
