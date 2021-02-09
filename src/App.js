@@ -60,22 +60,25 @@ class App extends Component {
 
   modifyElement = (event, newValue, index) => {
     event.preventDefault();
-    this.setState( prevState => {
-      // New 'players' array – a copy of the previous `players` state
-      const updatedElements = [ ...prevState.elements ];
-      // A copy of the player object we're targeting
-      const updatedElement = { ...updatedElements[index] };
-
-      // Update the target player's score
-      updatedElement.value = newValue;
-      // Update the 'players' array with the target player's latest score
-      updatedElements[index] = updatedElement;
-
-      // Update the `players` state without mutating the original state
-      return {
-        elements: updatedElements
-      };
-    });
+    console.log(newValue)
+    if (newValue !== '') {
+      this.setState( prevState => {
+        // New 'players' array – a copy of the previous `players` state
+        const updatedElements = [ ...prevState.elements ];
+        // A copy of the player object we're targeting
+        const updatedElement = { ...updatedElements[index] };
+  
+        // Update the target player's score
+        updatedElement.value = newValue;
+        // Update the 'players' array with the target player's latest score
+        updatedElements[index] = updatedElement;
+  
+        // Update the `players` state without mutating the original state
+        return {
+          elements: updatedElements
+        };
+      });
+    }
 }
   
 

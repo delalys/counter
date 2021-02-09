@@ -74,9 +74,10 @@ $full-screen-btn-size: 20px;
         top: 22%;
         &-btn {
             // test
-            position: relative;
             // border: solid 1px red;
             // z-index: 99;
+            position: relative;
+            overflow: hidden;
             
             display: inline-block;
             padding: 1em;
@@ -181,6 +182,7 @@ $full-screen-btn-size: 20px;
         .hide-full-screen {
             opacity: 0;
             width: 0;
+            height: 0;
             padding: 0;
         }
         .element__actions {
@@ -198,16 +200,8 @@ $full-screen-btn-size: 20px;
                 margin: 0 auto auto auto;
                 font-size: 10em;
             }
-            &__button--minus {
-                // top: 0;
-                // width: 50px;
-                // height: 50px;
-                // margin: 10px 10px 0 10px;
-            }
             &__full-screen {
                 z-index: 12;
-                // top: 0;
-                // margin: 25px 25px 0 0; 
             }
             &__button--plus {
                 bottom: 75px;
@@ -237,17 +231,58 @@ $responsive-spacing: 15px;
             margin-top: 0 !important;
         }
     }
-
-    .element {
+    
+    
+    .element {        
         margin-bottom: $responsive-spacing;
 
+        &__title {
+            width: 100%;
+            margin: auto;
+            padding: 0 40px 0.4em 31px;
+        }
+
+        &__count, {
+            margin: auto;
+        }
+
+        // buttons
+        &__actions {
+            top: 50%;
+            height: 93px;
+            margin-top: -41.5px;
+            left: 0.4em;
+            &-btn {
+                display: block;
+                padding: 0.4em;
+            }
+        }
         &__full-screen,
+        &__settings {
+            width: 15px;
+            height: 15px;
+        }
         &__button--minus {
-            display: block;
-            position: static;
-            float: left;
+            padding: 0;
+            font-size: 2.5em;
+        }
+        
+        &.is-open {
+            .element__actions {
+                margin-top: 0.2em;
+            }
         }
     }
+
+
+}
+@media screen and (max-width: 445px) {
+    div.settings {
+        &.is-open {
+            height: 379px;
+        }
+    }
+
 }
 // @include media-breakpoint-up(sm) { ... }
 // @include media-breakpoint-up(md) { ... }

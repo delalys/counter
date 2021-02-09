@@ -8,7 +8,7 @@
     background-color: $c-navy-300;
     color: rgba(white, 0.3);
     transition: 300ms ease-in;
-    transition-property: margin, height, padding, overflow 300ms ease-in;
+    transition-property: margin, height, padding, overflow;
     flex-shrink: 0;
 
     &.is-open {
