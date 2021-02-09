@@ -24,6 +24,7 @@ class FormElement extends Component {
             id: this.props.elements.length + 1,
             gradient: nextGradientStyleId,
             settingsOpen: false,
+            incrementBy: 1,
         }
 
         // Add a new element to app state

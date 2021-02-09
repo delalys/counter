@@ -12,7 +12,11 @@ class ElementSettings extends Component {
     }
 
     handleIncrementByChange = (e) => {
-        this.setState({ incrementBy: e.target.value});
+        if (e.target.value !== '') {
+            this.setState({ incrementBy: parseInt(e.target.value)});
+        } else {
+            this.setState({ incrementBy: e.target.value});
+        }
     }
     
     render() {       

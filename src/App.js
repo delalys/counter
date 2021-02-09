@@ -17,7 +17,7 @@ class App extends Component {
         color1: '#9ea2e0',
         color2: '#5a60dd',
         settingsOpen: false,
-        incrementBy: '',
+        incrementBy: 1,
       },
       {
         id: 2,
@@ -27,7 +27,7 @@ class App extends Component {
         color1: '#ba8f89',
         color2: '#c6786c',
         settingsOpen: false,
-        incrementBy: '',
+        incrementBy: 1,
       },
       {
         id: 3,
@@ -37,15 +37,22 @@ class App extends Component {
         color1: '#9B7286',
         color2: '#A65B7D',
         settingsOpen: false,
-        incrementBy: '',
+        incrementBy: 1,
       }
     ],
     gradients: gradients,
   }
 
   handleCountChange = (index, change) => {
-    let incrementBy = parseInt(this.state.elements[index].incrementBy);
+    // Check if resuslt is a positive number, otherwise sets it to 1
+    let incrementBy = this.state.elements[index].incrementBy;
+    if ((incrementBy === 0) || (incrementBy === '')) {
+      incrementBy = parseInt(1);
+    }
+    // Increment or decrement by the new value
     if (change === "increment") {
+      console.log(incrementBy);
+      parseInt(incrementBy);
       this.setState( prevState => ({
         count: prevState.elements[index].count +=  incrementBy
       }));
@@ -70,8 +77,8 @@ class App extends Component {
 
   modifyName = (event, newValue, index) => {
     event.preventDefault();
-    console.log(newValue)
     if (newValue !== '') {
+      
       this.setState( prevState => {
         // New 'players' array – a copy of the previous `players` state
         const updatedElements = [ ...prevState.elements ];
@@ -88,23 +95,26 @@ class App extends Component {
           elements: updatedElements
         };
       });
+
     }
   }
 
   modifyIncrementBy = (e, newIncrementBy, idElement) => {
-    // 1 Make a copy of the items
-    let elementsCopy = this.state.elements;
-    // 2 Make a shallow copy of one item to mutate it and Replace the property desired
-    let elementCopy = {
-      ...elementsCopy.find(o => o.id === idElement),
-      incrementBy: newIncrementBy
-    };
-    // 3 Put it back into the array
-    let result = elementsCopy.find( element => element.id === idElement);
-    let resultIndex = elementsCopy.indexOf(result);
-    elementsCopy[resultIndex] = elementCopy;   
-    // 4 Set the state to new copy
-    this.setState({elementsCopy});
+    if (newIncrementBy !== ('' || 0)) {
+      // 1 Make a copy of the items
+      let elementsCopy = this.state.elements;
+      // 2 Make a shallow copy of one item to mutate it and Replace the property desired
+      let elementCopy = {
+        ...elementsCopy.find(o => o.id === idElement),
+        incrementBy: newIncrementBy
+      };
+      // 3 Put it back into the array
+      let result = elementsCopy.find( element => element.id === idElement);
+      let resultIndex = elementsCopy.indexOf(result);
+      elementsCopy[resultIndex] = elementCopy;   
+      // 4 Set the state to new copy
+      this.setState({elementsCopy});
+    }
   }
   
 

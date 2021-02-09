@@ -12,7 +12,7 @@
     flex-shrink: 0;
 
     &.is-open {
-        height: 327px;
+        height: 421px;
         padding: 1em;
         margin-bottom: 1.5em;
     }
@@ -30,7 +30,7 @@
 @media screen and (max-width: 445px) {
     div.settings {
         &.is-open {
-            height: 379px;
+            height: 461px;
         }
     }
 }
