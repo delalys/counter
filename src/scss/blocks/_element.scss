@@ -74,9 +74,6 @@ $full-screen-btn-size: 20px;
         left: 16px;
         top: 22%;
         &-btn {
-            // test
-            // border: solid 1px red;
-            // z-index: 99;
             position: relative;
             overflow: hidden;
             
@@ -90,21 +87,11 @@ $full-screen-btn-size: 20px;
         display: block;
         position: relative;
         z-index: 9;
-        // margin-top: - $full-screen-btn-size / 2;
-        // margin-right: - $full-screen-btn-size / 4;
         width: $full-screen-btn-size;
         height: $full-screen-btn-size;
         fill: white;
         cursor: pointer;
     }
-    // &__full-screen {
-    //     // left: 80px;
-    //     // top: 50%;
-    // }
-    // &__settings {
-    //     // left: 130px;
-    //     // top: 50%;
-    // }
 
     // Buttons
     &__button {
@@ -208,6 +195,10 @@ $full-screen-btn-size: 20px;
                 bottom: 75px;
                 right: 50%;
                 margin-right: -75px;
+            }
+
+            &__bg {
+                border-radius: 0;
             }
         }
 
