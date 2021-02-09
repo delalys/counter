@@ -28,7 +28,7 @@ class ElementSettings extends Component {
                     className="modify-form"
                     onSubmit={(e) => {
                         this.props.modifyName(e, this.state.value, this.props.index)
-                        this.props.modifyIncrementBy(e, this.state.incrementBy, this.props.id)
+                        this.props.modifyIncrementBy(this.state.incrementBy, this.props.index)
                         this.setState({ value: '' });
                         this.setState({ incrementBy: '' });
                         this.props.toggleSettings(this.props.id)
@@ -64,7 +64,7 @@ class ElementSettings extends Component {
                             return <span 
                                         className={classActiveColor}
                                         key={index}
-                                        onClick={ () => this.props.changeColor(this.props.index, index)}
+                                        onClick={ () => this.props.modifyColor(this.props.index, index)}
                                         style={{backgroundImage: `linear-gradient(190deg, ${color1} 0%, ${color2} 100%)`}}
                                     ></span>
                         })}
@@ -74,7 +74,7 @@ class ElementSettings extends Component {
                         <span className="settings__title" style={{color: this.props.color1}}>Delete:</span>
                         <div
                             className="btn btn-danger"
-                            onClick={() => this.props.handleRemove(this.props.index)}
+                            onClick={() => this.props.handleRemoveElement(this.props.index)}
                         >
                             Delete
                         </div>

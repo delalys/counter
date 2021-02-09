@@ -36,7 +36,7 @@ class Element extends Component {
         this.setState(
             (prevState, props) => ({ settingsOpen: !this.state.settingsOpen })
         )
-        this.props.toggleSettings(this.props.id);
+        this.props.toggleSettings(this.props.index);
       };
 
     toggleFullScreen = () => {
@@ -171,8 +171,8 @@ class Element extends Component {
                     modifyName={this.props.modifyName}
                     modifyIncrementBy={this.props.modifyIncrementBy}
                     settingsOpen={this.props.settingsOpen}
-                    changeColor={this.props.changeColor}
-                    handleRemove={this.props.handleRemove}
+                    modifyColor={this.props.modifyColor}
+                    handleRemoveElement={this.props.handleRemoveElement}
                     toggleSettings={this.handleSettings}
                 />
                 <div 

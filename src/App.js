@@ -63,6 +63,7 @@ class App extends Component {
     }
   }
 
+
   handleAddElement = (el) => {
     this.setState( prevstate => {
       return{
@@ -74,97 +75,54 @@ class App extends Component {
     });
     this.scrollToListTop();
   }
-
-  modifyName = (event, newValue, index) => {
-    event.preventDefault();
-    if (newValue !== '') {
-      
-      this.setState( prevState => {
-        // New 'players' array – a copy of the previous `players` state
-        const updatedElements = [ ...prevState.elements ];
-        // A copy of the player object we're targeting
-        const updatedElement = { ...updatedElements[index] };
-  
-        // Update the target player's score
-        updatedElement.value = newValue;
-        // Update the 'players' array with the target player's latest score
-        updatedElements[index] = updatedElement;
-  
-        // Update the `players` state without mutating the original state
-        return {
-          elements: updatedElements
-        };
-      });
-
-    }
-  }
-
-  modifyIncrementBy = (e, newIncrementBy, idElement) => {
-    if (newIncrementBy !== ('' || 0)) {
-      // 1 Make a copy of the items
-      let elementsCopy = this.state.elements;
-      // 2 Make a shallow copy of one item to mutate it and Replace the property desired
-      let elementCopy = {
-        ...elementsCopy.find(o => o.id === idElement),
-        incrementBy: newIncrementBy
-      };
-      // 3 Put it back into the array
-      let result = elementsCopy.find( element => element.id === idElement);
-      let resultIndex = elementsCopy.indexOf(result);
-      elementsCopy[resultIndex] = elementCopy;   
-      // 4 Set the state to new copy
-      this.setState({elementsCopy});
-    }
-  }
-  
-
-  changeColor = (index, indexColor) => {
-    // 1. Make a shallow copy of the items
-    let elementsCopy = this.state.elements;
-    // 2. Make a shallow copy of the item you want to mutate and Replace the property you're intested in
-    let elementCopy = {
-      ...elementsCopy[index],
-      gradient: indexColor
-    }
-    // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
-    elementsCopy[index] = elementCopy;
-    // 5. Set the state to our new copy
-    this.setState({elementsCopy});
-  }
-
-  toggleSettings = (idElement) => {
-
-    let currentState = this.state.elements.find( element => element.id === idElement).settingsOpen;
-    let newState = !currentState;
-    // 1. Make a shallow copy of the items
-    let elementsCopy = this.state.elements;
-    // 2. Make a shallow copy of the item you want to mutate and Replace the property you're intested in
-    let elementCopy = {
-      ...elementsCopy.find(o => o.id === idElement),
-      settingsOpen: newState
-    };
-    // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
-    let result = elementsCopy.find( element => element.id === idElement);
-    let resultIndex = elementsCopy.indexOf(result);
-
-    elementsCopy[resultIndex] = elementCopy;   
-    // 5. Set the state to our new copy
-    this.setState({elementsCopy});
-  }
-
-  handleRemove = (index) => {
+  handleRemoveElement = (index) => {
     let elements = this.state.elements;
     elements.splice(index, 1);
     this.setState({elements});
   }
 
-  handleRemovePlayer = (id) => {
-    this.setState( prevState => {
-      return {
-        elements: prevState.elements.filter(p => p.id !== id)
-      };
-    });
+
+  // Helper to easily change value in elements, takes in its index(number), its property to change(string) and new value
+  setStateElement = (indexElement, property, newValue) => {
+    this.setState(({elements}) => ({
+      elements: [
+          ...elements.slice(0,indexElement),
+          {
+              ...elements[indexElement],
+              [property]: newValue,
+          },
+          ...elements.slice(indexElement+1)
+        ]
+    }));
   }
+
+
+  modifyName = (event, newValue, indexElement) => {
+    event.preventDefault();
+    if (newValue !== '') {
+      this.setStateElement(indexElement, 'value', newValue);
+    }
+  }
+
+  modifyIncrementBy = (newIncrementBy, indexElement) => {
+    if (newIncrementBy !== ('' || 0)) {
+      this.setStateElement(indexElement, 'incrementBy', newIncrementBy);
+    }
+  }
+  
+  modifyColor = (indexElement, indexColor) => {
+    this.setStateElement(indexElement, 'gradient', indexColor);
+  }
+
+
+  toggleSettings = (indexElement) => {
+    // Toggle settingsOpen boolean
+    let currentState = this.state.elements[indexElement].settingsOpen;
+    let newState = !currentState;
+
+    this.setStateElement(indexElement, 'settingsOpen', newState);
+  }
+
 
   scrollToListTop = () => this.container.current.scrollIntoView();
   
@@ -189,11 +147,11 @@ class App extends Component {
                   gradients={this.state.gradients}
                   settingsOpen={element.settingsOpen}
                   changeCount={this.handleCountChange}
-                  changeColor={this.changeColor}
+                  modifyColor={this.modifyColor}
                   modifyName={this.modifyName}
                   modifyIncrementBy={this.modifyIncrementBy}
                   toggleSettings={this.toggleSettings}
-                  handleRemove={this.handleRemove}
+                  handleRemoveElement={this.handleRemoveElement}
                 />
               )}
               <div 
