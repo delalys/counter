@@ -12,7 +12,7 @@
     flex-shrink: 0;
 
     &.is-open {
-        height: 451px;
+        height: 383px;
         padding: 1em;
         margin-bottom: 1.5em;
     }
@@ -39,12 +39,42 @@
             font-style: italic;
         }
     }
+
+    .btn-actions {
+        display: flex;
+        border-spacing: 1em;
+        .btn-action  {
+            margin-left: 0.5em;
+            margin-right: 0.5em;
+            &:first-child {
+                margin-left: 0;
+            }
+            &:last-child {
+                margin-right: 0;
+            }            
+        }
+    }
+    .btn-action {
+        flex: 1;
+    }
 }
 
-@media screen and (max-width: 445px) {
-    div.settings {
+@include media-breakpoint-down(sm) {
+    .settings {
         &.is-open {
-            height: 491px;
+            height: 563px;
         }
+    }   
+}
+@include media-breakpoint-down(sm) {
+    .settings .btn-actions {
+        display: block;
+    }
+    .btn-action {
+        width: 100%;
+        margin-bottom: 1em;
+    }
+    .settings .btn-action + .btn-action {
+        margin-left: 0;
     }
 }

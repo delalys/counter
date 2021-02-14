@@ -36,7 +36,7 @@ class ElementSettings extends Component {
                     }}
                 >
                     {/* Delete */}
-                    <div className="settings__item">
+                    <div className="settings__item btn-actions">
                         <div
                             className="btn btn-action"
                             onClick={() => this.props.handleReinitElement(this.props.index)}
@@ -49,12 +49,12 @@ class ElementSettings extends Component {
                         >
                             {isMuteLabel}
                         </div>
-                        <div
+                        {/* <div
                             className="btn btn-action"
                             onClick={() => this.props.handleRemoveElement(this.props.index)}
                         >
                             Tap anywhere to count up
-                        </div>
+                        </div> */}
                         <div
                             className="btn btn-action btn-danger"
                             onClick={() => this.props.handleRemoveElement(this.props.index)}
