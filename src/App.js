@@ -4,6 +4,9 @@ import Element from './components/Element';
 import NewElement from './components/NewElement';
 import './App.css';
 
+import ClicSound from './assets/clic.mp3'
+
+
 
 class App extends Component {
 
@@ -51,8 +54,10 @@ class App extends Component {
       }
     ],
     gradients: gradients,
+    isMute: false,
   }
-
+  
+  
   handleCountChange = (index, change) => {
     // Check if resuslt is a positive number, otherwise sets it to 1
     let incrementBy = this.state.elements[index].incrementBy;
@@ -61,7 +66,6 @@ class App extends Component {
     }
     // Increment or decrement by the new value
     if (change === "increment") {
-      console.log(incrementBy);
       parseInt(incrementBy);
       this.setState( prevState => ({
         count: prevState.elements[index].count +=  incrementBy
@@ -71,6 +75,18 @@ class App extends Component {
         count: prevState.elements[index].count -=  incrementBy
       }));
     }
+    
+    // Play sound
+    if (!this.state.isMute)  {
+      let audio = new Audio (ClicSound);
+      audio.play()
+    }
+  }
+
+  handleMuting = () => {
+    this.setState({
+      isMute: !this.state.isMute
+    })
   }
 
 
@@ -144,6 +160,7 @@ class App extends Component {
   
   container = React.createRef();
 
+  
   render(){
     
 
@@ -157,15 +174,17 @@ class App extends Component {
                   value={element.value}
                   count={element.count}
                   index={index}
-                  key={element.id}
+                  key={index}
                   id={element.id}
                   incrementBy={element.incrementBy}
                   gradientIndex={element.gradient}
                   gradients={this.state.gradients}
+                  appIsMute={this.state.isMute}
                   settingsOpen={element.settingsOpen}
                   changeCount={this.handleCountChange}
                   modifyColor={this.modifyColor}
                   modifyName={this.modifyName}
+                  handleMuting={this.handleMuting}
                   modifyIncrementBy={this.modifyIncrementBy}
                   toggleSettings={this.toggleSettings}
                   handleReinitElement={this.handleReinitElement}

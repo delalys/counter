@@ -21,6 +21,7 @@ class ElementSettings extends Component {
     
     render() {       
         const isSettingsClass = this.props.settingsOpen ? "is-open" : '';
+        const isMuteLabel = this.props.appIsMute ? "Unmute app" : 'Mute app';
 
         return(
             <div className={"settings " + isSettingsClass}>
@@ -40,13 +41,13 @@ class ElementSettings extends Component {
                             className="btn btn-action"
                             onClick={() => this.props.handleReinitElement(this.props.index)}
                         >
-                            Reinit
+                            Reinitialise
                         </div>
                         <div
                             className="btn btn-action"
-                            onClick={() => this.props.handleRemoveElement(this.props.index)}
+                            onClick={() => this.props.handleMuting()}
                         >
-                            Mute
+                            {isMuteLabel}
                         </div>
                         <div
                             className="btn btn-action"

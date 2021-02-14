@@ -152,6 +152,7 @@ class Element extends Component {
             gradientIndex,
             gradients,
             incrementBy,
+            isMute,
             changeCount,
         } = this.props;
         
@@ -175,11 +176,13 @@ class Element extends Component {
                     index={index}
                     key={index}
                     id={id}
+                    appIsMute={this.props.appIsMute}
                     incrementBy={incrementBy}
                     modifyName={this.props.modifyName}
                     modifyIncrementBy={this.props.modifyIncrementBy}
                     settingsOpen={this.props.settingsOpen}
                     modifyColor={this.props.modifyColor}
+                    handleMuting={this.props.handleMuting}
                     handleReinitElement={this.props.handleReinitElement}
                     handleRemoveElement={this.props.handleRemoveElement}
                     toggleSettings={this.handleSettings}
@@ -226,11 +229,11 @@ Element.propTypes = {
     gradients: PropTypes.array.isRequired,
     gradientIndex: PropTypes.number.isRequired,
     index: PropTypes.number.isRequired,
-    key: PropTypes.number.isRequired,
     id: PropTypes.number.isRequired,
     modifyName: PropTypes.func.isRequired,
     modifyIncrementBy: PropTypes.func.isRequired,
-    settingsOpen: PropTypes.func.isRequired,
+    settingsOpen: PropTypes.bool.isRequired,
+    appIsMute: PropTypes.bool.isRequired,
     modifyColor: PropTypes.func.isRequired,
     handleRemoveElement: PropTypes.func.isRequired,
     toggleSettings: PropTypes.func.isRequired,
