@@ -2,6 +2,8 @@ import React, {Component, Fragment} from 'react';
 import ElementSettings from './ElementSettings';
 import Actions from './Actions';
 import PropTypes from 'prop-types';
+import ResizeObserver from 'rc-resize-observer';
+
 
 class Element extends Component {
     
@@ -24,10 +26,11 @@ class Element extends Component {
         this.setsWidth();
         this.elementSpaceAttribute = this.element.current.getBoundingClientRect();
     }
-    
+
     setsWidth = () => {
-        this.elementSpaceAttribute = this.element.current.getBoundingClientRect();
-        this.element.current.style.cssText = "width: " + this.elementSpaceAttribute.width + "px;";
+        let testWidthContainer = document.querySelector('.element__container').getBoundingClientRect()
+        this.setState({width: testWidthContainer.width});
+        this.element.current.style.cssText = "width: " + this.state.width + "px;";
     }
 
     // Place DOM element in after reference Dom element
@@ -152,7 +155,6 @@ class Element extends Component {
             gradientIndex,
             gradients,
             incrementBy,
-            isMute,
             changeCount,
         } = this.props;
         
@@ -167,58 +169,59 @@ class Element extends Component {
         };
 
         return(
-            <Fragment>
-                {/* Settings */}
-                <ElementSettings 
-                    color1={gradients[gradientIndex].color2}
-                    gradients={gradients}
-                    gradientIndex={gradientIndex}
-                    index={index}
-                    key={index}
-                    id={id}
-                    appIsMute={this.props.appIsMute}
-                    incrementBy={incrementBy}
-                    modifyName={this.props.modifyName}
-                    modifyIncrementBy={this.props.modifyIncrementBy}
-                    settingsOpen={this.props.settingsOpen}
-                    modifyColor={this.props.modifyColor}
-                    handleMuting={this.props.handleMuting}
-                    handleReinitElement={this.props.handleReinitElement}
-                    handleRemoveElement={this.props.handleRemoveElement}
-                    toggleSettings={this.handleSettings}
-                />
-                
-                {/* ELEMENT */}
-                <div 
-                    className={isFullScreenClass +" element justify-content-center d-flex animate__animated animate__fadeInDown"} 
-                    ref={this.element}
-                >
-                    <span className="element__bg" style={elementStyle}></span>
-
-                    {/* Actions button */}
-                    <Actions
-                        toggleFullScreen={this.toggleFullScreen}
-                        handleSettings={this.handleSettings}
+            <ResizeObserver onResize={() => this.setsWidth()}>
+                <Fragment>
+                    {/* Settings */}
+                    <ElementSettings 
+                        color1={gradients[gradientIndex].color2}
+                        gradients={gradients}
+                        gradientIndex={gradientIndex}
                         index={index}
-                        changeCount={changeCount}
+                        key={index}
+                        id={id}
+                        appIsMute={this.props.appIsMute}
+                        incrementBy={incrementBy}
+                        modifyName={this.props.modifyName}
+                        modifyIncrementBy={this.props.modifyIncrementBy}
+                        settingsOpen={this.props.settingsOpen}
+                        modifyColor={this.props.modifyColor}
+                        handleMuting={this.props.handleMuting}
+                        handleReinitElement={this.props.handleReinitElement}
+                        handleRemoveElement={this.props.handleRemoveElement}
+                        toggleSettings={this.handleSettings}
                     />
                     
-                    {/* Title */}
-                    <h6 className="element__title">{value}</h6>
-                    
-                    {/* Count */}
-                    <span className={isClicked + " element__count"}>{count}</span>
+                    {/* ELEMENT */}
+                    <div 
+                        className={isFullScreenClass +" element justify-content-center d-flex animate__animated animate__fadeInDown"} 
+                        ref={this.element}
+                    >
+                        <span className="element__bg" style={elementStyle}></span>
 
-                    {/* Increments */}
-                    <span 
-                        className="element__button element__button--plus"
-                        onClick={() => changeCount(index, 'increment') }
-                        onMouseUp={(e) => this.setState({isClicked: false})}
-                        onMouseDown={(e) => this.setState({isClicked: true})}
-                    >+</span>
-                </div>
+                        {/* Actions button */}
+                        <Actions
+                            toggleFullScreen={this.toggleFullScreen}
+                            handleSettings={this.handleSettings}
+                            index={index}
+                            changeCount={changeCount}
+                        />
+                        
+                        {/* Title */}
+                        <h6 className="element__title">{value}</h6>
+                        
+                        {/* Count */}
+                        <span className={isClicked + " element__count"}>{count}</span>
 
-            </Fragment>
+                        {/* Increments */}
+                        <span 
+                            className="element__button element__button--plus"
+                            onClick={() => changeCount(index, 'increment') }
+                            onMouseUp={(e) => this.setState({isClicked: false})}
+                            onMouseDown={(e) => this.setState({isClicked: true})}
+                        >+</span>
+                    </div>
+                </Fragment>
+            </ResizeObserver>
         );
     }
 }

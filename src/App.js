@@ -3,6 +3,7 @@ import gradients from './data/gradients';
 import Element from './components/Element';
 import NewElement from './components/NewElement';
 import './App.css';
+import ResizeObserver from 'rc-resize-observer';
 
 import ClicSound from './assets/clic.mp3'
 
