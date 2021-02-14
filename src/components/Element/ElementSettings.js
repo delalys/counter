@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-
+import PropTypes from 'prop-types';
 
 class ElementSettings extends Component {
     state = {
@@ -34,9 +34,36 @@ class ElementSettings extends Component {
                         this.props.toggleSettings(this.props.id)
                     }}
                 >
+                    {/* Delete */}
+                    <div className="settings__item">
+                        <div
+                            className="btn btn-action"
+                            onClick={() => this.props.handleReinitElement(this.props.index)}
+                        >
+                            Reinit
+                        </div>
+                        <div
+                            className="btn btn-action"
+                            onClick={() => this.props.handleRemoveElement(this.props.index)}
+                        >
+                            Mute
+                        </div>
+                        <div
+                            className="btn btn-action"
+                            onClick={() => this.props.handleRemoveElement(this.props.index)}
+                        >
+                            Tap anywhere to count up
+                        </div>
+                        <div
+                            className="btn btn-action btn-danger"
+                            onClick={() => this.props.handleRemoveElement(this.props.index)}
+                        >
+                            Delete
+                        </div>
+                    </div>
                     {/* Name */}
                     <div className="settings__item">
-                        <span className="settings__title" style={{color: this.props.color1}}>Name:</span>
+                        <span className="settings__title">Name:</span>
                             <input
                                 value={this.state.value}
                                 type="text" 
@@ -46,17 +73,17 @@ class ElementSettings extends Component {
                     </div>
                     {/* Increment by */}
                     <div className="settings__item">
-                        <span className="settings__title" style={{color: this.props.color1}}>Count up by:</span>
+                        <span className="settings__title">Step: <span className="settings__title--notice">(now {this.props.incrementBy} by {this.props.incrementBy})</span></span>
                             <input
                                 value={this.state.incrementBy}
-                                type="number" 
+                                type="number"
                                 placeholder="How much you want to add every count up ?"
                                 onChange={this.handleIncrementByChange}
                             />
                     </div>
                     {/* Color */}
                     <div className="settings__item">
-                        <span className="settings__title" style={{color: this.props.color1}}>Color:</span>
+                        <span className="settings__title">Color:</span>
                         {this.props.gradients.map((element, index) => {
                             let color1 = this.props.gradients[index].color1;
                             let color2 = this.props.gradients[index].color2;
@@ -68,16 +95,6 @@ class ElementSettings extends Component {
                                         style={{backgroundImage: `linear-gradient(190deg, ${color1} 0%, ${color2} 100%)`}}
                                     ></span>
                         })}
-                    </div>
-                    {/* Delete */}
-                    <div className="settings__item">
-                        <span className="settings__title" style={{color: this.props.color1}}>Delete:</span>
-                        <div
-                            className="btn btn-danger"
-                            onClick={() => this.props.handleRemoveElement(this.props.index)}
-                        >
-                            Delete
-                        </div>
                     </div>
                     <hr/>
                     {/* Ok and Close */}
@@ -93,6 +110,16 @@ class ElementSettings extends Component {
             </div>
         );
     }
+}
+
+ElementSettings.propTypes = {
+    modifyName: PropTypes.func.isRequired,
+    modifyIncrementBy: PropTypes.func.isRequired,
+    toggleSettings: PropTypes.func.isRequired,
+    handleRemoveElement: PropTypes.func.isRequired,
+    color1: PropTypes.string.isRequired,
+    gradients: PropTypes.array.isRequired,
+    index: PropTypes.number.isRequired,
 }
 
 export default ElementSettings;

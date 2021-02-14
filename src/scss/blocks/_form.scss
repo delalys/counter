@@ -1,7 +1,8 @@
 // FORM ELEMENTS
 
 input {
-    height: 3em;
+    height: 2.5em;
+    font-size: 0.9em;
     border: none;
     border-radius: 10px;
     background-color: $c-navy-100;
@@ -13,9 +14,22 @@ input {
         border: none;
         outline: none;
     }
+    &::placeholder {
+        color: rgba(255,255,255, 0.35)
+    }
 }
 @include media-breakpoint-down(sm) {    
     input.form-element__btn {
         padding-left: 1em;
+    }
+}
+
+.btn-action {
+    background: $c-navy-100;
+    color: white;
+    min-width: 150px;
+    padding: 1em 4em;
+    + .btn-action {
+        margin-left: 1em;
     }
 }

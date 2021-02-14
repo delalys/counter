@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class FormElement extends Component {
 
@@ -53,6 +54,12 @@ class FormElement extends Component {
             </form>
         )
     }
+}
+
+FormElement.propTypes = {
+    elements: PropTypes.array.isRequired,
+    gradients: PropTypes.array.isRequired,
+    addElement: PropTypes.func.isRequired,
 }
 
 export default FormElement;

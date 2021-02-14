@@ -11,8 +11,8 @@ class App extends Component {
     elements: [
       {
         id: 1,
-        value: 'Loremp ipsum dolor',
-        count: 0,
+        value: 'Full hour focused',
+        count: 1,
         gradient: 1,
         color1: '#9ea2e0',
         color2: '#5a60dd',
@@ -21,8 +21,8 @@ class App extends Component {
       },
       {
         id: 2,
-        value: 'Condiscipling dolor et sit',
-        count: 0,
+        value: 'Glass of water drunk today',
+        count: 3,
         gradient: 2,
         color1: '#ba8f89',
         color2: '#c6786c',
@@ -31,11 +31,21 @@ class App extends Component {
       },
       {
         id: 3,
-        value: 'Ame dolamesci',
-        count: 0,
+        value: 'Hit the gym',
+        count: 3,
         gradient: 3,
-        color1: '#9B7286',
-        color2: '#A65B7D',
+        color1: '#ba8f89',
+        color2: '#c6786c',
+        settingsOpen: false,
+        incrementBy: 1,
+      },
+      {
+        id: 4,
+        value: 'Day without smoking',
+        count: 17,
+        gradient: 4,
+        color1: '#ba8f89',
+        color2: '#c6786c',
         settingsOpen: false,
         incrementBy: 1,
       }
@@ -81,9 +91,10 @@ class App extends Component {
     this.setState({elements});
   }
 
-
-  // Helper to easily change value in elements, takes in its index(number), its property to change(string) and new value
-  setStateElement = (indexElement, property, newValue) => {
+  //--------//
+  // Helper //  Eases value changes in an element, takes in: index (number) | property to change (string) | new value
+  //--------//
+  setStateElement = (indexElement, property, newValue) => 
     this.setState(({elements}) => ({
       elements: [
           ...elements.slice(0,indexElement),
@@ -94,9 +105,8 @@ class App extends Component {
           ...elements.slice(indexElement+1)
         ]
     }));
-  }
 
-
+  // Change Element name
   modifyName = (event, newValue, indexElement) => {
     event.preventDefault();
     if (newValue !== '') {
@@ -104,17 +114,23 @@ class App extends Component {
     }
   }
 
+  // Change Element IncrementBy
   modifyIncrementBy = (newIncrementBy, indexElement) => {
     if (newIncrementBy !== ('' || 0)) {
       this.setStateElement(indexElement, 'incrementBy', newIncrementBy);
     }
   }
-  
-  modifyColor = (indexElement, indexColor) => {
+
+  // Change Element gradient
+  modifyColor = (indexElement, indexColor) =>
     this.setStateElement(indexElement, 'gradient', indexColor);
-  }
+
+  // Change Element gradient
+  handleReinitElement = (indexElement) =>
+    this.setStateElement(indexElement, 'count', 0);
 
 
+  // Change Element settingsOpen
   toggleSettings = (indexElement) => {
     // Toggle settingsOpen boolean
     let currentState = this.state.elements[indexElement].settingsOpen;
@@ -143,6 +159,7 @@ class App extends Component {
                   index={index}
                   key={element.id}
                   id={element.id}
+                  incrementBy={element.incrementBy}
                   gradientIndex={element.gradient}
                   gradients={this.state.gradients}
                   settingsOpen={element.settingsOpen}
@@ -151,6 +168,7 @@ class App extends Component {
                   modifyName={this.modifyName}
                   modifyIncrementBy={this.modifyIncrementBy}
                   toggleSettings={this.toggleSettings}
+                  handleReinitElement={this.handleReinitElement}
                   handleRemoveElement={this.handleRemoveElement}
                 />
               )}

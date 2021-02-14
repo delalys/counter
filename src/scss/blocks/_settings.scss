@@ -12,25 +12,39 @@
     flex-shrink: 0;
 
     &.is-open {
-        height: 421px;
+        height: 451px;
         padding: 1em;
         margin-bottom: 1.5em;
     }
 
     &__item {
         margin-bottom: 10px;
+        margin-top: 1em;
+        &:first-child {
+            margin-top: 0;
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
     &__title {
-        font-size: 1em;
+        font-size: 0.9em;
+        margin-bottom: 0.25em;
+        margin-top: 0;
+        color: rgba(255,255,255, 0.5);
         display: block;
-        font-weight: bold;
+        font-weight: 600;
+        &--notice {
+            font-weight: 400;
+            font-style: italic;
+        }
     }
 }
 
 @media screen and (max-width: 445px) {
     div.settings {
         &.is-open {
-            height: 461px;
+            height: 491px;
         }
     }
 }

@@ -23,7 +23,7 @@ $full-screen-btn-size: 20px;
     
     * {
         transition: 300ms ease-out;
-        transition-property: width, height, position, left, top, border-radius, margin, font-size;
+        transition-property: transform, width, height, position, left, top, border-radius, margin, font-size;
     }
 
     &__bg {
@@ -120,7 +120,7 @@ $full-screen-btn-size: 20px;
             width: $bg-btn-size;
             height: $bg-btn-size;
             transition: 300ms ease-out;
-            transition-property: left, top, bottom, right, width, height, border-radius, margin, font-size;
+            transition-property: transform, left, top, bottom, right, width, height, border-radius, margin, font-size;
 
             &:after {
                 display: block;
@@ -150,6 +150,10 @@ $full-screen-btn-size: 20px;
             display: block;
             top: -3px;
         }
+    }
+
+    .element__count.is-clicked {
+        transform: scale(1.2);
     }
 }
 

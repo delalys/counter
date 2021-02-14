@@ -1,11 +1,14 @@
 import React, {Component, Fragment} from 'react';
 import ElementSettings from './ElementSettings';
+import Actions from './Actions';
+import PropTypes from 'prop-types';
 
 class Element extends Component {
     
     state = {
         isFullScreen: false,
         settingsOpen: false,
+        isClicked: false,
         width: 0,
         height: 0,
         top: 0,
@@ -148,12 +151,15 @@ class Element extends Component {
             id,
             gradientIndex,
             gradients,
+            incrementBy,
             changeCount,
         } = this.props;
         
         const newGradient = gradients[gradientIndex];
 
         const isFullScreenClass = this.state.isFullScreen ? "is-open" : '';
+
+        const isClicked = this.state.isClicked ? "is-clicked" : '';
     
         const elementStyle = {
             background: `linear-gradient(190deg, ${newGradient.color1} 0%, ${newGradient.color2} 100%)`,
@@ -161,6 +167,7 @@ class Element extends Component {
 
         return(
             <Fragment>
+                {/* Settings */}
                 <ElementSettings 
                     color1={gradients[gradientIndex].color2}
                     gradients={gradients}
@@ -168,55 +175,66 @@ class Element extends Component {
                     index={index}
                     key={index}
                     id={id}
+                    incrementBy={incrementBy}
                     modifyName={this.props.modifyName}
                     modifyIncrementBy={this.props.modifyIncrementBy}
                     settingsOpen={this.props.settingsOpen}
                     modifyColor={this.props.modifyColor}
+                    handleReinitElement={this.props.handleReinitElement}
                     handleRemoveElement={this.props.handleRemoveElement}
                     toggleSettings={this.handleSettings}
                 />
+                
+                {/* ELEMENT */}
                 <div 
                     className={isFullScreenClass +" element justify-content-center d-flex animate__animated animate__fadeInDown"} 
                     ref={this.element}
                 >
                     <span className="element__bg" style={elementStyle}></span>
 
-                    <div className="element__actions">
-                        {/* toggle Full screen */}
-                        <span 
-                            className="element__actions-btn" 
-                            onClick={() => this.toggleFullScreen()} 
-                        >
-                            <svg className="element__full-screen"  pointerEvents="all" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="22 22 57 57" x="0px" y="0px">
-                                <g><path d="M70,42h8V30a8,8,0,0,0-8-8H58v8H70Z"/><path d="M78,70V58H70V70H58v8H70A8,8,0,0,0,78,70Z"/><path d="M30,78H42V70H30V58H22V70A8,8,0,0,0,30,78Z"/><path d="M30,30H42V22H30a8,8,0,0,0-8,8V42h8Z"/></g>
-                            </svg>
-                        </span>
-                        {/* toggle Settings */}
-                        <span
-                            className="element__actions-btn hide-full-screen"
-                            onClick={() => this.handleSettings()}
-                        >
-                            <svg className="element__settings" height="512pt" viewBox="0 -21 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg">
-                                <path d="m448 42.667969h-206.613281c9.28125 19.433593 14.613281 41.066406 14.613281 64 0 22.933593-5.332031 44.5625-14.613281 64h206.613281c17.152344 0 33.257812-6.636719 45.3125-18.6875 12.054688-12.054688 18.6875-28.160157 18.6875-45.3125 0-35.285157-28.714844-64-64-64zm0 0"/><path d="m213.332031 106.667969c0 58.910156-47.753906 106.664062-106.664062 106.664062-58.910157 0-106.667969-47.753906-106.667969-106.664062 0-58.910157 47.757812-106.667969 106.667969-106.667969 58.910156 0 106.664062 47.757812 106.664062 106.667969zm0 0"/><path d="m256 362.667969c0-22.933594 5.332031-44.566407 14.613281-64h-206.613281c-35.285156 0-64 28.714843-64 64 0 17.152343 6.632812 33.257812 18.6875 45.3125 12.054688 12.050781 28.160156 18.6875 45.3125 18.6875h206.613281c-9.28125-19.4375-14.613281-41.066407-14.613281-64zm0 0"/><path d="m512 362.667969c0 58.910156-47.757812 106.664062-106.667969 106.664062-58.910156 0-106.664062-47.753906-106.664062-106.664062 0-58.910157 47.753906-106.667969 106.664062-106.667969 58.910157 0 106.667969 47.757812 106.667969 106.667969zm0 0"/>
-                            </svg>
-                        </span>
-                        {/* Decrements */}
-                        <span 
-                            className="element__actions-btn" 
-                            onClick={() => changeCount(index, 'decrement')}
-                        >
-                            <span className="element__button element__button--minus">-</span>
-                        </span>
-                    </div>
-
+                    {/* Actions button */}
+                    <Actions
+                        toggleFullScreen={this.toggleFullScreen}
+                        handleSettings={this.handleSettings}
+                        index={index}
+                        changeCount={changeCount}
+                    />
+                    
+                    {/* Title */}
                     <h6 className="element__title">{value}</h6>
-                    <span className="element__count">{count}</span>
+                    
+                    {/* Count */}
+                    <span className={isClicked + " element__count"}>{count}</span>
+
                     {/* Increments */}
-                    <span className="element__button element__button--plus" onClick={() => changeCount(index, 'increment')}>+</span>
+                    <span 
+                        className="element__button element__button--plus"
+                        onClick={() => changeCount(index, 'increment') }
+                        onMouseUp={(e) => this.setState({isClicked: false})}
+                        onMouseDown={(e) => this.setState({isClicked: true})}
+                    >+</span>
                 </div>
+
             </Fragment>
         );
     }
+}
+
+Element.propTypes = {
+    value: PropTypes.string.isRequired,
+    count: PropTypes.number.isRequired,
+    gradients: PropTypes.array.isRequired,
+    gradientIndex: PropTypes.number.isRequired,
+    index: PropTypes.number.isRequired,
+    key: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
+    modifyName: PropTypes.func.isRequired,
+    modifyIncrementBy: PropTypes.func.isRequired,
+    settingsOpen: PropTypes.func.isRequired,
+    modifyColor: PropTypes.func.isRequired,
+    handleRemoveElement: PropTypes.func.isRequired,
+    toggleSettings: PropTypes.func.isRequired,
+    changeCount: PropTypes.func.isRequired,
 }
 
 export default Element;
