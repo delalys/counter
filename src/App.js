@@ -60,6 +60,12 @@ class App extends Component {
   
   
   handleCountChange = (index, change) => {
+    // Play sound
+    if (!this.state.isMute)  {
+      let audio = new Audio (ClicSound);
+      audio.play()
+    }
+    
     // Check if resuslt is a positive number, otherwise sets it to 1
     let incrementBy = this.state.elements[index].incrementBy;
     if ((incrementBy === 0) || (incrementBy === '')) {
@@ -75,12 +81,6 @@ class App extends Component {
       this.setState( prevState => ({
         count: prevState.elements[index].count -=  incrementBy
       }));
-    }
-    
-    // Play sound
-    if (!this.state.isMute)  {
-      let audio = new Audio (ClicSound);
-      audio.play()
     }
   }
 
