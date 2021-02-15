@@ -3,7 +3,6 @@ import gradients from './data/gradients';
 import Element from './components/Element';
 import NewElement from './components/NewElement';
 import './App.css';
-import ResizeObserver from 'rc-resize-observer';
 
 import ClicSound from './assets/clic.mp3'
 
@@ -63,6 +62,7 @@ class App extends Component {
   audio = [];
   
   componentDidMount() {
+    // Create and preload 10 sounds for mobile delay
     for (let i = 0; i < 10; i++) {
       this.audio = [
         ...this.audio,
@@ -71,12 +71,10 @@ class App extends Component {
       this.audio[i].preload = 'auto';
       this.audio[i].load();
     }
-    console.log(this.audio);
   }
   
   handleCountChange = (index, change) => {
     // Play sound
-    console.log(this.audio[this.state.soundPlaying])
     if (!this.state.isMute)  {
       this.audio[this.state.soundPlaying].play()
     }
