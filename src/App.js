@@ -15,7 +15,7 @@ class App extends Component {
     elements: [
       {
         id: 1,
-        value: 'Full hour focused',
+        value: 'Work hour without distraction',
         count: 1,
         gradient: 1,
         color1: '#9ea2e0',
@@ -35,13 +35,13 @@ class App extends Component {
       },
       {
         id: 3,
-        value: 'Hit the gym',
-        count: 3,
+        value: 'Pushups',
+        count: 50,
         gradient: 3,
         color1: '#ba8f89',
         color2: '#c6786c',
         settingsOpen: false,
-        incrementBy: 1,
+        incrementBy: 10,
       },
       {
         id: 4,
@@ -56,16 +56,34 @@ class App extends Component {
     ],
     gradients: gradients,
     isMute: false,
+    soundPlaying: 0,
   }
   
   
+  audio = [];
+  
+  componentDidMount() {
+    for (let i = 0; i < 10; i++) {
+      this.audio = [
+        ...this.audio,
+        new Audio (ClicSound)
+      ]
+      this.audio[i].preload = 'auto';
+      this.audio[i].load();
+    }
+    console.log(this.audio);
+  }
+  
   handleCountChange = (index, change) => {
     // Play sound
+    console.log(this.audio[this.state.soundPlaying])
     if (!this.state.isMute)  {
-      let audio = new Audio (ClicSound);
-      audio.play()
+      this.audio[this.state.soundPlaying].play()
     }
-    
+    this.setState({
+      soundPlaying: (this.state.soundPlaying +1) % 10
+    })
+
     // Check if resuslt is a positive number, otherwise sets it to 1
     let incrementBy = this.state.elements[index].incrementBy;
     if ((incrementBy === 0) || (incrementBy === '')) {
