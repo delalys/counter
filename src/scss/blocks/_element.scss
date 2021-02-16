@@ -316,11 +316,13 @@ $responsive-spacing: 15px;
             height: 56px;
             margin-top: -28px;
         }
-        &:not(.is-condensed) {
-            .hide-list-screen {
-                padding: 0;
+
+            &:not(.is-open) {
+                .hide-list-screen {
+                    padding: 0;
+                }
             }
-        }
+
         
         // Full screen
         &.is-open {
