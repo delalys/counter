@@ -153,33 +153,32 @@ class Element extends Component {
             index,
             id,
             gradientIndex,
+            gradient,
             gradients,
             incrementBy,
             changeCount,
         } = this.props;
-        
-        const newGradient = gradients[gradientIndex];
 
         const isFullScreenClass = this.state.isFullScreen ? "is-open" : '';
 
+        const isCondensedClass = this.props.appIsCondensed ? "is-condensed" : '';
+        
         const isClicked = this.state.isClicked ? "is-clicked" : '';
-    
-        const elementStyle = {
-            background: `linear-gradient(190deg, ${newGradient.color1} 0%, ${newGradient.color2} 100%)`,
-        };
+
+        let textSizeClass = (this.props.count > 9999) ? "reduced-text-1" : '';
 
         return(
             <ResizeObserver onResize={() => this.setsWidth()}>
                 <Fragment>
                     {/* Settings */}
                     <ElementSettings 
-                        color1={gradients[gradientIndex].color2}
                         gradients={gradients}
-                        gradientIndex={gradientIndex}
+                        gradient={gradient}
                         index={index}
                         key={index}
                         id={id}
                         appIsMute={this.props.appIsMute}
+                        isCondensed={this.props.appIsCondensed}
                         incrementBy={incrementBy}
                         modifyName={this.props.modifyName}
                         modifyIncrementBy={this.props.modifyIncrementBy}
@@ -187,30 +186,35 @@ class Element extends Component {
                         modifyColor={this.props.modifyColor}
                         handleMuting={this.props.handleMuting}
                         handleReinitElement={this.props.handleReinitElement}
+                        handleCondensing={this.props.handleCondensing}
                         handleRemoveElement={this.props.handleRemoveElement}
                         toggleSettings={this.handleSettings}
+                        toggleFullScreen={this.toggleFullScreen}
                     />
                     
                     {/* ELEMENT */}
                     <div 
-                        className={isFullScreenClass +" element justify-content-center d-flex animate__animated animate__fadeInDown"} 
+                        className={isFullScreenClass + " " + isCondensedClass + " element justify-content-center d-flex animate__animated animate__fadeInDown"} 
                         ref={this.element}
                     >
-                        <span className="element__bg" style={elementStyle}></span>
+                        <span className="element__bg"></span>
 
                         {/* Actions button */}
                         <Actions
-                            toggleFullScreen={this.toggleFullScreen}
                             handleSettings={this.handleSettings}
                             index={index}
                             changeCount={changeCount}
+                            toggleFullScreen={this.toggleFullScreen}
                         />
                         
                         {/* Title */}
-                        <h6 className="element__title">{value}</h6>
+                        <h6 className="element__title">
+                            {value}
+                            <span className="element__title--notice"> (+{incrementBy})</span>
+                        </h6>
                         
                         {/* Count */}
-                        <span className={isClicked + " element__count"}>{count}</span>
+                        <span className={isClicked + " " + textSizeClass + " element__count"}>{count}</span>
 
                         {/* Increments */}
                         <span 
@@ -237,6 +241,7 @@ Element.propTypes = {
     modifyIncrementBy: PropTypes.func.isRequired,
     settingsOpen: PropTypes.bool.isRequired,
     appIsMute: PropTypes.bool.isRequired,
+    appIsCondensed: PropTypes.bool.isRequired,
     modifyColor: PropTypes.func.isRequired,
     handleRemoveElement: PropTypes.func.isRequired,
     toggleSettings: PropTypes.func.isRequired,

@@ -34,7 +34,8 @@ html,
 body,
 #root,
 .container,
-.element__container:not(.element__container--form) {
+.element__container:not(.element__container--form),
+.background-gradient {
     flex: 1;
     height: 100%;
 }
@@ -42,6 +43,14 @@ body,
 body {
     background-color: $c-navy;
 }
+
+.is-condensed {
+    .container {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
+}
+
 html,
 body,
 .anchor {

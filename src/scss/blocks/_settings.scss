@@ -12,9 +12,9 @@
     flex-shrink: 0;
 
     &.is-open {
-        height: 383px;
+        height: 406px;
         padding: 1em;
-        margin-bottom: 1.5em;
+        margin-bottom: 1em;
     }
 
     &__item {
@@ -30,13 +30,17 @@
     &__title {
         font-size: 0.9em;
         margin-bottom: 0.25em;
+        line-height: 1.2em;
         margin-top: 0;
         color: rgba(255,255,255, 0.5);
         display: block;
         font-weight: 600;
         &--notice {
-            font-weight: 400;
-            font-style: italic;
+            opacity: 0.6;
+            font-size: 0.8em;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 5px;
         }
     }
 
@@ -57,22 +61,53 @@
     .btn-action {
         flex: 1;
     }
+
+    .btn {
+        color: $c-navy;
+    }
 }
 
 @include media-breakpoint-down(sm) {
     .settings {
         &.is-open {
-            height: 563px;
+            height: 529px;
+        }
+        .btn-actions {
+            flex-wrap: wrap;
+            .btn-action {
+                margin-bottom: 1em;
+                flex: 0 calc(50% - 0.5em);
+                margin-right: 1em;
+                min-width: auto;
+                padding: 0.5em;
+                &:nth-child(even) {
+                    margin-right: 0;
+                }
+                &:nth-child(odd) {
+                    &:last-child {
+                        flex: 0 100%;
+                    }
+                }
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+            // If last child solo
+        }
+        &__item {
+            &:last-child {
+                .btn {
+                    display: block;
+                    width: 100%;
+                }
+            }
         }
     }   
 }
 @include media-breakpoint-down(sm) {
-    .settings .btn-actions {
-        display: block;
-    }
     .btn-action {
-        width: 100%;
-        margin-bottom: 1em;
+
+        
     }
     .settings .btn-action + .btn-action {
         margin-left: 0;

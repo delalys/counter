@@ -17,6 +17,10 @@ input {
     &::placeholder {
         color: rgba(255,255,255, 0.35)
     }
+    &[type=text],
+    &[type=submit] {
+        color: $c-navy;
+    }
 }
 @include media-breakpoint-down(sm) {    
     input.form-element__btn {

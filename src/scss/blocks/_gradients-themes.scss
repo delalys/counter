@@ -1,0 +1,25 @@
+$gradients: (
+    ('#4d4d4d', '#2c2c2c'),
+    ('#757EA1', '#456F7B'),
+    ('#9ea2e0', '#5a60dd'),
+    ('#B599DE', '#8951DB'),
+    ('#9B7286', '#A65B7D'),
+    ('#ba8f89', '#c6786c'),
+    ('#C6AB6C', '#A58743'),
+    ('#688D70', '#509264'),
+);
+
+@for $i from 1 to length($gradients) {
+    .gradient-#{$i} {
+        &.background-gradient,
+        .element__bg {
+            background: linear-gradient(200deg, unquote(nth(nth($gradients, $i+1), 1)) 0%, unquote(nth(nth($gradients, $i+1), 2)) 100%) !important;
+        }
+        
+        .form-element input[type=text],
+        .form-element input[type=submit],
+        .settings .btn {
+            color: unquote(nth(nth($gradients, $i+1), 2));
+        }
+    }
+}

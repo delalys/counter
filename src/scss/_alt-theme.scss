@@ -1,0 +1,60 @@
+.element {
+    background: linear-gradient(190deg, rgba(255,255,255, 0.20) 0%, rgba(255,255,255, 0.30) 100%);
+    margin-bottom: 1em;
+    &__bg {
+        opacity: 0;
+    }
+    &.is-open {
+        .element__bg {
+            opacity: 1;
+        }
+    }
+}
+
+.form-element {
+    background: white;
+    input[type=text] {
+        background-color: #efefef;
+        background-image: none;
+        &::placeholder {
+            color: #8b8b8b;
+        }
+    }
+    input[type=submit] {
+        margin-top: 2px;
+    }
+}
+
+input {
+    background-color: rgba(white, 0.2);
+    &::placeholder {
+        font-style: italic;
+        color: rgba(white, 0.75);
+    }
+}
+.modify-form {
+    input[type=text] {
+        color: white;
+    }
+}
+
+.settings {
+    background: linear-gradient(190deg, rgba(255,255,255, 0.20) 0%, rgba(255,255,255, 0.30) 100%);
+    .btn {
+        background: white;
+    }
+    &__title {
+        color: white;
+    }
+    &__item {
+        &:last-child {
+            .btn {
+                background-color: white !important;
+            }
+        }
+    }
+}
+
+.color-example {
+    border-color: rgba(white, 0.2);
+}

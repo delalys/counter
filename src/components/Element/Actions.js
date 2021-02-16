@@ -5,7 +5,7 @@ const Actions = props =>
     <div className="element__actions">
         {/* toggle Full screen */}
         <span 
-            className="element__actions-btn" 
+            className="element__actions-btn hide-list-screen" 
             onClick={() => props.toggleFullScreen()} 
         >
             <svg className="element__full-screen"  pointerEvents="all" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="22 22 57 57" x="0px" y="0px">

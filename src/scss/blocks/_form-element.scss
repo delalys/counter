@@ -85,6 +85,23 @@
         transition: ease-in-out all 200ms;
     }
 }
+.is-condensed {
+    .element__container--form {
+        margin: 0.5em 0.5em 0 0.5em !important;
+        width: calc(100% - 1em);
+    }
+    .form-element {
+        border-radius: 10px;
+        padding: 0.5em;
+        min-height: 58px;
+        &__input {
+            height: 2.5em;
+        }
+        input[type=submit] {
+            margin-top: -1px;
+        }
+    }
+}
 
 .btn {
     border-radius: 13px;

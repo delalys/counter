@@ -14,17 +14,7 @@ class App extends Component {
     elements: [
       {
         id: 1,
-        value: 'Work hour without distraction',
-        count: 1,
-        gradient: 1,
-        color1: '#9ea2e0',
-        color2: '#5a60dd',
-        settingsOpen: false,
-        incrementBy: 1,
-      },
-      {
-        id: 2,
-        value: 'Glass of water drunk today',
+        value: 'Glass of water',
         count: 3,
         gradient: 2,
         color1: '#ba8f89',
@@ -33,7 +23,7 @@ class App extends Component {
         incrementBy: 1,
       },
       {
-        id: 3,
+        id: 2,
         value: 'Pushups',
         count: 50,
         gradient: 3,
@@ -43,7 +33,7 @@ class App extends Component {
         incrementBy: 10,
       },
       {
-        id: 4,
+        id: 3,
         value: 'Day without smoking',
         count: 17,
         gradient: 4,
@@ -54,7 +44,9 @@ class App extends Component {
       }
     ],
     gradients: gradients,
+    gradient: 2,
     isMute: false,
+    isCondensed: false,
     soundPlaying: 0,
   }
   
@@ -69,13 +61,14 @@ class App extends Component {
         new Audio (ClicSound)
       ]
       this.audio[i].preload = 'auto';
-      this.audio[i].load();
     }
+    this.modifyColor(2)
   }
   
   handleCountChange = (index, change) => {
     // Play sound
-    if (!this.state.isMute)  {
+    if (!this.state.isMute) {
+      this.audio[this.state.soundPlaying].load();
       this.audio[this.state.soundPlaying].play()
     }
     this.setState({
@@ -103,6 +96,12 @@ class App extends Component {
   handleMuting = () => {
     this.setState({
       isMute: !this.state.isMute
+    })
+  }
+
+  handleCondensing = () => {
+    this.setState({
+      isCondensed: !this.state.isCondensed
     })
   }
 
@@ -148,20 +147,29 @@ class App extends Component {
   }
 
   // Change Element IncrementBy
-  modifyIncrementBy = (newIncrementBy, indexElement) => {
-    if (newIncrementBy !== ('' || 0)) {
+  modifyIncrementBy = (newIncrementBy, indexElement, oldIncrementBy) => {
+    if ((newIncrementBy !== '') && (newIncrementBy !== '0')) {
+      console.log(newIncrementBy);
       this.setStateElement(indexElement, 'incrementBy', newIncrementBy);
+    } else if ((newIncrementBy == null) || (newIncrementBy === '0')) {
+      this.setStateElement(indexElement, 'incrementBy', oldIncrementBy);
     }
   }
 
   // Change Element gradient
-  modifyColor = (indexElement, indexColor) =>
-    this.setStateElement(indexElement, 'gradient', indexColor);
+  modifyColor = (indexGradient) =>{
+    this.setState({gradient: indexGradient});
+  }
+
+  removeClassByPrefix(node, prefix) {
+    var regx = new RegExp('\\b' + prefix + '[^ ]*[ ]?\\b', 'g');
+    node.className = node.className.replace(regx, '');
+    return node;
+  }
 
   // Change Element gradient
   handleReinitElement = (indexElement) =>
     this.setStateElement(indexElement, 'count', 0);
-
 
   // Change Element settingsOpen
   toggleSettings = (indexElement) => {
@@ -179,47 +187,54 @@ class App extends Component {
 
   
   render(){
-    
+
+    const isCondensedClass = this.state.isCondensed ? "is-condensed" : '';
+    const isGradientClass = "gradient-" + this.state.gradient;
 
     return (
-        <div className="container">
-            <div 
-              className="element__container"
-            >
-              {this.state.elements.map( (element, index) =>
-                <Element 
-                  value={element.value}
-                  count={element.count}
-                  index={index}
-                  key={index}
-                  id={element.id}
-                  incrementBy={element.incrementBy}
-                  gradientIndex={element.gradient}
-                  gradients={this.state.gradients}
-                  appIsMute={this.state.isMute}
-                  settingsOpen={element.settingsOpen}
-                  changeCount={this.handleCountChange}
-                  modifyColor={this.modifyColor}
-                  modifyName={this.modifyName}
-                  handleMuting={this.handleMuting}
-                  modifyIncrementBy={this.modifyIncrementBy}
-                  toggleSettings={this.toggleSettings}
-                  handleReinitElement={this.handleReinitElement}
-                  handleRemoveElement={this.handleRemoveElement}
-                />
-              )}
+        <div className={isCondensedClass + " " + isGradientClass +" background-gradient"}>
+          <div className="container">
               <div 
-                ref={this.container} 
-                className="anchor"
-              ></div>
-            </div>
-            <div className="element__container element__container--form">
-              <NewElement 
-                elements={this.state.elements}
-                addElement={this.handleAddElement}
-                gradients={this.state.gradients}
-              />
-            </div>
+                className="element__container"
+              >
+                {this.state.elements.map( (element, index) =>
+                  <Element 
+                    value={element.value}
+                    count={element.count}
+                    index={index}
+                    key={index}
+                    id={element.id}
+                    incrementBy={element.incrementBy}
+                    gradientIndex={element.gradient}
+                    gradient={this.state.gradient}
+                    gradients={this.state.gradients}
+                    appIsMute={this.state.isMute}
+                    appIsCondensed={this.state.isCondensed}
+                    settingsOpen={element.settingsOpen}
+                    changeCount={this.handleCountChange}
+                    modifyColor={this.modifyColor}
+                    modifyName={this.modifyName}
+                    handleMuting={this.handleMuting}
+                    handleCondensing={this.handleCondensing}
+                    modifyIncrementBy={this.modifyIncrementBy}
+                    toggleSettings={this.toggleSettings}
+                    handleReinitElement={this.handleReinitElement}
+                    handleRemoveElement={this.handleRemoveElement}
+                  />
+                )}
+                <div 
+                  ref={this.container} 
+                  className="anchor"
+                ></div>
+              </div>
+              <div className="element__container element__container--form">
+                <NewElement 
+                  elements={this.state.elements}
+                  addElement={this.handleAddElement}
+                  gradients={this.state.gradients}
+                />
+              </div>
+        </div>
       </div>
     );
   }
