@@ -1,0 +1,15 @@
+%check-icon {
+    transform: scale(1.4);
+    .path-1 {
+        transform: rotate(-45deg) translate(-62%, 62%);
+    }
+    .path-2 {
+        transform: scale(0.55) rotate(-45deg) translate(-52%, 91%);
+    }
+    .path-3 {
+        transform: rotate(45deg) translate(58%, -54%) rotateY(60deg);
+    }
+    .path-4 {
+        transform: translate(3%, 33%) scale(0.55);
+    }
+}

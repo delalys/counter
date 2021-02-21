@@ -25,7 +25,8 @@ $gradients: (
         .is-app .btn {
             background: unquote(nth(nth($gradients, $i+1), 2));
         } 
-        .form-element path {
+        .form-element path,
+        .settings__item:last-child .btn svg {
             fill: unquote(nth(nth($gradients, $i+1), 2));
         }
         .color-example.active:after {

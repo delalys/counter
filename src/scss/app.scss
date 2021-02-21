@@ -26,6 +26,7 @@ $form-border-radius: 20px;
 @import "~bootstrap/scss/bootstrap";
 
 // Blocks and layout
+@import "helpers";
 @import "layout/global";
 @import "blocks/color-example";
 @import "blocks/form";
