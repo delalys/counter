@@ -62,7 +62,10 @@ class AddElementForm extends Component {
 
 AddElementForm.propTypes = {  
     elements: PropTypes.array.isRequired,
+    
     addElement: PropTypes.func.isRequired,
+    
+    displayAppSettings: PropTypes.func.isRequired,
 }
 
 export default AddElementForm;

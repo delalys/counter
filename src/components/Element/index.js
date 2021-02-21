@@ -186,12 +186,17 @@ class Element extends Component {
     render() {
         
         const {
-            value,
-            count,
             index,
-            id,
+            elements,
+            count,
+            value,
             incrementBy,
-            handleChangeElementCount,
+            elementSettingsIsDisplayed,
+
+            resetElementCount,
+            renameElement,
+            changeElementIncrementBy,
+            deleteElement,
         } = this.props;
 
         const isFullScreenClass = this.props.elements[index].elementIsInFullScreen ? "is-open" : '';
@@ -208,21 +213,16 @@ class Element extends Component {
                     {/* Settings */}
                     <ElementSettings 
                         key={index}
-                        id={id}
+
                         index={index}
-                        elements={this.props.elements}
-                        appIsMute={this.props.appIsMute}
-                        isCondensed={this.props.appIsCondensed}
+                        elements={elements}
                         incrementBy={incrementBy}
-                        renameElement={this.props.renameElement}
-                        modifyIncrementBy={this.props.modifyIncrementBy}
-                        elementSettingsIsDisplayed={this.props.elementSettingsIsDisplayed}
-                        modifyColor={this.props.modifyColor}
-                        handleMuting={this.props.handleMuting}
-                        resetElementCount={this.props.resetElementCount}
-                        handleCondensing={this.props.handleCondensing}
-                        deleteElement={this.props.deleteElement}
-                        changeElementIncrementBy={this.props.changeElementIncrementBy}
+                        elementSettingsIsDisplayed={elementSettingsIsDisplayed}
+                        
+                        resetElementCount={resetElementCount}
+                        renameElement={renameElement}
+                        changeElementIncrementBy={changeElementIncrementBy}
+                        deleteElement={deleteElement}
                         handleDisplayElementSettings={this.handleDisplayElementSettings}
                         handleElementFullScreen={this.handleElementFullScreen}
                     />
@@ -236,8 +236,9 @@ class Element extends Component {
 
                         {/* Actions button */}
                         <Actions
-                            handleDisplayElementSettings={this.handleDisplayElementSettings}
                             index={index}
+
+                            handleDisplayElementSettings={this.handleDisplayElementSettings}
                             handleChangeElementCount={this.handleChangeElementCount}
                             handleElementFullScreen={this.handleElementFullScreen}
                         />
@@ -265,20 +266,20 @@ class Element extends Component {
     }
 }
 
-Element.propTypes = {
-    value: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired,
+Element.propTypes = {     
     index: PropTypes.number.isRequired,
-    id: PropTypes.number.isRequired,
-    renameElement: PropTypes.func.isRequired,
-    modifyIncrementBy: PropTypes.func.isRequired,
+    elements: PropTypes.array.isRequired,
+    count: PropTypes.number.isRequired,
+    value: PropTypes.string.isRequired,
+    incrementBy: PropTypes.number.isRequired,
     elementSettingsIsDisplayed: PropTypes.bool.isRequired,
-    appIsMute: PropTypes.bool.isRequired,
-    appIsCondensed: PropTypes.bool.isRequired,
-    modifyColor: PropTypes.func.isRequired,
+
+    resetElementCount: PropTypes.func.isRequired,
+    renameElement: PropTypes.func.isRequired,
+    changeElementIncrementBy: PropTypes.func.isRequired,
     deleteElement: PropTypes.func.isRequired,
-    toggleSettings: PropTypes.func.isRequired,
-    handleChangeElementCount: PropTypes.func.isRequired,
+    displayElementSettings: PropTypes.func.isRequired,
+    displayElementInFullScreen: PropTypes.func.isRequired,
 }
 
 export default Element;

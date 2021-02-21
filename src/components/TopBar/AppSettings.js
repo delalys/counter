@@ -58,13 +58,17 @@ class AppSettings extends Component {
 
 AppSettings.propTypes = {
     appSettingsIsDisplayed: PropTypes.bool.isRequired,
+    
     appIsMute: PropTypes.bool.isRequired,
+    muteApp: PropTypes.func.isRequired,
+
     appIsCondensed: PropTypes.bool.isRequired,
+    condenseApp: PropTypes.func.isRequired,
+
+    colorizeApp: PropTypes.func.isRequired,
+
     gradient: PropTypes.number.isRequired,
     gradients: PropTypes.array.isRequired,
-    muteApp: PropTypes.func.isRequired,
-    condenseApp: PropTypes.func.isRequired,
-    colorizeApp: PropTypes.func.isRequired,
 }
 
 export default AppSettings;

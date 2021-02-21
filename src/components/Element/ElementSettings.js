@@ -14,7 +14,7 @@ class ElementSettings extends Component {
     }
 
     // State changes for IncrementBy input
-    handleIncrementByChange = (e) => {
+    handleChangeStateIncrementBy = (e) => {
         if (e.target.value !== '') {
             this.setState({ incrementBy: parseInt(e.target.value)});
         }
@@ -96,7 +96,7 @@ class ElementSettings extends Component {
                                 value={this.state.incrementBy}
                                 type="number"
                                 placeholder="How much you want to add every count up ?"
-                                onChange={this.handleIncrementByChange}
+                                onChange={this.handleChangeStateIncrementBy}
                             />
                     </div>
                     <hr/>
@@ -105,7 +105,6 @@ class ElementSettings extends Component {
                         <input
                             value="Save and close"
                             className="btn btn-primary"
-                            style={{background: this.props.color1}}
                             type="submit"
                         />
                     </div>
@@ -116,12 +115,18 @@ class ElementSettings extends Component {
 }
 
 ElementSettings.propTypes = {
-    renameElement: PropTypes.func.isRequired,
-    modifyIncrementBy: PropTypes.func.isRequired,
-    toggleSettings: PropTypes.func.isRequired,
-    deleteElement: PropTypes.func.isRequired,
-    gradients: PropTypes.array.isRequired,
     index: PropTypes.number.isRequired,
+    elements: PropTypes.array.isRequired,
+    elementSettingsIsDisplayed: PropTypes.bool.isRequired,
+    incrementBy: PropTypes.number.isRequired,
+
+
+    handleElementFullScreen: PropTypes.func.isRequired,
+    changeElementIncrementBy: PropTypes.func.isRequired,
+    resetElementCount: PropTypes.func.isRequired,
+    handleDisplayElementSettings: PropTypes.func.isRequired,
+    deleteElement: PropTypes.func.isRequired,
+    renameElement: PropTypes.func.isRequired,
 }
 
 export default ElementSettings;

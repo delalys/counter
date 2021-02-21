@@ -41,10 +41,10 @@ const Actions = props =>
 
 
 Actions.propTypes = {
-    toggleFullScreen: PropTypes.func.isRequired,
-    handleSettings: PropTypes.func.isRequired,
-    changeCount: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
+    handleElementFullScreen: PropTypes.func.isRequired,
+    handleDisplayElementSettings: PropTypes.func.isRequired,
+    handleChangeElementCount: PropTypes.func.isRequired,
 }
 
 export default Actions;
