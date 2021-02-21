@@ -3,13 +3,15 @@ import ElementSettings from './ElementSettings';
 import Actions from './Actions';
 import PropTypes from 'prop-types';
 import ResizeObserver from 'rc-resize-observer';
+import helpers from '../../helpers';
+import ClicSound from '../../assets/clic.mp3'
 
 
 class Element extends Component {
     
     state = {
         isFullScreen: false,
-        settingsOpen: false,
+        elementSettingsIsDisplayed: false,
         isClicked: false,
         width: 0,
         height: 0,
@@ -17,14 +19,25 @@ class Element extends Component {
         left: 0,
         position: 'relative',
         zIndex: 3,
+        soundPlaying: 0,
     }
     
     element = React.createRef();
     elementSpaceAttribute = '';
-
+    audio = [];
+    
     componentDidMount() {
         this.setsWidth();
         this.elementSpaceAttribute = this.element.current.getBoundingClientRect();
+
+        // Create and preload 10 sounds for mobile delay
+        for (let i = 0; i < 10; i++) {
+            this.audio = [
+            ...this.audio,
+            new Audio (ClicSound)
+            ]
+            this.audio[i].preload = 'auto';
+        }
     }
 
     setsWidth = () => {
@@ -38,17 +51,44 @@ class Element extends Component {
         referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }  
 
-    handleSettings = () => {
-        this.setState(
-            (prevState, props) => ({ settingsOpen: !this.state.settingsOpen })
-        )
-        this.props.toggleSettings(this.props.index);
-      };
+    // Change Element settingsOpen
+    handleDisplayElementSettings = (indexElement) => {
+        // Toggle settingsOpen boolean
+        let newState = !this.props.elements[indexElement].elementSettingsIsDisplayed;
+        // Updates store with helper
+        this.props.displayElementSettings(indexElement, 'elementSettingsIsDisplayed', newState);
+    }
 
-    toggleFullScreen = () => {
+    handleChangeElementCount = (indexElement, changeType) => {
+        // Play sound
+        if (!this.props.appIsMute) {
+          this.audio[this.state.soundPlaying].load();
+          this.audio[this.state.soundPlaying].play()
+        }
+        this.setState({
+          soundPlaying: (this.state.soundPlaying +1) % 10
+        })
+    
+        // Check if resuslt is a positive number, otherwise sets it to 1
+        let incrementBy = this.props.elements[indexElement].incrementBy;
+        if ((incrementBy === 0) || (incrementBy === '')) {
+          incrementBy = parseInt(1);
+        }
+        // Increment or decrement by the new value
+        parseInt(incrementBy);
+        if (changeType === "increment") {
+          let newState = this.props.elements[indexElement].count +=  incrementBy;
+          this.props.changeElementCount(indexElement, 'count', newState);
+        } else if (changeType === "decrement") {
+            let newState = this.props.elements[indexElement].count -=  incrementBy
+            this.props.changeElementCount(indexElement, 'count', newState);
+        }
+      }
+
+    handleElementFullScreen = (indexElement) => {
 
         // CLOSING
-        if (this.state.isFullScreen) {
+        if (this.props.elements[indexElement].elementIsInFullScreen) {
             
             // Sets back original positionning
             // Get valeu from state
@@ -79,11 +119,10 @@ class Element extends Component {
             )
             
             // Toggle Open state and class
-            let that = this; 
             setTimeout(function(){ 
-                const currentState = that.state.isFullScreen;
-                that.setState({ isFullScreen: !currentState });
-            }, 0);
+                let newState = ! this.props.elements[indexElement].elementIsInFullScreen;
+                this.props.displayElementInFullScreen(helpers.setStateElement(this.props.elements, indexElement, 'elementIsInFullScreen', newState));
+            }.bind(this), 0);
             
             // Fixes once animation is done and Removes mirror element
             setTimeout(function(){ 
@@ -137,11 +176,10 @@ class Element extends Component {
             )
 
             // Toggle Open state and class
-            let thisElement = this; 
             setTimeout(function(){ 
-                const currentState = thisElement.state.isFullScreen;
-                thisElement.setState({ isFullScreen: !currentState });
-            }, 0);
+                let newState = ! this.props.elements[indexElement].elementIsInFullScreen;
+                this.props.displayElementInFullScreen(helpers.setStateElement(this.props.elements, indexElement, 'elementIsInFullScreen', newState));
+            }.bind(this), 0);
         }
     }
 
@@ -152,14 +190,11 @@ class Element extends Component {
             count,
             index,
             id,
-            gradientIndex,
-            gradient,
-            gradients,
             incrementBy,
-            changeCount,
+            handleChangeElementCount,
         } = this.props;
 
-        const isFullScreenClass = this.state.isFullScreen ? "is-open" : '';
+        const isFullScreenClass = this.props.elements[index].elementIsInFullScreen ? "is-open" : '';
 
         const isCondensedClass = this.props.appIsCondensed ? "is-condensed" : '';
         
@@ -172,24 +207,24 @@ class Element extends Component {
                 <Fragment>
                     {/* Settings */}
                     <ElementSettings 
-                        gradients={gradients}
-                        gradient={gradient}
-                        index={index}
                         key={index}
                         id={id}
+                        index={index}
+                        elements={this.props.elements}
                         appIsMute={this.props.appIsMute}
                         isCondensed={this.props.appIsCondensed}
                         incrementBy={incrementBy}
-                        modifyName={this.props.modifyName}
+                        renameElement={this.props.renameElement}
                         modifyIncrementBy={this.props.modifyIncrementBy}
-                        settingsOpen={this.props.settingsOpen}
+                        elementSettingsIsDisplayed={this.props.elementSettingsIsDisplayed}
                         modifyColor={this.props.modifyColor}
                         handleMuting={this.props.handleMuting}
-                        handleReinitElement={this.props.handleReinitElement}
+                        resetElementCount={this.props.resetElementCount}
                         handleCondensing={this.props.handleCondensing}
-                        handleRemoveElement={this.props.handleRemoveElement}
-                        toggleSettings={this.handleSettings}
-                        toggleFullScreen={this.toggleFullScreen}
+                        deleteElement={this.props.deleteElement}
+                        changeElementIncrementBy={this.props.changeElementIncrementBy}
+                        handleDisplayElementSettings={this.handleDisplayElementSettings}
+                        handleElementFullScreen={this.handleElementFullScreen}
                     />
                     
                     {/* ELEMENT */}
@@ -201,10 +236,10 @@ class Element extends Component {
 
                         {/* Actions button */}
                         <Actions
-                            handleSettings={this.handleSettings}
+                            handleDisplayElementSettings={this.handleDisplayElementSettings}
                             index={index}
-                            changeCount={changeCount}
-                            toggleFullScreen={this.toggleFullScreen}
+                            handleChangeElementCount={this.handleChangeElementCount}
+                            handleElementFullScreen={this.handleElementFullScreen}
                         />
                         
                         {/* Title */}
@@ -219,7 +254,7 @@ class Element extends Component {
                         {/* Increments */}
                         <span 
                             className="element__button element__button--plus"
-                            onClick={() => changeCount(index, 'increment') }
+                            onClick={() => this.handleChangeElementCount(index, 'increment') }
                             onMouseUp={(e) => this.setState({isClicked: false})}
                             onMouseDown={(e) => this.setState({isClicked: true})}
                         >+</span>
@@ -233,19 +268,17 @@ class Element extends Component {
 Element.propTypes = {
     value: PropTypes.string.isRequired,
     count: PropTypes.number.isRequired,
-    gradients: PropTypes.array.isRequired,
-    gradientIndex: PropTypes.number.isRequired,
     index: PropTypes.number.isRequired,
     id: PropTypes.number.isRequired,
-    modifyName: PropTypes.func.isRequired,
+    renameElement: PropTypes.func.isRequired,
     modifyIncrementBy: PropTypes.func.isRequired,
-    settingsOpen: PropTypes.bool.isRequired,
+    elementSettingsIsDisplayed: PropTypes.bool.isRequired,
     appIsMute: PropTypes.bool.isRequired,
     appIsCondensed: PropTypes.bool.isRequired,
     modifyColor: PropTypes.func.isRequired,
-    handleRemoveElement: PropTypes.func.isRequired,
+    deleteElement: PropTypes.func.isRequired,
     toggleSettings: PropTypes.func.isRequired,
-    changeCount: PropTypes.func.isRequired,
+    handleChangeElementCount: PropTypes.func.isRequired,
 }
 
 export default Element;

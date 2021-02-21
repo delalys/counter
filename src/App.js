@@ -1,184 +1,149 @@
 import React, {Component} from 'react';
-import gradients from './data/gradients';
+import { connect } from 'react-redux';
+import * as elementActions from './actions/elementActions';
+import * as appSettingsActions from './actions/appSettingsActions';
 import Element from './components/Element';
-import NewElement from './components/NewElement';
+import Topbar from './components/TopBar';
 import './App.css';
 
-import ClicSound from './assets/clic.mp3'
-
-
+// import ClicSound from './assets/clic.mp3'
 
 class App extends Component {
 
-  state = {
-    elements: [
-      {
-        id: 1,
-        value: 'Glass of water',
-        count: 3,
-        gradient: 2,
-        color1: '#ba8f89',
-        color2: '#c6786c',
-        settingsOpen: false,
-        incrementBy: 1,
-      },
-      {
-        id: 2,
-        value: 'Pushups',
-        count: 50,
-        gradient: 3,
-        color1: '#ba8f89',
-        color2: '#c6786c',
-        settingsOpen: false,
-        incrementBy: 10,
-      },
-      {
-        id: 3,
-        value: 'Day without smoking',
-        count: 17,
-        gradient: 4,
-        color1: '#ba8f89',
-        color2: '#c6786c',
-        settingsOpen: false,
-        incrementBy: 1,
-      }
-    ],
-    gradients: gradients,
-    gradient: 2,
-    isMute: false,
-    isCondensed: false,
-    soundPlaying: 0,
-  }
+//   audio = [];
   
+  // componentDidMount() {
+  //   // Create and preload 10 sounds for mobile delay
+  //   for (let i = 0; i < 10; i++) {
+  //     this.audio = [
+  //       ...this.audio,
+  //       new Audio (ClicSound)
+  //     ]
+  //     this.audio[i].preload = 'auto';
+  //   }
+  //   this.props.colorizeApp(3)
+  // }
   
-  audio = [];
-  
-  componentDidMount() {
-    // Create and preload 10 sounds for mobile delay
-    for (let i = 0; i < 10; i++) {
-      this.audio = [
-        ...this.audio,
-        new Audio (ClicSound)
-      ]
-      this.audio[i].preload = 'auto';
-    }
-    this.modifyColor(2)
-  }
-  
-  handleCountChange = (index, change) => {
-    // Play sound
-    if (!this.state.isMute) {
-      this.audio[this.state.soundPlaying].load();
-      this.audio[this.state.soundPlaying].play()
-    }
-    this.setState({
-      soundPlaying: (this.state.soundPlaying +1) % 10
-    })
+  //-----//
+  // App //
+  //-----//
 
-    // Check if resuslt is a positive number, otherwise sets it to 1
-    let incrementBy = this.state.elements[index].incrementBy;
-    if ((incrementBy === 0) || (incrementBy === '')) {
-      incrementBy = parseInt(1);
-    }
-    // Increment or decrement by the new value
-    if (change === "increment") {
-      parseInt(incrementBy);
-      this.setState( prevState => ({
-        count: prevState.elements[index].count +=  incrementBy
-      }));
-    } else if (change === "decrement") {
-      this.setState( prevState => ({
-        count: prevState.elements[index].count -=  incrementBy
-      }));
-    }
-  }
+  // handleMuting = () => {
+  //   this.setState({
+  //     isMute: !this.state.isMute
+  //   })
+  // }
 
-  handleMuting = () => {
-    this.setState({
-      isMute: !this.state.isMute
-    })
-  }
-
-  handleCondensing = () => {
-    this.setState({
-      isCondensed: !this.state.isCondensed
-    })
-  }
-
-
-  handleAddElement = (el) => {
-    this.setState( prevstate => {
-      return{
-        elements: [
-          ...prevstate.elements,
-          el
-        ]
-      }
-    });
-    this.scrollToListTop();
-  }
-  handleRemoveElement = (index) => {
-    let elements = this.state.elements;
-    elements.splice(index, 1);
-    this.setState({elements});
-  }
-
-  //--------//
-  // Helper //  Eases value changes in an element, takes in: index (number) | property to change (string) | new value
-  //--------//
-  setStateElement = (indexElement, property, newValue) => 
-    this.setState(({elements}) => ({
-      elements: [
-          ...elements.slice(0,indexElement),
-          {
-              ...elements[indexElement],
-              [property]: newValue,
-          },
-          ...elements.slice(indexElement+1)
-        ]
-    }));
-
-  // Change Element name
-  modifyName = (event, newValue, indexElement) => {
-    event.preventDefault();
-    if (newValue !== '') {
-      this.setStateElement(indexElement, 'value', newValue);
-    }
-  }
-
-  // Change Element IncrementBy
-  modifyIncrementBy = (newIncrementBy, indexElement, oldIncrementBy) => {
-    if ((newIncrementBy !== '') && (newIncrementBy !== '0')) {
-      console.log(newIncrementBy);
-      this.setStateElement(indexElement, 'incrementBy', newIncrementBy);
-    } else if ((newIncrementBy == null) || (newIncrementBy === '0')) {
-      this.setStateElement(indexElement, 'incrementBy', oldIncrementBy);
-    }
-  }
+  // handleCondensing = () => {
+  //   this.setState({
+  //     isCondensed: !this.state.isCondensed
+  //   })
+  // }
 
   // Change Element gradient
-  modifyColor = (indexGradient) =>{
-    this.setState({gradient: indexGradient});
-  }
+  // modifyColor = (indexGradient) =>{
+  //   this.setState({gradient: indexGradient});
+  // }
 
+  
+  //------//
+  // FORM //
+  //------//
+
+  // Change Element settingsOpen
+  // toggleAppSettings = () => {
+  //   // Toggle settingsOpen boolean
+  //   this.setState({appSettingsOpen: !this.state.appSettingsOpen});
+  // }
+
+  // // Add new element
+  // handleAddElement = (el) => {
+  //   this.setState( prevstate => {
+  //     return{
+  //       elements: [
+  //         ...prevstate.elements,
+  //         el
+  //       ]
+  //     }
+  //   });
+  // }
+
+
+
+  
+
+
+  // Used for condensed class on container
   removeClassByPrefix(node, prefix) {
     var regx = new RegExp('\\b' + prefix + '[^ ]*[ ]?\\b', 'g');
     node.className = node.className.replace(regx, '');
     return node;
   }
+  
+  
+  //---------//
+  // ELEMENT //  
+  //---------//
 
-  // Change Element gradient
-  handleReinitElement = (indexElement) =>
-    this.setStateElement(indexElement, 'count', 0);
+  // handleCountChange = (indexElement, changeType) => {
+  //   // Play sound
+  //   if (!this.props.appSettings.isMute) {
+  //     this.audio[this.props.appSettings.soundPlaying].load();
+  //     this.audio[this.props.appSettings.soundPlaying].play()
+  //   }
+  //   this.setState({
+  //     soundPlaying: (this.props.appSettings.soundPlaying +1) % 10
+  //   })
 
-  // Change Element settingsOpen
-  toggleSettings = (indexElement) => {
-    // Toggle settingsOpen boolean
-    let currentState = this.state.elements[indexElement].settingsOpen;
-    let newState = !currentState;
+  //   // Check if resuslt is a positive number, otherwise sets it to 1
+  //   let incrementBy = this.props.state.state.elements[indexElement].incrementBy;
+  //   if ((incrementBy === 0) || (incrementBy === '')) {
+  //     incrementBy = parseInt(1);
+  //   }
+  //   // Increment or decrement by the new value
+  //   if (changeType === "increment") {
+  //     parseInt(incrementBy);
+  //     this.setState( prevState => ({
+  //       count: prevState.elements[indexElement].count +=  incrementBy
+  //     }));
+  //   } else if (changeType === "decrement") {
+  //     this.setState( prevState => ({
+  //       count: prevState.elements[indexElement].count -=  incrementBy
+  //     }));
+  //   }
+  // }
 
-    this.setStateElement(indexElement, 'settingsOpen', newState);
-  }
+  //------------------//
+  // ELEMENT SETTINGS //  
+  //------------------//
+
+  // Delete element
+  // handleRemoveElement = (index) => {
+  //   let elements = this.state.elements;
+  //   elements.splice(index, 1);
+  //   this.setState({elements});
+  // }
+
+  // Set the count back to 0
+  // handleReinitElement = (indexElement) =>
+  //   this.setStateElement(indexElement, 'count', 0);  
+
+  // Change Element name
+  // modifyName = (event, newValue, indexElement) => {
+  //   event.preventDefault();
+  //   if (newValue !== '') {
+  //     this.setStateElement(indexElement, 'value', newValue);
+  //   }
+  // }
+
+  // Change Element IncrementBy
+  // modifyIncrementBy = (newIncrementBy, indexElement, oldIncrementBy) => {
+  //   if ((newIncrementBy !== '') && (newIncrementBy !== '0')) {
+  //     this.setStateElement(indexElement, 'incrementBy', newIncrementBy);
+  //   } else if ((newIncrementBy == null) || (newIncrementBy === '0')) {
+  //     this.setStateElement(indexElement, 'incrementBy', oldIncrementBy);
+  //   }
+  // }
 
 
   scrollToListTop = () => this.container.current.scrollIntoView();
@@ -187,39 +152,39 @@ class App extends Component {
 
   
   render(){
-
-    const isCondensedClass = this.state.isCondensed ? "is-condensed" : '';
-    const isGradientClass = "gradient-" + this.state.gradient;
+    
+    const appIsCondensedClass = this.props.appSettings.appIsCondensed ? "is-condensed" : '';
+    const isGradientClass = "gradient-" + this.props.appSettings.gradient;   
 
     return (
-        <div className={isCondensedClass + " " + isGradientClass +" background-gradient"}>
+      <div className={appIsCondensedClass + " " + isGradientClass +" background-gradient"}>
           <div className="container">
               <div 
                 className="element__container"
               >
-                {this.state.elements.map( (element, index) =>
+                {this.props.elements.elements.map( (element, index) =>
                   <Element 
-                    value={element.value}
-                    count={element.count}
-                    index={index}
                     key={index}
                     id={element.id}
+                    index={index}
+                    elements={this.props.elements.elements}
+                    value={element.value}
+                    renameElement={this.props.renameElement}
+                    count={element.count}
+                    changeElementCount={this.props.changeElementCount}
                     incrementBy={element.incrementBy}
-                    gradientIndex={element.gradient}
-                    gradient={this.state.gradient}
-                    gradients={this.state.gradients}
-                    appIsMute={this.state.isMute}
-                    appIsCondensed={this.state.isCondensed}
-                    settingsOpen={element.settingsOpen}
-                    changeCount={this.handleCountChange}
-                    modifyColor={this.modifyColor}
-                    modifyName={this.modifyName}
-                    handleMuting={this.handleMuting}
-                    handleCondensing={this.handleCondensing}
                     modifyIncrementBy={this.modifyIncrementBy}
-                    toggleSettings={this.toggleSettings}
-                    handleReinitElement={this.handleReinitElement}
-                    handleRemoveElement={this.handleRemoveElement}
+                    appIsMute={this.props.appSettings.appIsMute}
+                    soundPlaying={this.props.appSettings.soundPlaying}
+                    appIsCondensed={this.props.appSettings.appIsCondensed}
+                    handleCondensing={this.handleCondensing}
+                    elementSettingsIsDisplayed={element.elementSettingsIsDisplayed}
+                    displayElementSettings={this.props.displayElementSettings}
+                    changeElementIncrementBy={this.props.changeElementIncrementBy}
+                    modifyColor={this.modifyColor}
+                    resetElementCount={this.props.resetElementCount}
+                    displayElementInFullScreen={this.props.displayElementInFullScreen}
+                    deleteElement={this.props.deleteElement}
                   />
                 )}
                 <div 
@@ -228,16 +193,52 @@ class App extends Component {
                 ></div>
               </div>
               <div className="element__container element__container--form">
-                <NewElement 
-                  elements={this.state.elements}
-                  addElement={this.handleAddElement}
-                  gradients={this.state.gradients}
+                <Topbar 
+                  elements={this.props.elements.elements}
+                  gradients={this.props.appSettings.gradients}
+                  gradient={this.props.appSettings.gradient}
+
+                  appSettingsIsDisplayed={this.props.appSettings.appSettingsIsDisplayed}
+                  displayAppSettings={this.props.displayAppSettings}
+
+                  appIsCondensed={this.props.appSettings.appIsCondensed}
+                  condenseApp={this.props.condenseApp}
+
+                  appIsMute={this.props.appSettings.appIsMute}
+                  muteApp={this.props.muteApp}
+
+                  addElement={this.props.addElement}
+
+                  colorizeApp={this.props.colorizeApp}
                 />
               </div>
+          </div>
         </div>
-      </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state, ownProps) => ({
+  appSettings: state.appSettings,
+  elements: state.element
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    displayAppSettings: () => dispatch(appSettingsActions.displayAppSettings()),
+    muteApp: () => dispatch(appSettingsActions.muteApp()),
+    condenseApp: () => dispatch(appSettingsActions.condenseApp()),
+    colorizeApp: (indexGradient) => dispatch(appSettingsActions.colorizeApp(indexGradient)),
+    
+    addElement: (element) => dispatch(elementActions.addElement(element)),
+    deleteElement: (indexElement) => dispatch(elementActions.deleteElement(indexElement)),
+    displayElementSettings: (indexElement, propertyName, newValue) => dispatch(elementActions.displayElementSettings(indexElement, propertyName, newValue)),
+    displayElementInFullScreen: (newElements) => dispatch(elementActions.displayElementInFullScreen(newElements)),
+    resetElementCount: (newElements) => dispatch(elementActions.resetElementCount(newElements)),
+    renameElement: (indexElement, propertyName, newValue) => dispatch(elementActions.renameElement(indexElement, propertyName, newValue)),
+    changeElementIncrementBy: (indexElement, propertyName, newValue) => dispatch(elementActions.changeElementIncrementBy(indexElement, propertyName, newValue)),
+    changeElementCount: (indexElement, propertyName, newValue) => dispatch(elementActions.changeElementCount(indexElement, propertyName, newValue)),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

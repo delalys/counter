@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import PropTypes from 'prop-types';
+import helpers from '../../helpers';
 
 class ElementSettings extends Component {
     state = {
@@ -7,68 +8,72 @@ class ElementSettings extends Component {
         incrementBy: '',
     };
 
-    handleChange = (e) => {
+    // State changes for Name input
+    handleNameChange = (e) => {
         this.setState({ value: e.target.value});
     }
 
+    // State changes for IncrementBy input
     handleIncrementByChange = (e) => {
         if (e.target.value !== '') {
             this.setState({ incrementBy: parseInt(e.target.value)});
         }
     }
-    
+
+
+    // Set the count back to 0
+    handleResetElementCount = (indexElement) =>
+    this.props.resetElementCount(helpers.setStateElement(this.props.elements, indexElement, 'count', 0));
+
+    // Change Element name
+    handleRenameElement = (e, newValue, indexElement) => {
+        e.preventDefault();
+        if (newValue !== '') {
+            this.props.renameElement(indexElement, 'value', newValue);
+        }
+    }
+
+    // Change Element IncrementBy
+    handleChangeElementIncrementBy = (newIncrementBy, indexElement, oldIncrementBy) => {
+        if ((newIncrementBy !== '') && (newIncrementBy !== '0')) {
+            this.props.changeElementIncrementBy(indexElement, 'incrementBy', newIncrementBy);
+        } else if ((newIncrementBy == null) || (newIncrementBy === '0')) {
+            this.props.changeElementIncrementBy(indexElement, 'incrementBy', oldIncrementBy);
+        }
+    }
+
     render() {       
-        const isSettingsClass = this.props.settingsOpen ? "is-open" : '';
-        const isMuteLabel = this.props.appIsMute ? "Unmute app" : 'Mute app';
-        const isCondensedLabel = this.props.isCondensed ? "Large view" : 'Compact view';
+        const isSettingsClass = this.props.elementSettingsIsDisplayed ? "is-open" : '';
 
         return(
             <div className={"settings " + isSettingsClass}>
                 <form
                     className="modify-form"
                     onSubmit={(e) => {
-                        this.props.modifyName(e, this.state.value, this.props.index)
-                        this.props.modifyIncrementBy(this.state.incrementBy, this.props.index, this.props.incrementBy)
-                        this.setState({ value: '' });
+                        this.handleRenameElement(e, this.state.value, this.props.index)
+                        this.handleChangeElementIncrementBy(this.state.incrementBy, this.props.index, this.props.incrementBy)
                         this.setState({ incrementBy: '' });
-                        this.props.toggleSettings(this.props.id)
+                        this.setState({ value: '' });
+                        this.props.handleDisplayElementSettings(this.props.index);
                     }}
                 >
-                    {/* Delete */}
+                    {/* Actions */}
                     <div className="settings__item btn-actions">
                         <div
                             className="btn btn-action"
-                            onClick={() => this.props.handleReinitElement(this.props.index)}
+                            onClick={() => this.handleResetElementCount(this.props.index)}
                         >
-                            Reinitialise
+                            Reset to 0
                         </div>
                         <div
                             className="btn btn-action"
-                            onClick={() => this.props.toggleFullScreen()}
+                            onClick={() => this.props.handleElementFullScreen(this.props.index)}
                         >
                             Full screen
                         </div>
                         <div
-                            className="btn btn-action"
-                            onClick={() => this.props.handleMuting()}
-                        >
-                            {isMuteLabel}
-                        </div>
-                        <div
-                            className="btn btn-action"
-                            onClick={() => this.props.handleCondensing()}
-                        >
-                            {isCondensedLabel}
-                        </div>
-                        {/* <div
-                            className="btn btn-action"
-                            onClick={() => this.props.handleRemoveElement(this.props.index)}
-                        >
-                            Tap anywhere to count up
-                        </div> */}
-                        <div
                             className="btn btn-action btn-danger"
-                            onClick={() => this.props.handleRemoveElement(this.props.index)}
+                            onClick={() => this.props.deleteElement(this.props.index)}
                         >
                             Delete
                         </div>
@@ -81,7 +86,7 @@ class ElementSettings extends Component {
                                 value={this.state.value}
                                 type="text" 
                                 placeholder="Enter a new name"
-                                onChange={this.handleChange}
+                                onChange={this.handleNameChange}
                             />
                     </div>
                     {/* Increment by */}
@@ -93,25 +98,6 @@ class ElementSettings extends Component {
                                 placeholder="How much you want to add every count up ?"
                                 onChange={this.handleIncrementByChange}
                             />
-                    </div>
-                    {/* Color */}
-                    <div className="settings__item">
-                        <span className="settings__title">Color:</span>
-                        {this.props.gradients.map((el, index) => {
-                            let color1 = this.props.gradients[index].color1;
-                            let color2 = this.props.gradients[index].color2;
-                            let classActiveColor = (index === this.props.gradient) ? 'color-example active' : 'color-example';
-                            return <span 
-                                        className={classActiveColor}
-                                        key={index}
-                                        onClick={ () => this.props.modifyColor(index)}
-                                    >
-                                        <div 
-                                            className="color-example__background"
-                                            style={{backgroundImage: `linear-gradient(190deg, ${color1} 0%, ${color2} 100%)`}}
-                                        ></div>
-                                    </span>
-                        })}
                     </div>
                     <hr/>
                     {/* Ok and Close */}
@@ -130,10 +116,10 @@ class ElementSettings extends Component {
 }
 
 ElementSettings.propTypes = {
-    modifyName: PropTypes.func.isRequired,
+    renameElement: PropTypes.func.isRequired,
     modifyIncrementBy: PropTypes.func.isRequired,
     toggleSettings: PropTypes.func.isRequired,
-    handleRemoveElement: PropTypes.func.isRequired,
+    deleteElement: PropTypes.func.isRequired,
     gradients: PropTypes.array.isRequired,
     index: PropTypes.number.isRequired,
 }

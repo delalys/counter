@@ -6,6 +6,10 @@ $c-grey: #313338;
 $c-grey-300: #3e4147;
 $c-grey-100: #50535A;
 
+$c-light-grey-400: #8b8b8b;
+$c-light-grey-300: #c2c2c2;
+$c-light-grey-200: #efefef;
+
 $c-navy-900: #0E1323;
 $c-navy-700: #171B28;
 $c-navy: #22242b;
@@ -31,6 +35,5 @@ $form-border-radius: 20px;
 @import "blocks/modify-form";
 @import "font";
 @import "bootstrap-override";
-@import "alt-theme";
 
 @import "blocks/gradients-themes";

@@ -1,0 +1,4 @@
+export const DISPLAY_APP_SETTINGS = 'DISPLAY_APP_SETTINGS';
+export const MUTE_APP = 'MUTE_APP';
+export const CONDENSE_APP = 'CONDENSE_APP';
+export const COLORIZE_APP = 'COLORIZE_APP';

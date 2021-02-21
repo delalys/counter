@@ -1,12 +1,12 @@
 // FORM-ELEMENT
 
 .form-element {
-    background-color: rgba(white, 0.5);
-    background-image: linear-gradient(190deg, rgba(white, 0.5) 0%, rgba(white, 0.4) 100%);
+    background-color: white;
     width: 100%;
     border-radius: $form-border-radius;
     padding: 1em;
     display: flex;
+    flex-wrap: wrap;
     overflow: hidden;
     min-height: 81px;
     position: absolute;
@@ -14,6 +14,51 @@
     left: 0;
     width: 100%;
     z-index: 9;
+    &__left-action {
+        margin: 0.55em 1em 0.55em 0.15em;
+        padding: 0 0.65em;
+        border-right: solid 1px $c-light-grey-200;
+        cursor: pointer;
+        position: relative;
+        &:hover {
+            svg {
+                transform: scale(1.1);
+            }
+        }
+        svg {
+            transition: 300ms ease-out;
+            transition-property: transform, rotate;
+            width: 20px;
+            height: 20px;
+            display: block;
+            margin: 0.3em;
+            path {
+                width: 20px;
+                height: 20px;
+                fill: red;
+            }
+            * {
+                fill: red;
+            }
+        }
+    }
+
+    &.is-open {
+        .form-element__left-action {
+            svg {
+                transform: (rotate(70deg));
+            }
+            &:hover {
+                svg {
+                    transform: scale(1.1) rotate(70deg);
+                }
+            }
+        }
+    }
+
+    form {
+        width: 100%;
+    }
 
     &__input,
     &__btn {
@@ -25,11 +70,10 @@
     } 
     &__input {
         flex: 1;
+        min-width: 1px;
         color: white;
         padding-left: 1em;
         padding-right: 1em;
-        background-image: linear-gradient(190deg, $c-grey-300 0%, $c-grey 100%);
-        background-color: $c-grey;
         height: 3em;
         font-size: 1em;
         border: none;
@@ -37,6 +81,11 @@
         border-bottom-left-radius: 10px;
         position: relative;
         z-index: 1;
+        background-color: $c-light-grey-200;
+        background-image: none;
+        &::placeholder {
+            color: $c-light-grey-400;
+        }
     }
     &__btn {
         border: none;
@@ -50,6 +99,7 @@
         z-index: 2;
         padding-right: 1em;
         padding-left: 2em;
+        margin-top: 2px;
 
         &:hover, 
         &:focus {
@@ -90,6 +140,11 @@
         margin: 0.5em 0.5em 0 0.5em !important;
         width: calc(100% - 1em);
     }
+    .form-element__left-action {
+        svg {
+            margin: 0.15em 0.3em;
+        }
+    }
     .form-element {
         border-radius: 10px;
         padding: 0.5em;
@@ -110,5 +165,35 @@
         border-color: #FF5143;
         font-weight: 700;
         color:whtie;
+    }
+}
+.is-condensed {
+    .btn {
+        border-radius: 8px;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .form-element__btn {
+        padding-right: 0;
+    }
+}
+@include media-breakpoint-down(sm) {
+    .form-element {
+        &__left-action {
+            padding-left: 0;
+            margin-left: 0;
+            margin-right: 0.5em;
+            padding-right:0;
+            border: none;
+            svg {
+                margin-left: 0;
+            }
+        }
+    }
+    .form-element__left-action,
+    .form-element__input,
+    .form-element__btn {
+        flex-shrink: 2;
     }
 }

@@ -7,7 +7,6 @@ $full-screen-btn-size: 20px;
     width: 100%;
     min-height: 90px;
     flex-shrink: 0;
-    margin-bottom: 1.5em;
     position: relative;
     padding: 1em;
     flex-direction: column;
@@ -17,6 +16,8 @@ $full-screen-btn-size: 20px;
     overflow: hidden;
     text-align: center;
     flex-flow: wrap;
+    background: linear-gradient(190deg, rgba(255,255,255, 0.20) 0%, rgba(255,255,255, 0.30) 100%);
+    margin-bottom: 1em;
 
     transition: 300ms ease-out;
     transition-property: width, height, position, left, top, border-radius, margin, font-size;
@@ -35,7 +36,8 @@ $full-screen-btn-size: 20px;
         left: 0;
         z-index: 1;
         transition: 300ms ease-out;
-        transition-property: left, top, width, height, border-radius, margin, font-size;
+        transition-property: left, top, opacity, width, height, border-radius, margin, font-size;
+        opacity: 0;
     }
 
     &__title {
@@ -261,9 +263,10 @@ $full-screen-btn-size: 20px;
 
             &__bg {
                 border-radius: 0;
+                opacity: 1;
             }
         }
-
+        
         .Xelement__bg {
             z-index: 3;
             position: fixed;
