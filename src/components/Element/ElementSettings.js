@@ -46,7 +46,10 @@ class ElementSettings extends Component {
         const isSettingsClass = this.props.elementSettingsIsDisplayed ? "is-open" : '';
 
         return(
-            <div className={"settings " + isSettingsClass}>
+            <div 
+                className={"settings is-element " + isSettingsClass}
+                style={{ height: this.props.settingsHeight }}
+            >
                 <form
                     className="modify-form"
                     onSubmit={(e) => {
@@ -131,6 +134,10 @@ ElementSettings.propTypes = {
     elements: PropTypes.array.isRequired,
     elementSettingsIsDisplayed: PropTypes.bool.isRequired,
     incrementBy: PropTypes.number.isRequired,
+    settingsHeight: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ]).isRequired,
 
 
     handleElementFullScreen: PropTypes.func.isRequired,

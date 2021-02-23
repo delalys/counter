@@ -20,6 +20,8 @@ class Element extends Component {
         position: 'relative',
         zIndex: 3,
         soundPlaying: 0,
+        elementSettingsHeight: null,
+        elementSettingsHeightCondensed: null,
     }
     
     element = React.createRef();
@@ -29,21 +31,59 @@ class Element extends Component {
     componentDidMount() {
         this.setsWidth();
         this.elementSpaceAttribute = this.element.current.getBoundingClientRect();
-
+     
         // Create and preload 10 sounds for mobile delay
         for (let i = 0; i < 10; i++) {
             this.audio = [
-            ...this.audio,
-            new Audio (ClicSound)
+                ...this.audio,
+                new Audio (ClicSound)
             ]
             this.audio[i].preload = 'auto';
+        }
+        
+        if (this.props.index === 0) {
+            // Wait for mirror to be created then call setsElementSettingsHeight
+            let mirrorIsDone = function functionOne(){
+                return new Promise(()=>{
+                    //if (this.elementsDisplayed === 1) {
+                        this.createMirrorElement();
+                });
+            }.bind(this);
+                mirrorIsDone().then(()=>{
+                    // Does it only once in the list
+                    this.setsElementSettingsHeight()
+            });
         }
     }
 
     setsWidth = () => {
-        let testWidthContainer = document.querySelector('.element__container').getBoundingClientRect()
-        this.setState({width: testWidthContainer.width});
+        let widthContainer = document.querySelector('.element__container').getBoundingClientRect()
+        this.setState({width: widthContainer.width});
         this.element.current.style.cssText = "width: " + this.state.width + "px;";
+    }
+
+    // Create a copy of App Settings to set a natural fixed height to the original element
+    createMirrorElement = () => {
+        var mirrorElement = document.querySelector('.settings.is-element').cloneNode(true);
+        document.querySelector('.element__container').appendChild(mirrorElement);
+        mirrorElement.classList.add('is-mirror', 'is-open');
+    }
+
+    // Gets new settings height and sets it to state
+    setsElementSettingsHeight = () => {
+        let elementSettingsDOM = document.querySelector('.settings.is-mirror.is-element');
+        let appDOM = document.querySelector('.app');
+        if (this.props.appIsCondensed) {
+            this.setState({elementSettingsHeightCondensed: elementSettingsDOM.offsetHeight + "px"});
+            appDOM.classList.remove('is-condensed');
+            this.setState({elementSettingsHeight: elementSettingsDOM.offsetHeight + "px"});
+            appDOM.classList.add('is-condensed');
+        } else {
+            this.setState({elementSettingsHeight: elementSettingsDOM.offsetHeight + "px"});
+            appDOM.classList.add('is-condensed');
+            this.setState({elementSettingsHeightCondensed: elementSettingsDOM.offsetHeight + "px"});
+            appDOM.classList.remove('is-condensed');
+        }
     }
 
     // Place DOM element in after reference Dom element
@@ -53,6 +93,7 @@ class Element extends Component {
 
     // Change Element settingsOpen
     handleDisplayElementSettings = (indexElement) => {
+        this.setsElementSettingsHeight();
         // Toggle settingsOpen boolean
         let newState = !this.props.elements[indexElement].elementSettingsIsDisplayed;
         // Updates store with helper
@@ -207,14 +248,17 @@ class Element extends Component {
 
         let textSizeClass = (this.props.count > 9999) ? "reduced-text-1" : '';
 
+        let elementSettingsHeightToGve = !this.props.elementSettingsIsDisplayed ? 0 : this.props.appIsCondensed ? this.state.elementSettingsHeightCondensed : this.state.elementSettingsHeight;
+
         return(
-            <ResizeObserver onResize={() => this.setsWidth()}>
+            <ResizeObserver onResize={() => {this.setsWidth(); this.setsElementSettingsHeight()}}>
                 <Fragment>
                     {/* Settings */}
-                    <ElementSettings 
+                    <ElementSettings                   
                         key={index}
 
                         index={index}
+                        settingsHeight={elementSettingsHeightToGve}
                         elements={elements}
                         incrementBy={incrementBy}
                         elementSettingsIsDisplayed={elementSettingsIsDisplayed}

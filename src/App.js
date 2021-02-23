@@ -154,10 +154,10 @@ class App extends Component {
   render(){
     
     const appIsCondensedClass = this.props.appSettings.appIsCondensed ? "is-condensed" : '';
-    const isGradientClass = "gradient-" + this.props.appSettings.gradient;   
+    const isGradientClass = "gradient-" + this.props.appSettings.gradient; 
 
     return (
-      <div className={appIsCondensedClass + " " + isGradientClass +" background-gradient"}>
+      <div className={appIsCondensedClass + " " + isGradientClass +" background-gradient app"}>
           <div className="container">
               <div 
                 className="element__container"

@@ -2,36 +2,83 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AppSettings from './AppSettings';
 import AddElementForm from './AddElementForm';
+import ResizeObserver from 'rc-resize-observer';
 
 class TopBar extends Component {
 
+    state = {
+        appSettingsHeight: null,
+        appSettingsHeightCondensed: null,
+    }
+    
+    // Create a copy of App Settings to set a natural fixed height to the original element
+    createMirrorElement = () => {
+        var mirrorElement = document.querySelector('.settings.is-app').cloneNode(true);
+        document.querySelector('.form-element').appendChild(mirrorElement);
+        mirrorElement.classList.add('is-mirror', 'is-open');
+    }
+
+    // Gets new settings height and sets it to state
+    setsAppSettingsHeight = () => {
+        let appSettingsHeightDOM = document.querySelector('.settings.is-mirror.is-app');
+        let appDOM = document.querySelector('.app');
+        if (this.props.appIsCondensed) {
+            this.setState({appSettingsHeightCondensed: appSettingsHeightDOM.offsetHeight + "px"});
+            appDOM.classList.remove('is-condensed');
+            this.setState({appSettingsHeight: appSettingsHeightDOM.offsetHeight + "px"});
+            appDOM.classList.add('is-condensed');
+        } else {
+            this.setState({appSettingsHeight: appSettingsHeightDOM.offsetHeight + "px"});
+            appDOM.classList.add('is-condensed');
+            this.setState({appSettingsHeightCondensed: appSettingsHeightDOM.offsetHeight + "px"});
+            appDOM.classList.remove('is-condensed');
+            console.log(appSettingsHeightDOM.offsetHeight)
+        }
+    }
+
+    componentDidMount() {
+        // Wait for mirror to be created then call setsAppSettingsHeight
+        let mirrorIsDone = function functionOne(){
+            return new Promise(()=>{
+                this.createMirrorElement();
+            });
+        }.bind(this);
+        
+        mirrorIsDone().then(()=>{
+            this.setsAppSettingsHeight()
+        });
+    }    
     
     render() {
         const isSettingsClass = this.props.appSettingsIsDisplayed ? "is-open" : '';
+        let appAettingsHeightToGve = !this.props.appSettingsIsDisplayed ? 0 : this.props.appIsCondensed ? this.state.appSettingsHeightCondensed : this.state.appSettingsHeight;
 
         return(
-            <div className={"form-element mt-3 " + isSettingsClass}>
-                <AddElementForm
-                    elements={this.props.elements}
-                    addElement={this.props.addElement}
+            <ResizeObserver onResize={() => this.setsAppSettingsHeight()}>
+                <div className={"form-element mt-3 " + isSettingsClass}>
+                    <AddElementForm
+                        elements={this.props.elements}
+                        addElement={this.props.addElement}
 
-                    displayAppSettings={this.props.displayAppSettings}
-                />
-                <AppSettings 
-                    appSettingsIsDisplayed={this.props.appSettingsIsDisplayed}
+                        displayAppSettings={this.props.displayAppSettings}
+                    />
+                    <AppSettings 
+                        appSettingsIsDisplayed={this.props.appSettingsIsDisplayed}
+                        appSettingsHeight={appAettingsHeightToGve}
 
-                    appIsMute={this.props.appIsMute}
-                    muteApp={this.props.muteApp}
+                        appIsMute={this.props.appIsMute}
+                        muteApp={this.props.muteApp}
 
-                    appIsCondensed={this.props.appIsCondensed}
-                    condenseApp={this.props.condenseApp}
+                        appIsCondensed={this.props.appIsCondensed}
+                        condenseApp={this.props.condenseApp}
 
-                    colorizeApp={this.props.colorizeApp}
+                        colorizeApp={this.props.colorizeApp}
 
-                    gradient={this.props.gradient}
-                    gradients={this.props.gradients}
-                />
-            </div>
+                        gradient={this.props.gradient}
+                        gradients={this.props.gradients}
+                    />
+                </div>
+            </ResizeObserver>
         )
     }
 }

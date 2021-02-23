@@ -5,12 +5,15 @@ class AppSettings extends Component {
 
     render() {
 
-        const isSettingsClass = this.props.appSettingsIsDisplayed ? "is-open" : '';
+        const isOpenSettingsClass = this.props.appSettingsIsDisplayed ? "is-open" : '';
         const appIsMuteLabel = this.props.appIsMute ? "Unmute app" : 'Mute app';
         const appIsCondensedLabel = this.props.appIsCondensed ? "Large view" : 'Compact view';
 
         return(
-            <div className={"settings is-app " + isSettingsClass}>
+            <div 
+                className={"settings is-app " + isOpenSettingsClass}
+                style={{ height: this.props.appSettingsHeight }}
+            >
                 <div className="row">
                     <hr className=""/>
 
@@ -58,6 +61,10 @@ class AppSettings extends Component {
 
 AppSettings.propTypes = {
     appSettingsIsDisplayed: PropTypes.bool.isRequired,
+    appSettingsHeight: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ]).isRequired,
     
     appIsMute: PropTypes.bool.isRequired,
     muteApp: PropTypes.func.isRequired,

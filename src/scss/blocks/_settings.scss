@@ -14,7 +14,7 @@
     transition: ease-in all 300ms;
 
     &.is-open {
-        height: 331px;
+        //height: 331px;
         padding: 1em;
         margin-bottom: 1em;
     }
@@ -27,6 +27,9 @@
         }
         &:last-child {
             margin-bottom: 0;
+            label {
+                margin-bottom: 0;
+            }
             .btn {
                 background-color: white !important;
                 svg {
@@ -102,12 +105,23 @@
             align-items: flex-start;
         }
     }
+
+    &.is-mirror {
+        height: auto !important;
+        position: absolute;
+        visibility: hidden;
+        z-index: -1;
+        transition-property: none;
+        &.is-app {
+            width: calc(100% - 2em);
+        }
+    }
 }
 .is-condensed {
     .settings {
         &.is-app {
-            &.is-open {
-                height: 67px;
+            &.is-mirror {
+                width: calc(100% - 1em);
             }
         }
     }
@@ -116,7 +130,7 @@
 @include media-breakpoint-down(sm) {
     .settings {
         &.is-open {
-            height: 367px;
+            ////height: 367px;
         }
         .btn-actions {
             flex-wrap: wrap;
@@ -158,7 +172,7 @@
     .settings {
         &.is-app {
             &.is-open {
-                height: 165px;
+                //height: 165px;
             }
         }
     }
@@ -171,7 +185,7 @@
     .settings {
         &.is-app {
             &.is-open {
-                height: 150px;
+                //height: 150px;
             }
         }
     }
@@ -182,7 +196,7 @@
         .settings {
             &.is-app {
                 &.is-open {
-                    height: 118px; 
+                    //height: 118px; 
                 }
             }
         }
@@ -192,7 +206,7 @@
     .settings {
         &.is-app {
             &.is-open {
-                height: 173px;
+                //height: 173px;
             }
         }
     }
@@ -202,7 +216,7 @@
         .settings {
             &.is-app {
                 &.is-open {
-                    height: 146px; 
+                    //height: 146px; 
                 }
             }
         }
@@ -213,7 +227,7 @@
         .settings {
             &.is-app {
                 &.is-open {
-                    height: 133px; 
+                    //height: 133px; 
                 }
             }
         }
@@ -224,8 +238,8 @@
         .settings {
             &.is-app {
                 &.is-open {
-                    //height: 133px; 
-                    height: 118px; 
+                    ////height: 133px; 
+                    //height: 118px; 
                 }
             }
         }
@@ -237,7 +251,7 @@
         .settings {
             &:not(.is-app) {
                 &.is-open { 
-                    height: 320px;
+                    //height: 320px;
                 }
             }
         }
@@ -248,7 +262,7 @@
         .settings {
             &:not(.is-app) {
                 &.is-open { 
-                    height: 355px;
+                    //height: 355px;
                 }
             }
         }
