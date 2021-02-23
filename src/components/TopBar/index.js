@@ -13,6 +13,10 @@ class TopBar extends Component {
     
     // Create a copy of App Settings to set a natural fixed height to the original element
     createMirrorElement = () => {
+        // forces update if new actions have change its state
+        if (document.querySelector('.settings.is-mirror.is-app')) {
+            document.querySelector('.settings.is-mirror.is-app').remove();
+        }
         var mirrorElement = document.querySelector('.settings.is-app').cloneNode(true);
         document.querySelector('.form-element').appendChild(mirrorElement);
         mirrorElement.classList.add('is-mirror', 'is-open');
@@ -20,6 +24,7 @@ class TopBar extends Component {
 
     // Gets new settings height and sets it to state
     setsAppSettingsHeight = () => {
+        this.createMirrorElement();
         let appSettingsHeightDOM = document.querySelector('.settings.is-mirror.is-app');
         let appDOM = document.querySelector('.app');
         if (this.props.appIsCondensed) {
