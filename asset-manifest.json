@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/counter/static/css/main.9da55613.chunk.css",
-    "main.js": "/counter/static/js/main.184a93a2.chunk.js",
-    "main.js.map": "/counter/static/js/main.184a93a2.chunk.js.map",
-    "runtime-main.js": "/counter/static/js/runtime-main.49804403.js",
-    "runtime-main.js.map": "/counter/static/js/runtime-main.49804403.js.map",
+    "main.css": "/counter/static/css/main.c2b57dbc.chunk.css",
+    "main.js": "/counter/static/js/main.7867599b.chunk.js",
+    "main.js.map": "/counter/static/js/main.7867599b.chunk.js.map",
+    "runtime-main.js": "/counter/static/js/runtime-main.6cc15c91.js",
+    "runtime-main.js.map": "/counter/static/js/runtime-main.6cc15c91.js.map",
     "static/css/2.51b4d6c6.chunk.css": "/counter/static/css/2.51b4d6c6.chunk.css",
-    "static/js/2.8e015e91.chunk.js": "/counter/static/js/2.8e015e91.chunk.js",
-    "static/js/2.8e015e91.chunk.js.map": "/counter/static/js/2.8e015e91.chunk.js.map",
-    "static/js/3.e966f5c4.chunk.js": "/counter/static/js/3.e966f5c4.chunk.js",
-    "static/js/3.e966f5c4.chunk.js.map": "/counter/static/js/3.e966f5c4.chunk.js.map",
+    "static/js/2.cae0922f.chunk.js": "/counter/static/js/2.cae0922f.chunk.js",
+    "static/js/2.cae0922f.chunk.js.map": "/counter/static/js/2.cae0922f.chunk.js.map",
+    "static/js/3.0e2f5937.chunk.js": "/counter/static/js/3.0e2f5937.chunk.js",
+    "static/js/3.0e2f5937.chunk.js.map": "/counter/static/js/3.0e2f5937.chunk.js.map",
     "index.html": "/counter/index.html",
     "static/css/2.51b4d6c6.chunk.css.map": "/counter/static/css/2.51b4d6c6.chunk.css.map",
-    "static/css/main.9da55613.chunk.css.map": "/counter/static/css/main.9da55613.chunk.css.map",
-    "static/js/2.8e015e91.chunk.js.LICENSE.txt": "/counter/static/js/2.8e015e91.chunk.js.LICENSE.txt",
+    "static/css/main.c2b57dbc.chunk.css.map": "/counter/static/css/main.c2b57dbc.chunk.css.map",
+    "static/js/2.cae0922f.chunk.js.LICENSE.txt": "/counter/static/js/2.cae0922f.chunk.js.LICENSE.txt",
     "static/media/clic.92f35524.mp3": "/counter/static/media/clic.92f35524.mp3"
   },
   "entrypoints": [
-    "static/js/runtime-main.49804403.js",
+    "static/js/runtime-main.6cc15c91.js",
     "static/css/2.51b4d6c6.chunk.css",
-    "static/js/2.8e015e91.chunk.js",
-    "static/css/main.9da55613.chunk.css",
-    "static/js/main.184a93a2.chunk.js"
+    "static/js/2.cae0922f.chunk.js",
+    "static/css/main.c2b57dbc.chunk.css",
+    "static/js/main.7867599b.chunk.js"
   ]
 }
