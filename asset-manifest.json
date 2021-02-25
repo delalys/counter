@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/react-counter/static/css/main.426dd701.chunk.css",
-    "main.js": "/react-counter/static/js/main.f28f7d4a.chunk.js",
-    "main.js.map": "/react-counter/static/js/main.f28f7d4a.chunk.js.map",
-    "runtime-main.js": "/react-counter/static/js/runtime-main.065ef452.js",
-    "runtime-main.js.map": "/react-counter/static/js/runtime-main.065ef452.js.map",
+    "main.css": "/react-counter/static/css/main.c3063130.chunk.css",
+    "main.js": "/react-counter/static/js/main.544362e4.chunk.js",
+    "main.js.map": "/react-counter/static/js/main.544362e4.chunk.js.map",
+    "runtime-main.js": "/react-counter/static/js/runtime-main.f83ee6f5.js",
+    "runtime-main.js.map": "/react-counter/static/js/runtime-main.f83ee6f5.js.map",
     "static/css/2.51b4d6c6.chunk.css": "/react-counter/static/css/2.51b4d6c6.chunk.css",
-    "static/js/2.833b9548.chunk.js": "/react-counter/static/js/2.833b9548.chunk.js",
-    "static/js/2.833b9548.chunk.js.map": "/react-counter/static/js/2.833b9548.chunk.js.map",
-    "static/js/3.fe10b65b.chunk.js": "/react-counter/static/js/3.fe10b65b.chunk.js",
-    "static/js/3.fe10b65b.chunk.js.map": "/react-counter/static/js/3.fe10b65b.chunk.js.map",
+    "static/js/2.370d47dd.chunk.js": "/react-counter/static/js/2.370d47dd.chunk.js",
+    "static/js/2.370d47dd.chunk.js.map": "/react-counter/static/js/2.370d47dd.chunk.js.map",
+    "static/js/3.1a3a37f6.chunk.js": "/react-counter/static/js/3.1a3a37f6.chunk.js",
+    "static/js/3.1a3a37f6.chunk.js.map": "/react-counter/static/js/3.1a3a37f6.chunk.js.map",
     "index.html": "/react-counter/index.html",
     "static/css/2.51b4d6c6.chunk.css.map": "/react-counter/static/css/2.51b4d6c6.chunk.css.map",
-    "static/css/main.426dd701.chunk.css.map": "/react-counter/static/css/main.426dd701.chunk.css.map",
-    "static/js/2.833b9548.chunk.js.LICENSE.txt": "/react-counter/static/js/2.833b9548.chunk.js.LICENSE.txt",
+    "static/css/main.c3063130.chunk.css.map": "/react-counter/static/css/main.c3063130.chunk.css.map",
+    "static/js/2.370d47dd.chunk.js.LICENSE.txt": "/react-counter/static/js/2.370d47dd.chunk.js.LICENSE.txt",
     "static/media/clic.92f35524.mp3": "/react-counter/static/media/clic.92f35524.mp3"
   },
   "entrypoints": [
-    "static/js/runtime-main.065ef452.js",
+    "static/js/runtime-main.f83ee6f5.js",
     "static/css/2.51b4d6c6.chunk.css",
-    "static/js/2.833b9548.chunk.js",
-    "static/css/main.426dd701.chunk.css",
-    "static/js/main.f28f7d4a.chunk.js"
+    "static/js/2.370d47dd.chunk.js",
+    "static/css/main.c3063130.chunk.css",
+    "static/js/main.544362e4.chunk.js"
   ]
 }
