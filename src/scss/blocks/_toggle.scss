@@ -1,0 +1,38 @@
+.toggle {
+    display: inline-block;
+    padding: 0.5em 1em;
+    background: $c-light-grey-200;
+    color: $c-light-grey-500;
+    border-radius: 12px;
+    font-size: 0.7em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 100ms ease-out;
+    transition-property: transform;
+    &.is-active {
+        color: white;
+    }
+    + .toggle {
+        margin-left: 1em;
+    }
+    &:hover {
+        background: $c-light-grey-200;
+        transform: scale(1.1);
+    }
+    &:active {
+        transform: scale(1);
+        background: $c-light-grey-400;
+    }
+    &__group {
+        margin-bottom: 1em;
+    }
+}
+.settings__item.is-well {
+    .toggle {
+        background: $c-light-grey-200;
+        color: $c-light-grey-500;
+        &.is-active {
+            color: white;
+        }
+    }
+}

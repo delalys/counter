@@ -13,3 +13,10 @@
         transform: translate(3%, 33%) scale(0.55);
     }
 }
+
+%dark-gradient-text {
+    background-color: $c-grey-300;
+    background: linear-gradient(190deg, $c-grey-100 0%, $c-grey-300 100%);
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+}

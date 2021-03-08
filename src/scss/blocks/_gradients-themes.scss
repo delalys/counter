@@ -18,18 +18,26 @@ $gradients: (
         
         .form-element input[type=text],
         .form-element input[type=submit],
-        .settings:not(.is-app) .btn,
+        .settings .btn-action,
+        .settings .settings__item--save,
         .is-app .settings__title {
             color: unquote(nth(nth($gradients, $i+1), 2));
         }
-        .is-app .btn {
+        .settings__item.is-well .settings__stats-col--count {
+            background-color: unquote(nth(nth($gradients, $i+1), 2));
+            background: linear-gradient(200deg, unquote(nth(nth($gradients, $i+1), 1)) 0%, unquote(nth(nth($gradients, $i+1), 2)) 100%);
+        }
+        .is-app .btn,
+        .is-well .btn {
             background: unquote(nth(nth($gradients, $i+1), 2));
+            background: linear-gradient(200deg, unquote(nth(nth($gradients, $i+1), 1)) 0%, unquote(nth(nth($gradients, $i+1), 2)) 100%);
         } 
         .form-element path,
         .settings__item:last-child .btn svg {
             fill: unquote(nth(nth($gradients, $i+1), 2));
         }
-        .color-example.active:after {
+        .color-example.active:after,
+        .toggle.is-active {
             background-color: unquote(nth(nth($gradients, $i+1), 2));
         }
     }

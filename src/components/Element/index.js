@@ -4,8 +4,11 @@ import Actions from './Actions';
 import PropTypes from 'prop-types';
 import ResizeObserver from 'rc-resize-observer';
 import helpers from '../../helpers';
+import * as dayjs from 'dayjs';
 import ClicSound from '../../assets/clic.mp3'
 
+import isToday from 'dayjs/plugin/isToday';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 
 class Element extends Component {
     
@@ -22,15 +25,31 @@ class Element extends Component {
         soundPlaying: 0,
         elementSettingsHeight: null,
         elementSettingsHeightCondensed: null,
+        todayCounts: 0,
+        lastWeekCounts: 0,
+        lastMonthCounts: 0,
+        countHistoryGroupByDayDone: false,
+        displayOption: "week",
+        formatedDates: [],
     }
     
     element = React.createRef();
+    elementSettingsComponent = React.createRef();
     elementSpaceAttribute = '';
     audio = [];
     
     componentDidMount() {
         this.setsWidth();
         this.elementSpaceAttribute = this.element.current.getBoundingClientRect();
+        this.setCountHistoryStats();
+        const countHistoryGroupByDayDone = new Promise((resolve, reject) => {
+            this.handleChangeCountHistoryGroupByDay();
+            resolve("done")
+        });
+        countHistoryGroupByDayDone.then((value) => {
+            this.setState({countHistoryGroupByDayDone: true})
+        });
+        this.callUpdateDates();
      
         // Create and preload 10 sounds for mobile delay
         for (let i = 0; i < 10; i++) {
@@ -41,6 +60,7 @@ class Element extends Component {
             this.audio[i].preload = 'auto';
         }
         
+        // Creates mirror element for settings height
         if (this.props.index === 0) {
             // Wait for mirror to be created then call setsElementSettingsHeight
             let mirrorIsDone = function functionOne(){
@@ -111,6 +131,7 @@ class Element extends Component {
           this.audio[this.state.soundPlaying].load();
           this.audio[this.state.soundPlaying].play()
         }
+        // switch between series of preloading sounds
         this.setState({
           soundPlaying: (this.state.soundPlaying +1) % 10
         })
@@ -120,6 +141,7 @@ class Element extends Component {
         if ((incrementBy === 0) || (incrementBy === '')) {
           incrementBy = parseInt(1);
         }
+
         // Increment or decrement by the new value
         parseInt(incrementBy);
         if (changeType === "increment") {
@@ -229,8 +251,87 @@ class Element extends Component {
         }
     }
 
-    render() {
+    setCountHistoryStats = () => {
+        dayjs.extend(isToday)
+        dayjs.extend(isSameOrAfter);
+ 
+        let element = this.props.elements[this.props.index];
+        if ((element.countHistory) && (element.countHistory.length >= 1)) {
+            let dateOneWeekBefore = dayjs().subtract(7, 'day');
+            let dateOneMonthBefore = dayjs().subtract(1, 'month');
+
+            let todayCounts = 0;
+            let lastWeekCounts = 0;
+            let lastMonthCounts = 0;
+            for (let count of element.countHistory) {
+                if (dayjs(count.date).isToday()) {
+                    todayCounts += count.incrementBy;
+                }
+                if (dayjs(count.date).isSameOrAfter(dateOneWeekBefore)) {
+                    lastWeekCounts += count.incrementBy;
+                }
+                if (dayjs(count.date).isSameOrAfter(dateOneMonthBefore)) {
+                    lastMonthCounts += count.incrementBy;
+                }
+            }
+            this.setState({ todayCounts: todayCounts, lastWeekCounts: lastWeekCounts, lastMonthCounts: lastMonthCounts})
+        }
+    }
+
+    handleChangeCountHistoryGroupByDay = () => {
+        dayjs.extend(isSameOrAfter);
         
+        if (this.props.countHistory) {
+            // Reduces this.props.countHistory list to counts within the last 365 days
+            let countHistoryOfLastYear = this.props.countHistory.filter(date => dayjs(date.date).isSameOrAfter( dayjs().subtract(365, 'day') ))
+    
+            // Creates a list of objects for every day of last year, with date and number of Count on that day
+            let countHistoryGroupByDay = [];
+            for (let i = 0 ; i < 364; i++) {
+                let dayToAdd = dayjs().subtract(i, 'day');
+                countHistoryGroupByDay.push({day: dayToAdd, numberOfCount: 0});
+            }
+    
+            // loop sur les dernier count de l'an dernier: countHistoryOfLastYear
+            // pour chaque date =>  dayjs(countHistoryGroupByDay.day) add countHistoryOfLastYear.incrementby
+            for (let countDate of countHistoryOfLastYear) {
+                countHistoryGroupByDay.map((element, index) => { 
+                    if (element.day.isSame(dayjs(countDate.date), 'day')) {
+                        countHistoryGroupByDay[index].numberOfCount += countDate.incrementBy;
+                    }
+                    return countHistoryGroupByDay
+                })
+            }
+    
+            this.props.changeCountHistoryGroupByDay(this.props.index, 'countHistoryGroupByDay', countHistoryGroupByDay);
+        }
+    }
+
+
+    // Adds or remove a count from the .countHistory property
+    handleUpdateHistoryCount = (indexElement, type) => {
+        if (type === 'increment') {
+            let dateNow = dayjs(new Date());
+            let newCount = {date: dateNow, incrementBy: this.props.incrementBy}
+            this.props.changeElementCountHistory(this.props.elements, indexElement, 'countHistory', newCount);
+        }
+        if (type === 'decrement') {
+            let newCount = this.props.elements[indexElement].countHistory;
+            newCount.shift();
+            this.props.removeOneElementCountHistory(this.props.elements, indexElement, 'countHistory', newCount);
+        }
+    } 
+
+    // Call for updates function in elementSettings child to redraw the chart
+    callUpdateDates = () => {
+        if (!this.elementSettingsComponent.current) {
+          return;
+        }
+        this.elementSettingsComponent.current.formateDates(this.props.countHistoryGroupByDay);
+    }
+
+    render() {
+
         const {
             index,
             elements,
@@ -259,14 +360,26 @@ class Element extends Component {
             <ResizeObserver onResize={() => {this.setsWidth(); this.setsElementSettingsHeight()}}>
                 <Fragment>
                     {/* Settings */}
-                    <ElementSettings                   
+                    <ElementSettings 
+                        ref={this.elementSettingsComponent}
                         key={index}
 
                         index={index}
+                        value={this.props.value}
+                        gradient={this.props.gradient}
+                        gradients={this.props.gradients}
                         settingsHeight={elementSettingsHeightToGve}
                         elements={elements}
                         incrementBy={incrementBy}
                         elementSettingsIsDisplayed={elementSettingsIsDisplayed}
+                        countHistory={this.props.countHistory}
+                        countHistoryGroupByDay={this.props.countHistoryGroupByDay}
+                        todayCounts={this.state.todayCounts}
+                        lastWeekCounts={this.state.lastWeekCounts}
+                        lastMonthCounts={this.state.lastMonthCounts}
+                        countHistoryGroupByDayDone={this.state.countHistoryGroupByDayDone}
+                        formatedDates={this.state.formatedDates}
+                        displayOption={this.state.displayOption}
                         
                         resetElementCount={resetElementCount}
                         renameElement={renameElement}
@@ -290,6 +403,11 @@ class Element extends Component {
                             handleDisplayElementSettings={this.handleDisplayElementSettings}
                             handleChangeElementCount={this.handleChangeElementCount}
                             handleElementFullScreen={this.handleElementFullScreen}
+                            
+                            handleUpdateHistoryCount={this.handleUpdateHistoryCount}
+                            setCountHistoryStats={this.setCountHistoryStats}
+                            handleChangeCountHistoryGroupByDay={this.handleChangeCountHistoryGroupByDay}
+                            callUpdateDates={this.callUpdateDates}
                         />
                         
                         {/* Title */}
@@ -304,7 +422,13 @@ class Element extends Component {
                         {/* Increments */}
                         <span 
                             className="element__button element__button--plus"
-                            onClick={() => this.handleChangeElementCount(index, 'increment') }
+                            onClick={() => {
+                                this.handleChangeElementCount(this.props.index, 'increment'); 
+                                this.handleUpdateHistoryCount(this.props.index, 'increment');
+                                this.setCountHistoryStats();
+                                this.handleChangeCountHistoryGroupByDay();
+                                this.callUpdateDates();
+                            }}
                             onMouseUp={(e) => this.setState({isClicked: false})}
                             onMouseDown={(e) => this.setState({isClicked: true})}
                         >+</span>
@@ -320,6 +444,7 @@ Element.propTypes = {
     elements: PropTypes.array.isRequired,
     count: PropTypes.number.isRequired,
     value: PropTypes.string.isRequired,
+
     incrementBy: PropTypes.number.isRequired,
     elementSettingsIsDisplayed: PropTypes.bool.isRequired,
 

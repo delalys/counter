@@ -6,6 +6,9 @@ $c-grey: #313338;
 $c-grey-300: #3e4147;
 $c-grey-100: #50535A;
 
+$c-dark-700: #3c3c3c;
+
+$c-light-grey-500: #636363;
 $c-light-grey-400: #8b8b8b;
 $c-light-grey-300: #c2c2c2;
 $c-light-grey-200: #efefef;
@@ -30,6 +33,7 @@ $form-border-radius: 20px;
 @import "layout/global";
 @import "blocks/color-example";
 @import "blocks/form";
+@import "blocks/toggle";
 @import "blocks/element";
 @import "blocks/settings";
 @import "blocks/form-element";

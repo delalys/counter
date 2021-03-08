@@ -37,7 +37,6 @@ class TopBar extends Component {
             appDOM.classList.add('is-condensed');
             this.setState({appSettingsHeightCondensed: appSettingsHeightDOM.offsetHeight + "px"});
             appDOM.classList.remove('is-condensed');
-            console.log(appSettingsHeightDOM.offsetHeight)
         }
     }
 

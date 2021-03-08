@@ -16,13 +16,14 @@ $full-screen-btn-size: 20px;
     overflow: hidden;
     text-align: center;
     flex-flow: wrap;
-    background: linear-gradient(190deg, rgba(255,255,255, 0.20) 0%, rgba(255,255,255, 0.30) 100%);
+    background: linear-gradient(190deg, rgba(255,255,255, 0.15) 0%, rgba(255,255,255, 0.35) 100%);
     margin-bottom: 1em;
 
     transition: 300ms ease-out;
     transition-property: width, height, position, left, top, border-radius, margin, font-size;
     
     * {
+        user-select: none;
         transition: 300ms ease-out;
         transition-property: transform, width, height, position, left, top, border-radius, margin, font-size;
     }
@@ -54,12 +55,6 @@ $full-screen-btn-size: 20px;
         border-radius: 5px;
         position: relative;
         z-index: 2;
-        &:active, &:focus {
-            border: none !important;
-            background-color: rgba(white, 0.2) !important;
-            outline: none !important;
-            box-shadow: none !important;
-        }
 
         &--notice {
             opacity: 0.6;
@@ -129,7 +124,6 @@ $full-screen-btn-size: 20px;
             width: $bg-btn-size;
             height: $bg-btn-size;
             transition: 300ms ease-out;
-            user-select: none;
             transition-property: transform, left, top, bottom, right, width, height, border-radius, margin, font-size;
 
             &:after {
@@ -344,6 +338,11 @@ $responsive-spacing: 15px;
             }
             .element__title {
                 font-size: 1.2em;
+                margin-bottom: 2em;
+                &--notice {
+                    display: block;
+                    margin-top: 0.5em;
+                }
             }
             .element__count,
             .element__title {

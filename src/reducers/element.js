@@ -1,44 +1,6 @@
 import * as ElementActionTypes from '../constants/ElementActionTypes';
 import helpers from './../helpers';
-
-const initialState = {
-    elements: [
-      {
-        id: 1,
-        value: 'Glass of water',
-        count: 3,
-        gradient: 2,
-        color1: '#ba8f89',
-        color2: '#c6786c',
-        elementSettingsIsDisplayed: false,
-        elementIsInFullScreen: false,
-        incrementBy: 1,
-      },
-      {
-        id: 2,
-        value: 'Pushups',
-        count: 50,
-        gradient: 3,
-        color1: '#ba8f89',
-        color2: '#c6786c',
-        elementSettingsIsDisplayed: false,
-        elementIsInFullScreen: false,
-        incrementBy: 10,
-      },
-      {
-        id: 3,
-        value: 'Day without smoking',
-        count: 17,
-        gradient: 4,
-        color1: '#ba8f89',
-        color2: '#c6786c',
-        elementSettingsIsDisplayed: false,
-        elementIsInFullScreen: false,
-        incrementBy: 1,
-      }
-    ]
-}
-
+import initialState from './../data/initialState';
 
 export default function element(state = initialState, action) {
 	switch (action.type) {
@@ -76,6 +38,20 @@ export default function element(state = initialState, action) {
                 ...state, elements: (helpers.setStateElement([...state.elements], action.indexElement, action.propertyName, action.newValue)),
             }
         case ElementActionTypes.CHANGE_ELEMENT_COUNT:
+            return {
+                ...state, elements: (helpers.setStateElement([...state.elements], action.indexElement, action.propertyName, action.newValue)),
+            }
+        case ElementActionTypes.CHANGE_ELEMENT_COUNT_HISTORY:
+            let newElementsCountHistory = action.elements;
+            newElementsCountHistory[action.indexElement].countHistory.unshift(action.newValue);
+            return {
+                ...state, elements: newElementsCountHistory
+            }
+        case ElementActionTypes.REMOVE_ONE_ELEMENT_COUNT_HISTORY:
+            return {
+                ...state, elements: (helpers.setStateElement([...state.elements], action.indexElement, action.propertyName, action.newValue)),
+            }
+        case ElementActionTypes.CHANGE_ELEMENT_COUNT_HISTORY_GROUP_BY_DAY:
             return {
                 ...state, elements: (helpers.setStateElement([...state.elements], action.indexElement, action.propertyName, action.newValue)),
             }

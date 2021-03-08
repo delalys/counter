@@ -32,7 +32,13 @@ const Actions = props =>
         {/* Decrements */}
         <span 
             className="element__actions-btn" 
-            onClick={() => props.handleChangeElementCount(props.index, 'decrement')}
+            onClick={() => {
+                props.handleChangeElementCount(props.index, 'decrement');
+                props.handleUpdateHistoryCount(props.index, 'decrement');
+                props.setCountHistoryStats();
+                props.handleChangeCountHistoryGroupByDay();
+                props.callUpdateDates();
+            }}
         >
             <span className="element__button element__button--minus">-</span>
         </span>

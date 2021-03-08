@@ -21,6 +21,7 @@ class AddElementForm extends Component {
             id: this.props.elements.length + 1,
             settingsOpen: false,
             incrementBy: 1,
+            countHistory: [],
         }
 
         // Add a new element to app state

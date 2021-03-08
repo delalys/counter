@@ -7,7 +7,7 @@ const initialState = {
     appIsCondensed: false,
     gradients: gradients,
     appSettingsIsDisplayed: false,
-    gradient: 3,
+    gradient: 5,
 }
 
 export default function appSettings(state = initialState, action) {

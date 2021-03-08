@@ -6,6 +6,7 @@ import './scss/app.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+
 const store = configureStore();
 
 ReactDOM.render(

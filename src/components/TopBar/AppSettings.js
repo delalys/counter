@@ -34,7 +34,7 @@ class AppSettings extends Component {
                     </div>
                     <hr className="d-lg-none d-xl-none"/>
                     {/* Color */}
-                    <div className="settings__item col-lg-7">
+                    <div className="settings__item col-lg-7 d-flex">
                         <span className="settings__title">Color:</span>
                         {this.props.gradients.map((el, index) => {
                             let color1 = this.props.gradients[index].color1;

@@ -37,12 +37,13 @@ export const resetElementCount = (newElements) => {
     }
 }
 
-export const renameElement = (indexElement, propertyName, newValue) => {
+export const renameElement = (indexElement, propertyName, newValue, dateReadableFr) => {
     return {
         type: ElementActionTypes.RENAME_ELEMENT,
         indexElement,
         propertyName, 
-        newValue
+        newValue, 
+        dateReadableFr
     }
 }
 
@@ -64,12 +65,31 @@ export const changeElementCount = (indexElement, propertyName, newValue) => {
     }
 }
 
-// increments
+export const changeElementCountHistory = (elements, indexElement, propertyName, newValue) => {
+    return {
+        type: ElementActionTypes.CHANGE_ELEMENT_COUNT_HISTORY,
+        elements,
+        indexElement,
+        propertyName, 
+        newValue,
+    }
+}
 
-// full screen
+export const removeOneElementCountHistory = (elements, indexElement, propertyName, newValue) => {
+    return {
+        type: ElementActionTypes.REMOVE_ONE_ELEMENT_COUNT_HISTORY,
+        elements,
+        indexElement,
+        propertyName,
+        newValue,
+    }
+}
 
-// delete
-
-// rename
-
-// Increment by
+export const changeCountHistoryGroupByDay = (indexElement, propertyName, newValue) => {
+    return {
+        type: ElementActionTypes.CHANGE_ELEMENT_COUNT_HISTORY_GROUP_BY_DAY,
+        indexElement,
+        propertyName, 
+        newValue
+    }
+}
