@@ -169,11 +169,12 @@
         }
         .settings__title {
             margin-bottom: 0;
+            margin-right: 0.5em;
         }
         .settings__item {
             margin-top: 0;
             margin-bottom: 0;
-            align-items: flex-start;
+            align-items: center;
         }
     }
 
@@ -210,14 +211,6 @@
                 margin-bottom: 0;
                 &:nth-child(even) {
                     margin-right: 0;
-                }
-                // &:nth-child(odd) {
-                //     &:last-child {
-                //         flex: 0 100%;
-                //     }
-                // }
-                &:last-child {
-                    
                 }
             }
         }

@@ -37,6 +37,9 @@
         width: 100%;
         height: 100%;
     }
+    &:last-child {
+        margin-right: 0;
+    }
 }
 
 @media screen and (max-width: 510px) { // color-example in app settings layout breaks here

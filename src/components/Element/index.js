@@ -1,9 +1,10 @@
 import React, {Component, Fragment} from 'react';
-import ElementSettings from './ElementSettings';
+import ElementSettings from '../ElementSettings';
+import helpers from '../../helpers';
 import Actions from './Actions';
+
 import PropTypes from 'prop-types';
 import ResizeObserver from 'rc-resize-observer';
-import helpers from '../../helpers';
 import * as dayjs from 'dayjs';
 import ClicSound from '../../assets/clic.mp3'
 
@@ -417,7 +418,9 @@ class Element extends Component {
                         </h6>
                         
                         {/* Count */}
-                        <span className={isClicked + " " + textSizeClass + " element__count"}>{count}</span>
+                        <span className={isClicked + " " + textSizeClass + " element__count"}>
+                            {count}
+                        </span>
 
                         {/* Increments */}
                         <span 

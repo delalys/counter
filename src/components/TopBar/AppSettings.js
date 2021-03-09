@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Buttons from './Buttons';
+import Colors from './Colors';
 
 class AppSettings extends Component {
 
     render() {
 
         const isOpenSettingsClass = this.props.appSettingsIsDisplayed ? "is-open" : '';
-        const appIsMuteLabel = this.props.appIsMute ? "Unmute app" : 'Mute app';
-        const appIsCondensedLabel = this.props.appIsCondensed ? "Large view" : 'Compact view';
 
         return(
             <div 
@@ -16,43 +16,17 @@ class AppSettings extends Component {
             >
                 <div className="row">
                     <hr className=""/>
-
-                    {/* Actions */}
-                    <div className="settings__item btn-actions col-lg-5">
-                        <div
-                            className="btn btn-action"
-                            onClick={() => this.props.muteApp()}
-                        >
-                            {appIsMuteLabel}
-                        </div>
-                        <div
-                            className="btn btn-action"
-                            onClick={() => this.props.condenseApp()}
-                        >
-                            {appIsCondensedLabel}
-                        </div>
-                    </div>
+                    <Buttons 
+                        muteApp={this.props.muteApp}
+                        appIsMute={this.props.appIsMute}
+                        condenseApp={this.props.condenseApp}
+                        appIsCondensed={this.props.appIsCondensed}
+                    />
                     <hr className="d-lg-none d-xl-none"/>
-                    {/* Color */}
-                    <div className="settings__item col-lg-7 d-flex">
-                        <span className="settings__title">Color:</span>
-                        {this.props.gradients.map((el, index) => {
-                            let color1 = this.props.gradients[index].color1;
-                            let color2 = this.props.gradients[index].color2;
-                            let classActiveColor = (index === this.props.gradient) ? 'color-example active' : 'color-example';
-                            return <span 
-                                        className={classActiveColor}
-                                        key={index}
-                                        onClick={ () => this.props.colorizeApp(index)}
-                                    >
-                                        <div 
-                                            className="color-example__background"
-                                            style={{backgroundImage: `linear-gradient(190deg, ${color1} 0%, ${color2} 100%)`}}
-                                        ></div>
-                                    </span>
-                            })}
-                    </div>
-
+                    <Colors 
+                        gradients={this.props.gradients}
+                        colorizeApp={this.props.colorizeApp}
+                    />
                 </div>
             </div>
         )

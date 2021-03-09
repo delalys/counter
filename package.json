@@ -21,6 +21,7 @@
     "@vx/mock-data": "^0.0.199",
     "animate.css": "^4.1.1",
     "bootstrap": "^4.5.3",
+    "brunch": "^4.0.0",
     "d3": "^6.5.0",
     "d3-array": "^2.11.0",
     "d3-format": "^2.0.0",
@@ -34,6 +35,7 @@
     "react": "^17.0.1",
     "react-addons-update": "^15.6.3",
     "react-bootstrap": "^1.4.3",
+    "react-brunch": "^1.0.9",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
@@ -70,5 +72,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "terser-brunch": "^4.0.0"
   }
 }

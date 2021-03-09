@@ -1,7 +1,7 @@
-import React, { PureCcomponent } from 'react';
+import React, { PureComponent } from 'react'
 import * as d3 from "d3";
 
-class Stats extends React.PureComponent {
+export default class Chart extends PureComponent {
 
   state = {
     data: [],
@@ -125,6 +125,7 @@ class Stats extends React.PureComponent {
         .attr("height", d => this.height - y(d.numberOfCount))					
   }
 
+
   // Redraw chart
   updtateSVG() {
     d3.select(this.svgRef.current).selectAll('*').remove().exit();
@@ -142,30 +143,12 @@ class Stats extends React.PureComponent {
       this.setState({padding : '0.3'})
       this.setState({numberOfTicksRemover : 2})
     }    
-  }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if ((this.props.width !== nextProps.width) ||
-  //       (this.props.height !== nextProps.height) ||
-  //       (this.props.gradient !== nextProps.gradient) ||
-  //       (this.props.gradients !== nextProps.gradients) ||
-  //       (this.props.displayOption !== nextProps.displayOption) ||
-  //       (this.props.formatedDates !== nextProps.formatedDates) ) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
+  }  
   
   render() {
-    
     return (
-
-      <div >
-        <div ref={this.svgRef}></div>
-      </div>
-
+      <div ref={this.svgRef}></div>
     )
   }
-}
 
-export default Stats;
+}
