@@ -11,7 +11,7 @@ const Buttons = props => {
             Reset to 0
         </div>
         <div
-            className="btn btn-action d-none d-sm-block"
+            className="btn btn-action d-none d-md-block d-lg-block d-xl-block"
             onClick={() => props.handleElementFullScreen(props.index)}
         >
             Full screen
