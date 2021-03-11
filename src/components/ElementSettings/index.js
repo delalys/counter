@@ -131,7 +131,7 @@ export default class ElementSettings extends PureComponent {
                     
                     {/* Full screen mobile */}
                     <div
-                        className="btn btn-action d-block d-sm-none"
+                        className="btn btn-action d-block d-md-none d-lg-none"
                         onClick={() => this.props.handleElementFullScreen(this.props.index)}
                     >
                         <svg className="element__full-screen" pointerEvents="all" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="22 22 57 57" x="0px" y="0px">
