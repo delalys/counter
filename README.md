@@ -19,4 +19,4 @@
 ### Data visualisation
 ![Data visualisation](https://i.imgur.com/i3NLVtI.png)
 ### Adapted UI
-![Adapted UI](https://i.imgur.com/gnlD4zr.png)
+![Adapted UI](https://i.imgur.com/M1mt010.png)
