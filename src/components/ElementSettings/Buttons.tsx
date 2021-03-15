@@ -1,7 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types';
 
-const Buttons = props => {
+interface Props {
+    index: number,
+    handleResetElementCount: (index: number) => void,
+    handleElementFullScreen: (index: number) => void,
+    deleteElement: (index: number) => void,
+}
+
+const Buttons: React.FC <Props> = props => {
     return (
         <div className="settings__item btn-actions">
         <div
@@ -24,13 +30,6 @@ const Buttons = props => {
         </div>
     </div>
     )
-}
-
-Buttons.propTypes = {
-    handleResetElementCount: PropTypes.func.isRequired,
-    handleElementFullScreen: PropTypes.func.isRequired,
-    deleteElement: PropTypes.func.isRequired,
-    index: PropTypes.number.isRequired,
 }
 
 export default Buttons;

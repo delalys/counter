@@ -1,9 +1,14 @@
 import React from 'react'
-import PropTypes from 'prop-types';
-
+// @ts-ignore
 import { Textfit } from 'react-textfit';
 
-const KeyFigures = props => {
+interface Props {
+    todayCounts: number,
+    lastWeekCounts: number,
+    lastMonthCounts: number,
+}
+
+const KeyFigures: React.FC <Props> = props => {
     return (
         <div className="row">
             <div className="col-4 settings__stats-col is-number no-border">
@@ -20,12 +25,6 @@ const KeyFigures = props => {
             </div>
         </div>  
     )
-}
-
-KeyFigures.propTypes = {
-    todayCounts: PropTypes.number.isRequired,
-    lastWeekCounts: PropTypes.number.isRequired,
-    lastMonthCounts: PropTypes.number.isRequired,
 }
 
 export default KeyFigures;

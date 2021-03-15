@@ -1,7 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const Actions = props => {
+interface Props {
+    index: number,
+    handleElementFullScreen: (index: number) => void,
+    handleDisplayElementSettings: (index: number) => void,
+    handleChangeElementCount: (index: number, type: string) => void,
+    handleUpdateHistoryCount: (index: number, type: string) => void,
+    setCountHistoryStats: () => void,
+    handleChangeCountHistoryGroupByDay: () => void,
+    callUpdateDates: () => void,
+}
+
+const Actions: React.FC <Props> = props => {
     return(
         <div className="element__actions">
             {/* toggle Full screen */}
@@ -45,14 +55,6 @@ const Actions = props => {
             </span>
         </div>
     )
-}
-
-
-Actions.propTypes = {
-    index: PropTypes.number.isRequired,
-    handleElementFullScreen: PropTypes.func.isRequired,
-    handleDisplayElementSettings: PropTypes.func.isRequired,
-    handleChangeElementCount: PropTypes.func.isRequired,
 }
 
 export default Actions;

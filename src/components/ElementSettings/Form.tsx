@@ -1,26 +1,38 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types';
 
-// Change:
-// this.state.incrementBy this.props.StateincrementBy
-// this.state.value this.props.Statevalue
+interface Props {
+    index: number,
+    incrementBy: any,
+    handleRenameElement: (e:any, value: string, index: number) => void,
+    handleChangeElementIncrementBy: (incrementBy: number, index: number, incrementByProps: number) => void,
+    handleDisplayElementSettings: (index: number) => void,
+}
 
-export default class Form extends PureComponent {
+interface State {
+    value: string,
+    incrementBy: any,
+}
 
-    state = {
+export default class Form extends PureComponent <Props, State> {
+
+    state: State = {
         value: '',
         incrementBy: '',
     }
 
     // State changes for Name input
-    handleNameChange = (e) => {
+    handleNameChange = (e:any) => {
         this.setState({ value: e.target.value});
     }
 
     // State changes for IncrementBy input
-    handleChangeStateIncrementBy = (e) => {
+    handleChangeStateIncrementBy = (e: any) => {
         if (e.target.value !== '') {
-            this.setState({ incrementBy: parseInt(e.target.value)});
+            if (e.target.value === 0) {
+                this.setState({ incrementBy: 1});
+            } else {
+                this.setState({ incrementBy: parseInt(e.target.value)});
+            }
         }
     }
 
@@ -87,16 +99,4 @@ export default class Form extends PureComponent {
             </form>
         )
     }
-}
-
-Form.propTypes = {
-    handleChangeElementIncrementBy: PropTypes.func.isRequired,
-    handleDisplayElementSettings: PropTypes.func.isRequired,
-    handleChangeStateIncrementBy: PropTypes.func.isRequired,
-    handleNameChange: PropTypes.func.isRequired,
-
-    index: PropTypes.number.isRequired,
-    stateValue: PropTypes.string.isRequired,
-    stateIncrementBy: PropTypes.number.isRequired,
-    incrementBy: PropTypes.number.isRequired,
 }

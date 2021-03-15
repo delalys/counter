@@ -1,7 +1,12 @@
 import React from 'react'
-import PropTypes from 'prop-types';
 
-const Colors = props =>  {   
+interface Props {
+    gradients: [{color1: string, color2: string}],
+    gradient: number,
+    colorizeApp: (index: number) => void,
+}
+
+const Colors: React.FC<Props> = props =>  {   
     return (
         <div className="settings__item col-lg-7 d-flex">
 
@@ -27,11 +32,6 @@ const Colors = props =>  {
             })}
         </div>
     )
-}
-
-Colors.propTypes = {
-    colorizeApp: PropTypes.func.isRequired,
-    gradients: PropTypes.array.isRequired,
 }
 
 export default Colors;

@@ -1,7 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const Buttons = props => {
+interface Props {
+    muteApp: () => void,
+    condenseApp: () => void,
+    appIsMute: string,
+    appIsCondensed: string,
+}
+
+const Buttons: React.FC<Props> = props => {
     const appIsMuteLabel = props.appIsMute ? "Unmute app" : 'Mute app';
     const appIsCondensedLabel = props.appIsCondensed ? "Large view" : 'Compact view';
    
@@ -15,14 +21,6 @@ const Buttons = props => {
             </div>
         </div>
     )
-}
-
-
-Buttons.propTypes = {
-    muteApp: PropTypes.func.isRequired,
-    appIsMuteLabel: PropTypes.string.isRequired,
-    condenseApp: PropTypes.func.isRequired,
-    appIsCondensedLabel: PropTypes.string.isRequired,
 }
 
 export default Buttons;

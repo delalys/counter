@@ -1,7 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types';
 
-const DisplayOption = props => {
+interface Props {
+    displayOption: string,
+    handleDisplayOption: (type: string) => void,
+}
+
+const DisplayOption: React.FC <Props> = props => {
 
     const isDisplayOptionWeekClass = props.displayOption === "week" ? " is-active" : '';
     const isDisplayOptionMonthClass = props.displayOption === "month" ? " is-active" : '';
@@ -13,10 +17,4 @@ const DisplayOption = props => {
         </div>
     )
 }
-
-DisplayOption.propTypes = {
-    displayOption: PropTypes.string.isRequired,
-    handleDisplayOption: PropTypes.func.isRequired
-}
-
 export default DisplayOption;

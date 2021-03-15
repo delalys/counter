@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.0",
+    "@types/d3": "^6.3.0",
     "@visx/axis": "^1.5.0",
     "@visx/gradient": "^1.0.0",
     "@visx/group": "^1.0.0",
@@ -35,7 +36,7 @@
     "react": "^17.0.1",
     "react-addons-update": "^15.6.3",
     "react-bootstrap": "^1.4.3",
-    "react-brunch": "^1.0.9",
+    "react-brunch": "^1.0.8",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
@@ -51,7 +52,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && tsc",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -74,6 +75,9 @@
     ]
   },
   "devDependencies": {
-    "terser-brunch": "^4.0.0"
+    "@types/react": "^17.0.3",
+    "@types/react-redux": "^7.1.16",
+    "terser-brunch": "^4.0.0",
+    "typescript": "^4.2.3"
   }
 }

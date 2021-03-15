@@ -1,26 +1,44 @@
 import React, { PureComponent } from 'react'
 import * as d3 from "d3";
 
-export default class Chart extends PureComponent {
+interface Props {
+  width: number,
+  height: number,
+  formatedDates: any[],
+  displayOption: string,
+  gradient: number,
+  gradients: any[],
+}
+
+interface State {
+  data: any[],
+  datesFormated: boolean,
+  radius: number,
+  padding: number,
+  numberOfTicksRemover: number,
+}
+
+export default class Chart extends PureComponent <Props, State> {
 
   state = {
     data: [],
     datesFormated: false,
-    radius: '',
-    padding: '',
+    radius: 6,
+    padding: 0.5,
     numberOfTicksRemover: 1,
   }
   
   // Creates DOM ref
-  svgRef = React.createRef(); 
+  svgRef = React.createRef() as any; 
 
   // Dimensions
   margin = {top: 20, right: 20, bottom: 20, left: 20};
   width = this.props.width - this.margin.left - this.margin.right;
   height = this.props.height - this.margin.top - this.margin.bottom;
+  svg: any;
 
   // If any of the conditions' data changes, readraw chart
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: any) {
     if ((this.props.formatedDates !== prevProps.formatedDates) ||
         (this.props.displayOption !== prevProps.displayOption) ||
         (this.props.gradient !== prevProps.gradient)) {
@@ -49,7 +67,7 @@ export default class Chart extends PureComponent {
     }
   }
   
-  initSVG(data) {
+  initSVG(data: any[]) {
     d3.format(".4r");
 
     // Defines Axis
@@ -119,10 +137,10 @@ export default class Chart extends PureComponent {
         .attr("class", "bar")
         .attr("ry", this.state.radius)
         .attr("fill", "url(#customGradient)")
-        .attr("x", d => x(d.day))
+        .attr("x", (d:any) => {return x(d.day)})
         .attr("width", x.bandwidth())
-        .attr("y", d => y(d.numberOfCount))
-        .attr("height", d => this.height - y(d.numberOfCount))					
+        .attr("y", (d:any) => {return y(d.numberOfCount)})
+        .attr("height", (d:any) => {return this.height - y(d.numberOfCount)})
   }
 
 
@@ -135,12 +153,12 @@ export default class Chart extends PureComponent {
   // Filter options, changes number of charts, date format
   updateChartParam = () => {
     if (this.props.displayOption === 'week') {
-      this.setState({radius : '6'})
-      this.setState({padding : '0.5'})
+      this.setState({radius : 6})
+      this.setState({padding : 0.5})
       this.setState({numberOfTicksRemover : 1})
     } else if (this.props.displayOption === 'month') {
-      this.setState({radius : '2'})
-      this.setState({padding : '0.3'})
+      this.setState({radius : 2})
+      this.setState({padding : 0.3})
       this.setState({numberOfTicksRemover : 2})
     }    
   }  

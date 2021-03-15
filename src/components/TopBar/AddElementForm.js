@@ -16,12 +16,18 @@ class AddElementForm extends Component {
         
         // Create a new element
         const newElement = {
+            id: this.props.elements.length + 1,
             value: this.state.value,
             count: 0,
-            id: this.props.elements.length + 1,
-            settingsOpen: false,
+            elementSettingsIsDisplayed: false,
+            elementIsInFullScreen: false,
             incrementBy: 1,
+            settingsOpen: false,
             countHistory: [],
+            countHistoryGroupByDay: [],
+            todayCount: 0,
+            lastWeekCount: 0,
+            lastMonthCount: 0,
         }
 
         // Add a new element to app state

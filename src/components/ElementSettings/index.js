@@ -44,9 +44,9 @@ export default class ElementSettings extends PureComponent {
 
     // Change Element IncrementBy
     handleChangeElementIncrementBy = (newIncrementBy, indexElement, oldIncrementBy) => {
-        if ((newIncrementBy !== '') && (newIncrementBy !== '0')) {
+        if ((newIncrementBy !== '') && (newIncrementBy !== 0)) {
             this.props.changeElementIncrementBy(indexElement, 'incrementBy', newIncrementBy);
-        } else if ((newIncrementBy == null) || (newIncrementBy === '0')) {
+        } else if ((newIncrementBy == null) || (newIncrementBy === 0)) {
             this.props.changeElementIncrementBy(indexElement, 'incrementBy', oldIncrementBy);
         }
     }

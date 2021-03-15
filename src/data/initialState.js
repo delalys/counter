@@ -40,31 +40,12 @@ upToDateCount.map(count=> count.incrementBy = 1 )
 let pushUpsCounts = upToDateCount.map(count => ({...count, incrementBy : 10 }))
 pushUpsCounts.pop();
 
-// // Copies it for every months of last year
-// upToDateCount.push(
-//     ...upToDateCount.map(day => dayjs(day).subtract(1, "month")),
-//     ...upToDateCount.map(day => dayjs(day).subtract(2, "month")),
-//     ...upToDateCount.map(day => dayjs(day).subtract(3, "month")),
-//     ...upToDateCount.map(day => dayjs(day).subtract(4, "month")),
-//     ...upToDateCount.map(day => dayjs(day).subtract(5, "month")),
-//     ...upToDateCount.map(day => dayjs(day).subtract(6, "month")),
-//     ...upToDateCount.map(day => dayjs(day).subtract(7, "month")),
-//     ...upToDateCount.map(day => dayjs(day).subtract(8, "month")),
-//     ...upToDateCount.map(day => dayjs(day).subtract(9, "month")),
-//     ...upToDateCount.map(day => dayjs(day).subtract(10, "month")),
-//     ...upToDateCount.map(day => dayjs(day).subtract(11, "month")),
-//     ...upToDateCount.map(day => dayjs(day).subtract(12, "month"))
-// );
-
 const initialState = {
     elements: [
       {
         id: 1,
-        value: 'Customers per service',
+        value: 'Customers',
         count: upToDateCount.length,
-        gradient: 2,
-        color1: '#ba8f89',
-        color2: '#c6786c',
         elementSettingsIsDisplayed: false,
         elementIsInFullScreen: false,
         incrementBy: 1,
@@ -78,9 +59,6 @@ const initialState = {
         id: 2,
         value: 'Pushups',
         count: pushUpsCounts.length,
-        gradient: 3,
-        color1: '#ba8f89',
-        color2: '#c6786c',
         elementSettingsIsDisplayed: false,
         elementIsInFullScreen: false,
         incrementBy: 10,
@@ -92,11 +70,8 @@ const initialState = {
       },
       {
         id: 3,
-        value: 'Day without smoking',
+        value: 'Meditate',
         count: 17,
-        gradient: 4,
-        color1: '#ba8f89',
-        color2: '#c6786c',
         elementSettingsIsDisplayed: false,
         elementIsInFullScreen: false,
         incrementBy: 1,
