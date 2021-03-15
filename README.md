@@ -1,12 +1,12 @@
 # Keep track of everything you need to count.
 
 ### Technology stack:
-* UI built with React.js
-* State managed with Redux
-* Typescript for type checking
-* Data visualisation rendered with D3.js
+* UI built with **React.js**
+* State managed with **Redux**
+* **Typescript** for type checking
+* **Data visualisation** rendered with D3.js
 * Dates managed with Day.js
-* BEM for SCSS architecture
+* **BEM** for SCSS architecture
 * Bootstrap grid for responsive
 
 ### Features:
