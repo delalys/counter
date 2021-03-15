@@ -3,9 +3,9 @@
 ### Technology stack:
 * UI built with React.js
 * State managed with Redux
+* Typescript for type checking
 * Data visualisation rendered with D3.js
 * Dates managed with Day.js
-* Proptypes for type checking
 * BEM for SCSS architecture
 * Bootstrap grid for responsive
 
