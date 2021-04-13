@@ -34,9 +34,11 @@ html,
 body,
 #root,
 .container,
-.element__container:not(.element__container--form),
 .background-gradient {
     flex: 1;
+    height: 100%;
+}
+.element__container:not(.element__container--form) {
     height: 100%;
 }
 
