@@ -239,7 +239,7 @@ ElementSettings.propTypes = {
     settingsHeight: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number
-      ]).isRequired,
+    ]).isRequired,
 
     handleElementFullScreen: PropTypes.func.isRequired,
     changeElementIncrementBy: PropTypes.func.isRequired,

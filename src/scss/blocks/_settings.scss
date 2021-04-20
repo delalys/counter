@@ -246,7 +246,7 @@
     }
 }
 
-.is-open + .element svg.element__settings,
+.element.has-settings-open svg.element__settings,
 .settings__item:last-child .btn svg {
     @extend %check-icon;
 }

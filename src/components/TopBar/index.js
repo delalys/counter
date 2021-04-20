@@ -49,13 +49,13 @@ class TopBar extends Component {
         }.bind(this);
         
         mirrorIsDone().then(()=>{
-            this.setsAppSettingsHeight()
+            this.setsAppSettingsHeight();
         });
     }    
     
     render() {
         const isSettingsClass = this.props.appSettingsIsDisplayed ? "is-open" : '';
-        let appAettingsHeightToGve = !this.props.appSettingsIsDisplayed ? 0 : this.props.appIsCondensed ? this.state.appSettingsHeightCondensed : this.state.appSettingsHeight;
+        let appAettingsHeightToGive = !this.props.appSettingsIsDisplayed ? 0 : this.props.appIsCondensed ? this.state.appSettingsHeightCondensed : this.state.appSettingsHeight;
 
         return(
             <ResizeObserver onResize={() => this.setsAppSettingsHeight()}>
@@ -68,7 +68,7 @@ class TopBar extends Component {
                     />
                     <AppSettings 
                         appSettingsIsDisplayed={this.props.appSettingsIsDisplayed}
-                        appSettingsHeight={appAettingsHeightToGve}
+                        appSettingsHeight={appAettingsHeightToGive}
 
                         appIsMute={this.props.appIsMute}
                         muteApp={this.props.muteApp}

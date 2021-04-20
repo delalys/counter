@@ -2,7 +2,6 @@
 
 .element__container {
     display: flex;
-    overflow: scroll;
     flex-direction: column-reverse;
     position: relative;
     &--form {
@@ -15,19 +14,33 @@
       width: calc(100% - 30px);
     }
     &:not(.element__container--form) {
-        padding-top: 100px;
-        &:after {
+        overflow: auto;
+        //
+        height: 100%;
+        display: block;
+        // display: grid;
+        // overflow: auto;
+        // display: grid;
+        &:before {
             content: '';
             display: block;
-            /* intrinsic aspect ratio */
-            padding-top: 120px;
+            padding-top: 113px;
             height: 0;
         }
     }
 }
-
+.is-condensed {
+    .element__container {
+        &:not(.element__container--form) {
+            &:before {
+                padding-top: 90px;
+            }
+        }
+    }
+}
 .container {
     position: relative;
+    overflow-y: auto;
 }
 
 html,
@@ -36,9 +49,6 @@ body,
 .container,
 .background-gradient {
     flex: 1;
-    height: 100%;
-}
-.element__container:not(.element__container--form) {
     height: 100%;
 }
 

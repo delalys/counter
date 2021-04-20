@@ -30,7 +30,7 @@ const Actions: React.FC <Props> = props => {
             </span>
             {/* toggle Settings */}
             <span
-                className="element__actions-btn hide-full-screen"
+                className="element__actions-btn hide-full-screen is-settings"
                 onClick={() => props.handleDisplayElementSettings(props.index)}
             >
                 <svg className="element__settings" height="512pt" viewBox="0 -21 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg">

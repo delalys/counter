@@ -158,6 +158,7 @@ class Element extends PureComponent <Props, State> {
     // Gets new settings height and sets it to state
     setsElementSettingsHeight = () => {
         this.createMirrorElement();
+        console.log("sets height")
         let elementSettingsDOM: HTMLElement | null = document.querySelector('.settings.is-mirror.is-element');
         let appDOM = document.querySelector('.app');
         if (this.props.appIsCondensed && appDOM && elementSettingsDOM) {
@@ -424,45 +425,15 @@ class Element extends PureComponent <Props, State> {
         const isCondensedClass = appIsCondensed ? "is-condensed" : '';
         const isClicked = this.state.isClicked ? "is-clicked" : '';
         let textSizeClass = (count > 9999) ? "reduced-text-1" : '';
+        const isSettingsClass = this.props.elementSettingsIsDisplayed ? "has-settings-open" : '';
 
         let elementSettingsHeightToGve = !elementSettingsIsDisplayed ? 0 : appIsCondensed ? this.state.elementSettingsHeightCondensed : this.state.elementSettingsHeight;
 
         return(
-            <ResizeObserver onResize={() => {this.setsWidth(); this.setsElementSettingsHeight()}}>
                 <Fragment>
-                    {/* Settings */}
-                    <ElementSettings 
-                        ref={this.elementSettingsComponent}
-                        key={index}
-
-                        index={index}
-                        value={value}
-                        gradient={gradient}
-                        gradients={gradients}
-                        settingsHeight={elementSettingsHeightToGve}
-                        elements={elements}
-                        incrementBy={incrementBy}
-                        elementSettingsIsDisplayed={elementSettingsIsDisplayed}
-                        countHistory={countHistory}
-                        countHistoryGroupByDay={countHistoryGroupByDay}
-                        todayCounts={this.state.todayCounts}
-                        lastWeekCounts={this.state.lastWeekCounts}
-                        lastMonthCounts={this.state.lastMonthCounts}
-                        countHistoryGroupByDayDone={this.state.countHistoryGroupByDayDone}
-                        formatedDates={this.state.formatedDates}
-                        displayOption={this.state.displayOption}
-                        
-                        resetElementCount={resetElementCount}
-                        renameElement={renameElement}
-                        changeElementIncrementBy={changeElementIncrementBy}
-                        deleteElement={deleteElement}
-                        handleDisplayElementSettings={this.handleDisplayElementSettings}
-                        handleElementFullScreen={this.handleElementFullScreen}
-                    />
-                    
                     {/* ELEMENT */}
                     <div 
-                        className={isFullScreenClass + " " + isCondensedClass + " element justify-content-center d-flex animate__animated animate__fadeInDown"} 
+                        className={isFullScreenClass + " "  + isSettingsClass + " " + isCondensedClass + " element justify-content-center d-flex animate__animated animate__fadeInDown"} 
                         ref={this.element}
                     >
                         <span className="element__bg"></span>
@@ -506,8 +477,38 @@ class Element extends PureComponent <Props, State> {
                             onMouseDown={(e) => this.setState({isClicked: true})}
                         >+</span>
                     </div>
+
+                    {/* Settings */}
+                    <ElementSettings 
+                        ref={this.elementSettingsComponent}
+                        key={index}
+
+                        index={index}
+                        value={value}
+                        gradient={gradient}
+                        gradients={gradients}
+                        settingsHeight={elementSettingsHeightToGve}
+                        elements={elements}
+                        incrementBy={incrementBy}
+                        elementSettingsIsDisplayed={elementSettingsIsDisplayed}
+                        countHistory={countHistory}
+                        countHistoryGroupByDay={countHistoryGroupByDay}
+                        todayCounts={this.state.todayCounts}
+                        lastWeekCounts={this.state.lastWeekCounts}
+                        lastMonthCounts={this.state.lastMonthCounts}
+                        countHistoryGroupByDayDone={this.state.countHistoryGroupByDayDone}
+                        formatedDates={this.state.formatedDates}
+                        displayOption={this.state.displayOption}
+                        
+                        resetElementCount={resetElementCount}
+                        renameElement={renameElement}
+                        changeElementIncrementBy={changeElementIncrementBy}
+                        deleteElement={deleteElement}
+                        handleDisplayElementSettings={this.handleDisplayElementSettings}
+                        handleElementFullScreen={this.handleElementFullScreen}
+                    />
                 </Fragment>
-            </ResizeObserver>
+
         );
     }
 }
