@@ -166,11 +166,15 @@ class Element extends PureComponent <Props, State> {
             appDOM.classList.remove('is-condensed');
             this.setState({elementSettingsHeight: elementSettingsDOM.offsetHeight + "px"});
             appDOM.classList.add('is-condensed');
+            elementSettingsDOM.remove();
+            console.log('test')
         } else  if (appDOM && elementSettingsDOM) {
             this.setState({elementSettingsHeight: elementSettingsDOM.offsetHeight + "px"});
             appDOM.classList.add('is-condensed');
             this.setState({elementSettingsHeightCondensed: elementSettingsDOM.offsetHeight + "px"});
             appDOM.classList.remove('is-condensed');
+            elementSettingsDOM.remove();
+            console.log('test')
         }
     }
 
